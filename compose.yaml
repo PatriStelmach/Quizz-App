@@ -37,9 +37,9 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/PCBuilderBackend?useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
-      SPRING_DATASOURCE_PASSWORD:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/quiz_db
+      SPRING_DATASOURCE_USERNAME: quiz_master
+      SPRING_DATASOURCE_PASSWORD: password
     networks:
       - quizz-network
 
