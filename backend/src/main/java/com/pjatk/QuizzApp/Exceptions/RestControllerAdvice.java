@@ -15,5 +15,14 @@ public class RestControllerAdvice extends ResponseEntityExceptionHandler
         customException.setMessage("User not found");
         return ResponseEntity.status(404).body(customException);
     }
+
+    @ExceptionHandler(TokenNotFoundException.class)
+    public ResponseEntity<CustomException> TokenNotFoundHandler()
+    {
+        CustomException customException = new CustomException();
+        customException.setCode(404);
+        customException.setMessage("Token found");
+        return ResponseEntity.status(404).body(customException);
+    }
 }
 

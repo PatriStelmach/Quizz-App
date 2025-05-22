@@ -13,24 +13,18 @@ import java.time.LocalDate;
 public class RegistrationRequest
 {
     @NotEmpty(message = "Username cannot be null")
-    @NotBlank(message = "Username cannot be blank")
-    @Column(unique = true, nullable = false)
+    @NotNull(message = "Username cannot be blank")
     private String username;
 
     @Size(min = 8, message = "Password must contain at least 8 characters")
     @NotEmpty(message = "Password cannot be null")
-    @NotBlank(message = "Password cannot be blank")
-    @Column(nullable = false)
+    @NotNull(message = "Password cannot be blank")
     private String password;
 
     @NotEmpty(message = "email can't be null")
-    @NotBlank(message = "email can't be blank")
-    @Column(unique = true, nullable = false)
+    @NotNull(message = "email can't be blank")
     @Email(message = "Invalid email address")
     private String email;
 
-    @NotEmpty(message = "birthdate can't be null")
-    @NotBlank(message = "birthdate can't be blank")
-    @Column(nullable = false)
     private LocalDate birthDate;
 }

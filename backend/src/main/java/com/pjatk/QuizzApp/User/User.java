@@ -72,8 +72,7 @@ public class User implements UserDetails, Principal
     @Column(insertable = false)
     private LocalDateTime updatedAt;
 
-    @NotEmpty(message = "birthdate can't be null")
-    @NotBlank(message = "birthdate can't be blank")
+
     @Column(nullable = false)
     private LocalDate birthDate;
 

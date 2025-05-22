@@ -30,7 +30,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: pcbuilder-backend
+    container_name: quizz-backend
     ports:
       - "10001:10001"
     depends_on:

@@ -47,15 +47,9 @@ public class SecurityConfig
                                                 .anyRequest()
                                                 .authenticated()
                 )
-               .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-               .formLogin(form -> form
-                       .loginPage("/user/login")
-                       .permitAll()
-                       .defaultSuccessUrl("/", true))
-               .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/user/login")
-                        .permitAll()
-                        .defaultSuccessUrl("/", true))
+               .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+               .formLogin(withDefaults())
+               .oauth2Login(withDefaults())
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

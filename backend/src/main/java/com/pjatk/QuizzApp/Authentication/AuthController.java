@@ -1,10 +1,13 @@
 package com.pjatk.QuizzApp.Authentication;
 
+import com.nimbusds.openid.connect.sdk.AuthenticationRequest;
+import com.nimbusds.openid.connect.sdk.AuthenticationResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +21,24 @@ public class AuthController
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest request) throws MessagingException {
+    public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest request) throws MessagingException
+    {
         authService.register(request);
         return ResponseEntity.accepted().build();
     }
 
-    @GetMapping("/login")
-    public String login()
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> authenticate(@RequestBody @Valid AuthRequest request)
     {
-        return "Welcome to Quizzuś >.<";
+        return ResponseEntity.ok(authService.authenticate(request));
     }
+
+
+    @GetMapping("/activate-acc")
+    public void confirm(@RequestParam("token") String token) throws MessagingException
+    {
+        authService.activateAccount(token);
+    }
+
+
 }
