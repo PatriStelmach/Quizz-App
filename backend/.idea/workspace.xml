@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d147b41c-0dca-4b9a-85ba-18ee9badf58a" name="Changes" comment="asd">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pjatk/QuizzApp/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Authentication/AuthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Authentication/AuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Authentication/RegistrationRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Configuration/BeansConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Exceptions/CustomException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Exceptions/RestControllerAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Exceptions/UserNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Question/Question.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Question/QuestionRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Question/QuestionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Question/QuestionType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Quiz/Diff.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Quiz/Quiz.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Quiz/QuizRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Quiz/QuizService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Security/CustomUserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Security/JwtFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Security/JwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/Security/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/User/Token.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/User/TokenRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/User/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/User/UserLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/User/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/User/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/User/UserType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/email/EmailService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/email/EmailTemplateName.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/role/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ex/QuizzApp/role/RoleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/resources/templates/activate_account.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/ex/QuizzApp/ApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;PatriStelmach&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/PatriStelmach/QuizzApp.git&quot;,
+    &quot;accountId&quot;: &quot;81d98f74-ea2e-414d-bf59-bba483bdca7c&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2x6blUpNSt5W29KWjuYl3IcHnc2" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Application (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.Application.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/patrz/IdeaProjects/QuizzApp/backend/src/main/java/com/pjatk/QuizzApp&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Spring Boot.Application">
+    <configuration name="Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="quizz-app" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="quizz-app" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ex.QuizzApp.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.Application (1)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d147b41c-0dca-4b9a-85ba-18ee9badf58a" name="Changes" comment="" />
+      <created>1747261621489</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747261621489</updated>
+      <workItem from="1747261622667" duration="1016000" />
+      <workItem from="1747430308805" duration="222000" />
+      <workItem from="1747834022518" duration="5816000" />
+      <workItem from="1747842587539" duration="425000" />
+      <workItem from="1747843020631" duration="104000" />
+      <workItem from="1747843148707" duration="21000" />
+      <workItem from="1747843185454" duration="35000" />
+      <workItem from="1747843292439" duration="16000" />
+    </task>
+    <task id="LOCAL-00001" summary="asd">
+      <option name="closed" value="true" />
+      <created>1747841291206</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1747841291206</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="asd" />
+    <option name="LAST_COMMIT_MESSAGE" value="asd" />
+  </component>
+</project>
