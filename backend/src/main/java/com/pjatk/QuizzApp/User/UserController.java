@@ -1,0 +1,94 @@
+package com.pjatk.QuizzApp.User;
+
+import com.pjatk.QuizzApp.User.DTO.ApiResponse;
+import com.pjatk.QuizzApp.User.DTO.GetUserDTO;
+import com.pjatk.QuizzApp.User.DTO.PasswordChangeRequest;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
+
+@RestController
+@RequestMapping("/users")
+@RequiredArgsConstructor
+public class UserController
+{
+    private final UserService userService;
+    private final ModelMapper modelMapper;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GetUserDTO> getUserById(@Valid @PathVariable int id)
+    {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok().body(toDto(user));
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<GetUserDTO> getUserByUsername(@Valid @PathVariable String username)
+    {
+        User user = userService.getUserByUsername(username);
+        return ResponseEntity.ok().body(toDto(user));
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<GetUserDTO> getUserByEmail(@Valid @PathVariable String email)
+    {
+        User user = userService.getUserByEmail(email);
+        return ResponseEntity.ok().body(toDto(user));
+    }
+
+    @GetMapping("/all-users")
+    public ResponseEntity<List<GetUserDTO>> getAllUsers()
+    {
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok().body(users.stream()
+                .map(this::toDto)
+                .toList());
+    }
+
+    @PatchMapping("/change-username")
+    public ResponseEntity<String> changeUsername(@RequestParam String newUsername)
+    {
+        String username = userService.getLoggedUsername();
+        return ResponseEntity.ok().body(userService.changeUsername(username, newUsername));
+    }
+
+    @PatchMapping("/change-password")
+    public ResponseEntity<ApiResponse<Void>> changePassword(@Valid @RequestBody PasswordChangeRequest request)
+    {
+        String username = userService.getLoggedUsername();
+        userService.changePassword(username, request.getPassword(), request.getNewPassword());
+        return ResponseEntity.ok().body(new ApiResponse<>("success", "password changed", null));
+    }
+
+    @PatchMapping("/change-avatar")
+    public ResponseEntity<ApiResponse<Void>> changeAvatar(@Valid @RequestPart MultipartFile avatar) throws IOException
+    {
+        String username = userService.getLoggedUsername();
+        userService.changeAvatar(username, avatar);
+        return ResponseEntity.ok().body(new ApiResponse<>("success", "Avatar updated", null));
+    }
+
+    @PatchMapping("/change-bio")
+    public ResponseEntity<ApiResponse<String>> changeBio(@Valid @RequestParam String bio)
+    {
+        String username = userService.getLoggedUsername();
+        userService.changeBio(username, bio);
+        return ResponseEntity.ok().body(new ApiResponse<>("success", "Bio updated", bio));
+    }
+
+//    @PatchMapping("/delete-role")
+//    public ResponseEntity<?>
+//    @PatchMapping("/add-role")
+
+    private GetUserDTO toDto(User user)
+    {
+        return modelMapper.map(user, GetUserDTO.class);
+    }
+
+}

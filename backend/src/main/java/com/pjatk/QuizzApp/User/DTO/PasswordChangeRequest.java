@@ -1,22 +1,20 @@
-package com.pjatk.QuizzApp.Authentication;
+package com.pjatk.QuizzApp.User.DTO;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
-public class AuthRequest
+@AllArgsConstructor
+public class PasswordChangeRequest
 {
-    @Email(message = "Email is not well formatted")
-    @NotEmpty(message = "Email is mandatory")
-    @NotNull(message = "Email is mandatory")
-    private String email;
+    @NotEmpty(message = "New password is mandatory")
+    @NotNull(message = "New password is mandatory")
+    private String newPassword;
 
     @NotEmpty(message = "Password is mandatory")
     @NotNull(message = "Password is mandatory")

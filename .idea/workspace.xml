@@ -4,28 +4,59 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="docker updated">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/NewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Exceptions/TokenNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/RegistrationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/RegistrationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/BeansConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/BeansConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Exceptions/RestControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Exceptions/RestControllerAdvice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/JwtFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/JwtFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/email/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/email/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
+    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="login auth v1 done">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Exceptions/UserExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Exceptions/WrongPasswordException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/DTO/ApiResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/DTO/GetUserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/DTO/PasswordChangeRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/61643a07-35cc-4312-8dfc-4b27020c47a3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/61643a07-35cc-4312-8dfc-4b27020c47a3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/NewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/RegistrationRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/BeansConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Exceptions/CustomException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Exceptions/RestControllerAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Exceptions/TokenNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Exceptions/UserNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/Question.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/Diff.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/Quiz.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/CustomUserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/JwtFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/JwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/Token.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/TokenRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/email/EmailService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/email/EmailTemplateName.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/role/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/role/RoleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/templates/activate_account.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/pjatk/QuizzApp/ApplicationTests.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/compose.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,9 +67,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Exception" />
         <option value="HTML File" />
+        <option value="Exception" />
         <option value="Class" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -78,7 +110,6 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Application.executor": "Run",
     "git-widget-placeholder": "master",
     "ignore.preview.features.used": "true",
@@ -87,7 +118,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "MavenSettings",
@@ -113,7 +144,7 @@
   </component>
   <component name="RunManager">
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="quizz-app" />
+      <module name="backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.pjatk.QuizzApp.Application" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -137,7 +168,8 @@
       <updated>1747845093187</updated>
       <workItem from="1747845094451" duration="1090000" />
       <workItem from="1747846411158" duration="14277000" />
-      <workItem from="1747922214693" duration="4571000" />
+      <workItem from="1747922214693" duration="10519000" />
+      <workItem from="1748001053575" duration="26236000" />
     </task>
     <task id="LOCAL-00001" summary="docker updated">
       <option name="closed" value="true" />
@@ -147,7 +179,23 @@
       <option name="project" value="LOCAL" />
       <updated>1747845646249</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="login auth v1 done">
+      <option name="closed" value="true" />
+      <created>1747928039460</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1747928039460</updated>
+    </task>
+    <task id="LOCAL-00003" summary="login auth v1 done">
+      <option name="closed" value="true" />
+      <created>1747928140411</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1747928140412</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,6 +203,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="docker updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="docker updated" />
+    <MESSAGE value="login auth v1 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="login auth v1 done" />
   </component>
 </project>
