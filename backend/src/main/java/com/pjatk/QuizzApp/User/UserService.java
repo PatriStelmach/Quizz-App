@@ -12,8 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.InvalidObjectException;
+import java.io.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
 import java.util.*;
 
 @Service
@@ -51,6 +53,8 @@ public class UserService
     {
         return userRepository.findAll();
     }
+
+
 
     public String changeUsername(String username, String newUsername)
     {
@@ -102,6 +106,16 @@ public class UserService
         user.setAvatar(avatar.getBytes());
 
         userRepository.save(user);
+    }
+
+    public byte[] getAvatar(String username) throws UserNotFoundException
+    {
+        if(userRepository.findByUsername(username).isEmpty())
+        {
+            throw new UserNotFoundException("User with given username not found: " + username);
+        }
+        return userRepository.findByUsername(username).get().getAvatar();
+
     }
 
     public String addRole(String username, String roleName)

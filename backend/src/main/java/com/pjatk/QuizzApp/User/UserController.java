@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
@@ -51,6 +52,14 @@ public class UserController
                 .toList());
     }
 
+    @GetMapping("/avatar/{username}")
+    public ResponseEntity<?> getAvatar(@PathVariable String username) throws IOException
+    {
+        return ResponseEntity.ok()
+                .header("Content-Type", "image/jpg")
+                .body(userService.getAvatar(username));
+    }
+
     @PatchMapping("/change-username")
     public ResponseEntity<String> changeUsername(@RequestParam String newUsername)
     {
@@ -82,9 +91,19 @@ public class UserController
         return ResponseEntity.ok().body(new ApiResponse<>("success", "Bio updated", bio));
     }
 
-//    @PatchMapping("/delete-role")
-//    public ResponseEntity<?>
-//    @PatchMapping("/add-role")
+    @PatchMapping("/delete-role")
+    public ResponseEntity<ApiResponse<String>> deleteRole(@Valid @RequestParam String roleName)
+    {
+        String username = userService.getLoggedUsername();
+        userService.deleteRole(username, roleName);
+        return ResponseEntity.ok().body(new ApiResponse<>("success", "role: " + roleName, "deleted"));
+    }
+
+    @PatchMapping("/add-role")
+    public ResponseEntity<ApiResponse<Void>> addRole()
+    {
+
+    }
 
     private GetUserDTO toDto(User user)
     {

@@ -112,8 +112,14 @@ public class User implements UserDetails, Principal
     @OneToMany(mappedBy = "author")
     private Set<Quiz> quizzes = new HashSet<>();
 
-    public void addRole(Role role) { roles.add(role); }
-    public void deleteRole(Role role) { roles.remove(role); }
+    public void addRole(Role role)
+    {
+        roles.add(role);
+    }
+    public void deleteRole(Role role)
+    {
+        roles.remove(role);
+    }
 
     @Override
     public String getName() {
