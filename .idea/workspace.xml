@@ -4,30 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="First user endpoints, adding DTO's">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/graphql/schema.graphql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/apolloConfig.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/graphql.config.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/apollo/apolloClient.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/GetUsers.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/diff.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/question.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/questionType.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/quiz.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/role.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/user.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/userLevel.ts" afterDir="false" />
+    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="graphql">
+      <change afterPath="$PROJECT_DIR$/frontend/src/services/auth.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/services/data.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/services/user.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/store/auth.store.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/types/user.login.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/Diff.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/Diff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/Quiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/Quiz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/apolloConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/apollo.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/LoginForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/types/question.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/question.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/types/questionType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/question.type.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/types/quiz.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/quiz.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/types/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/types/userLevel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/user.level.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +36,8 @@
         <option value="Class" />
         <option value="Record" />
         <option value="Vue Composition API Component" />
-        <option value="TypeScript File" />
         <option value="GraphQL File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -165,7 +159,7 @@
       <workItem from="1748711948560" duration="3000" />
       <workItem from="1748769878295" duration="56000" />
       <workItem from="1748771347502" duration="1236000" />
-      <workItem from="1748772608648" duration="11195000" />
+      <workItem from="1748772608648" duration="20316000" />
     </task>
     <task id="LOCAL-00001" summary="docker updated">
       <option name="closed" value="true" />
@@ -207,7 +201,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748044567035</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="graphql">
+      <option name="closed" value="true" />
+      <created>1748785401943</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748785401943</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +219,7 @@
     <MESSAGE value="docker updated" />
     <MESSAGE value="login auth v1 done" />
     <MESSAGE value="First user endpoints, adding DTO's" />
-    <option name="LAST_COMMIT_MESSAGE" value="First user endpoints, adding DTO's" />
+    <MESSAGE value="graphql" />
+    <option name="LAST_COMMIT_MESSAGE" value="graphql" />
   </component>
 </project>

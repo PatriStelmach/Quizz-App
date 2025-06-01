@@ -1,5 +1,5 @@
 import type {Diff} from "@/types/diff.ts";
-import type {UserDTO} from "@/types/user.ts";
+import type {User} from "@/types/user.ts";
 import type {Question} from "@/types/question.ts";
 
 export interface Quiz {
@@ -9,11 +9,11 @@ export interface Quiz {
   category: string;
   diff: Diff;
   image: string;
-  author: UserDTO | number; // Use ID or minimal user info
+  author: User | number; // Use ID or minimal user info
   createdAt: string; // ISO string (Instant)
   timeLimit: string; // ISO string (LocalDateTime)
-  finishedByUsers: UserDTO[] | number[]; // Use IDs
+  finishedByUsers: User[] | number[]; // Use IDs
   maxPoints: number;
-  userScore: UserDTO[] | number[]; // Use IDs
+  userScore: User[] | number[]; // Use IDs
   questions?: Question[]; // Optional for nested data
 }

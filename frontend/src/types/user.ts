@@ -1,9 +1,10 @@
 import type {Role} from "@/types/role.ts";
-import type {UserLevel} from "@/types/userLevel.ts";
+import type {UserLevel} from "@/types/user.level.ts";
 import type {Quiz} from "@/types/quiz.ts";
 
-export interface UserDTO {
+export interface User {
   username: string;
+  password: string;
   roles: Role[];
   email: string;
   avatar: string; // Base64-encoded string
@@ -20,6 +21,6 @@ export interface UserDTO {
   finished_amount: number | null;
   finished_quizzes: Quiz[] | number[]; // Use IDs to avoid circular issues
   quizScore: Quiz[] | number[]; // Use IDs to avoid circular issues
-  friendsList: UserDTO[] | number[]; // Use IDs to avoid circular issues
+  friendsList: User[] | number[]; // Use IDs to avoid circular issues
   quizzes: Quiz[] | number[]; // Use IDs to avoid circular issues
 }
