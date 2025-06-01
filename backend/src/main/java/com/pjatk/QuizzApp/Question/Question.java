@@ -1,6 +1,10 @@
 package com.pjatk.QuizzApp.Question;
 import com.pjatk.QuizzApp.Quiz.Diff;
+import com.pjatk.QuizzApp.Quiz.Quiz;
+import com.pjatk.QuizzApp.User.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,6 +44,11 @@ public class Question
     private String correctAnswer;
 
     @NotNull(message = "Answers cannot be null")
-    @Column(nullable = false)
     private Set<String> answers = new HashSet<>();
+
+    @NotEmpty(message = "Quiz cannot be empty")
+    @NotBlank(message = "Quiz cannot be blank")
+    @ManyToOne
+    @JoinColumn(name = "quiz_id", nullable = false)
+    private Quiz quiz;
 }

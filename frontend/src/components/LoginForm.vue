@@ -45,6 +45,7 @@ const onSubmit = form.handleSubmit(async(values) => {
           <Input type="text" class="w-2xs h-10 mb-5 pl-2 bg-white text-black rounded-md" placeholder="password" v-bind="componentField" />
         </FormControl>
         <FormMessage />
+        <FormControl
       </FormItem>
     </FormField>
     <Button class="cursor-pointer w-2xs" type="submit">

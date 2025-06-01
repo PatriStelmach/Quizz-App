@@ -110,7 +110,7 @@ public class User implements UserDetails, Principal
     private Set<User> friendsList = new HashSet<>();
 
     @OneToMany(mappedBy = "author")
-    private Set<Quiz> quizzes = new HashSet<>();
+    private Set<Quiz> quizzesCreated = new HashSet<>();
 
     public void addRole(Role role)
     {

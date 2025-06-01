@@ -1,5 +1,6 @@
 package com.pjatk.QuizzApp.Quiz;
 
+import com.pjatk.QuizzApp.Question.Question;
 import com.pjatk.QuizzApp.User.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "quizzes")
+@Table(name = "Quiz")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -47,7 +48,6 @@ public class Quiz
 
     @NotEmpty(message = "Image cannot be empty")
     @NotBlank(message = "Image cannot be blank")
-    @Column(nullable = false)
     private String image;
 
     @NotEmpty(message = "Author cannot be empty")
@@ -83,6 +83,10 @@ public class Quiz
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Set<User> userScore = new HashSet<>();
+
+    @OneToMany(mappedBy = "quiz")
+    @Column(nullable = false)
+    private Set<Question> questions = new HashSet<>();
 
 
 }

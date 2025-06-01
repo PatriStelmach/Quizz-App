@@ -102,7 +102,7 @@ public class UserController
     @PatchMapping("/add-role")
     public ResponseEntity<ApiResponse<Void>> addRole()
     {
-
+        return null;
     }
 
     private GetUserDTO toDto(User user)

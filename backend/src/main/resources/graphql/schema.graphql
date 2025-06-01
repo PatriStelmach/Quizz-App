@@ -1,0 +1,128 @@
+scalar Instant
+scalar LocalDateTime
+enum Diff
+{
+    EASY
+    MEDIUM
+    HARD
+    EXPERT
+}
+enum UserLevel
+{
+    NEWBIE
+    NOOB
+    CASUAL
+    PRO
+    MASTER
+}
+enum Role
+{
+    USER
+    ADMIN
+}
+enum QuestionType
+{
+    SINGLE_CHOICE
+    MULTIPLE_CHOICE
+    OPEN
+}
+
+type UserConnection
+{
+    edges: [UserEdge!]
+    pageInfo: PageInfo!
+}
+
+type UserEdge
+{
+    node: User!
+    cursor: String!
+}
+
+type QuizEdge
+{
+    node: Quiz!
+    cursor: String!
+}
+
+type QuizConnection
+{
+    edges: [QuizEdge!]
+    pageInfo: PageInfo!
+}
+type QuizScore
+{
+    quizId: ID!
+    score: Int!
+}
+type PageInfo
+{
+    hasNextPage: Boolean!
+    endCursor: String
+}
+
+type User
+{
+    id: ID!
+    username: String!
+    roles: [Role!]!
+    email: String!
+    avatar: String
+    bio: String
+    isActive: Boolean!
+    accountLocked: Boolean!
+    enabled: Boolean!
+    userLevel: UserLevel!
+    streak: Int
+    score: Int
+    finishedAmount: Int
+    finishedQuizzes: QuizConnection!
+    quizScores: [QuizScore!]!
+    quizzesCreated: QuizConnection!
+}
+
+type Quiz
+{
+    id: ID!
+    title: String!
+    description: String!
+    category: String!
+    diff: Diff!
+    author: User!
+    createdAt: Instant
+    timeLimit: LocalDateTime!
+    maxPoints: Int!
+    questions: [Question!]!
+
+}
+
+
+type Question
+{
+    id: ID!
+    diff: Diff!
+    questionType: QuestionType!
+    question: String!
+    correctAnswer: String!
+    openAnswer: String
+    answers: [String]
+    quiz: Quiz!
+}
+
+type QueryUsers
+{
+    users: [User]
+    usersById(id:Int): User
+}
+
+type QueryQuizzes
+{
+    quizzes: [Quiz]
+    quizzesById(id:Int): User
+}
+
+type QueryQuestions
+{
+    questions: [Question]
+    questionsById(id:Int): Question
+}

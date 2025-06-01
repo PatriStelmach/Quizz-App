@@ -14,12 +14,16 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.8",
     "@tailwindcss/cli": "^4.1.8",
     "@tailwindcss/vite": "^4.1.8",
     "@vee-validate/zod": "^4.15.0",
+    "@vue/apollo-composable": "^4.2.2",
     "@vueuse/core": "^13.3.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "graphql": "^16.11.0",
+    "graphql-tag": "^2.12.6",
     "lucide-vue-next": "^0.511.0",
     "pinia": "^3.0.1",
     "reka-ui": "^2.3.0",
@@ -29,6 +33,7 @@
     "vee-validate": "^4.15.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0",
+    "yarn": "^1.22.22",
     "zod": "^3.25.42"
   },
   "devDependencies": {

@@ -3,11 +3,10 @@ package com.pjatk.QuizzApp.Quiz;
 public enum Diff
 {
     EASY("easy"),
-    SOFT("soft"),
     MEDIUM("medium"),
     HARD("hard"),
-    EXPERT("expert"),
-    GODLIKE("godlike");
+    EXPERT("expert");
+
 
     Diff(String lvl){}
 }
