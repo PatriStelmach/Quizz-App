@@ -2,6 +2,7 @@
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 import { useForm } from 'vee-validate'
+import { ref } from 'vue'
 import {
   FormControl,
   FormDescription,
@@ -13,8 +14,14 @@ import {
 import {Button} from "@/components/ui/button";
 import {useRouter} from "vue-router";
 
-const formSchema = toTypedSchema(z.object({
-  username: z.string().min(2).max(50),
+
+const username = ref('')
+const password = ref('')
+
+const formSchema = toTypedSchema(z.object(
+  {
+    username: z.string().min(2).max(50),
+    password: z.string().min(6).max(50),
 }))
 
 const form = useForm({
@@ -26,6 +33,7 @@ const router = useRouter()
 const onSubmit = form.handleSubmit(async(values) => {
   console.log('Form submitted with values: ', values)
   await router.push('/home')
+
 })
 
 </script>
@@ -33,19 +41,24 @@ const onSubmit = form.handleSubmit(async(values) => {
 <template>
   <form class="p-10 w-92 grid justify-center rounded-md bg-indigo-900 m-auto " @submit="onSubmit">
 
-    <FormField v-slot="{ componentField }" name="username">
+    <FormField v-slot="{ componentField }" name="Login form">
       <FormItem class="w-2xs mb-5">
         <FormDescription class="text-2xl text-center mb-5 ">Login Form</FormDescription>
         <FormLabel class="w-2xs mb-5" >Username</FormLabel>
         <FormControl>
-          <Input type="text" class="w-2xs h-10 mb-5 pl-2 bg-white text-black rounded-md" placeholder="username" v-bind="componentField" />
+          <input v-model="username"
+                 class="w-2xs h-10 mb-5 pl-2 bg-white text-black rounded-md"
+                 placeholder="username"
+                 v-bind="componentField" />
         </FormControl>
         <FormLabel class="w-2xs mb-5" >Password</FormLabel>
         <FormControl>
-          <Input type="text" class="w-2xs h-10 mb-5 pl-2 bg-white text-black rounded-md" placeholder="password" v-bind="componentField" />
+          <input v-model="password"
+                 class="w-2xs h-10 mb-5 pl-2 bg-white text-black rounded-md"
+                 placeholder="password"
+                 v-bind="componentField" />
         </FormControl>
-        <FormMessage />
-        <FormControl
+        <FormMessage/>
       </FormItem>
     </FormField>
     <Button class="cursor-pointer w-2xs" type="submit">

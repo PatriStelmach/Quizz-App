@@ -4,3 +4,5 @@ export interface UserLogin
   password: string;
   email: string;
 }
+
+// const $UserLogin = defineProps<UserLogin>();
