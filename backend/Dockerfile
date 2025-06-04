@@ -6,5 +6,5 @@ RUN mvn clean package
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
-EXPOSE 10001
+EXPOSE 10000
 ENTRYPOINT ["java","-jar","/app/app.jar"]

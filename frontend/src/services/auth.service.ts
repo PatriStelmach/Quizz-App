@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type {UserLogin} from "@/types/user.login.ts";
 
-const  API_URL = 'http://localhost:10000/api/auth/'
+const  API_URL = 'http://localhost:10000/auth/'
 
 class AuthService
 {
@@ -20,6 +20,18 @@ class AuthService
         }
         return response.data;
       })
+  }
+
+  getall() {
+    return axios.get('http://localhost:10000/auth/test')
+      .then(response => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        throw error;
+      });
   }
 
 

@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="graphql">
+    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="authentication store">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Authentication/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/compose.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/LoginForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/router/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/store/auth.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/auth.store.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/types/user.login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/user.login.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,11 +26,11 @@
       <list>
         <option value="HTML File" />
         <option value="Exception" />
-        <option value="Class" />
         <option value="Record" />
         <option value="GraphQL File" />
         <option value="TypeScript File" />
         <option value="Vue Composition API Component" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -150,7 +153,7 @@
       <workItem from="1748769878295" duration="56000" />
       <workItem from="1748771347502" duration="1236000" />
       <workItem from="1748772608648" duration="24574000" />
-      <workItem from="1748970882446" duration="11741000" />
+      <workItem from="1748970882446" duration="16594000" />
     </task>
     <task id="LOCAL-00001" summary="docker updated">
       <option name="closed" value="true" />
@@ -208,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748813458782</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="authentication store">
+      <option name="closed" value="true" />
+      <created>1748983050979</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748983050979</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,6 +230,7 @@
     <MESSAGE value="login auth v1 done" />
     <MESSAGE value="First user endpoints, adding DTO's" />
     <MESSAGE value="graphql" />
-    <option name="LAST_COMMIT_MESSAGE" value="graphql" />
+    <MESSAGE value="authentication store" />
+    <option name="LAST_COMMIT_MESSAGE" value="authentication store" />
   </component>
 </project>
