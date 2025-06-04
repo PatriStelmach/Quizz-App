@@ -1,6 +1,7 @@
 import AuthService from '../services/auth.service';
 import type {UserLogin} from "@/types/user.login.ts";
 import { defineStore } from "pinia";
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
 
 
@@ -8,10 +9,15 @@ const useAuthStore = defineStore('auth',
   {
     state: () =>
       ({
-        user: JSON.parse(localStorage.getItem('user') || '{}') as UserLogin | null,
+        user: null as UserLogin | null,
         loggedIn: false,
         error: null as any
       }),
+    persist:
+      {
+        key: 'jwt',
+        paths: ['user', loggedIn]
+      },
     actions:
       {
         async login(user: UserLogin)
@@ -19,7 +25,6 @@ const useAuthStore = defineStore('auth',
           try
           {
             this.user = await AuthService.login(user)
-            localStorage.setItem('user', JSON.stringify(this.user))
             this.loggedIn = true
             this.error = null
             return this.user
@@ -50,6 +55,7 @@ const useAuthStore = defineStore('auth',
           try
           {
             AuthService.logout()
+            this.user = null
             this.loggedIn = false
             this.error = null
             return 'logged out'
