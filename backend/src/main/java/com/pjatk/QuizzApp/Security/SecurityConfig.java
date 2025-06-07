@@ -33,7 +33,6 @@ public class SecurityConfig
                 .authorizeHttpRequests(req ->
                                         req.requestMatchers(
                                                         "/auth/**",
-                                                        "/users/**",
                                                         "/oauth2/**",
                                                         "/swagger-resources",
                                                         "/swagger-resources/**",

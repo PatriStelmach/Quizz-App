@@ -14,17 +14,19 @@ class AuthService
     })
       .then(response =>
       {
-        if (response.data.accessToken)
+        if (response.data.token)
         {
           localStorage.setItem('user', JSON.stringify(response.data));
+          console.log(localStorage.getItem('user'));
         }
-        console.log(response.data);
+
         return response.data;
       })
   }
 
-  getall() {
-    return axios.get('http://localhost:10000/auth/test')
+  getall(headers = {})
+  {
+    return axios.get('http://localhost:10000/users/all-users', {headers: headers})
       .then(response => {
         console.log(response.data);
         return response.data;

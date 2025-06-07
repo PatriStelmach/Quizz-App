@@ -1,13 +1,18 @@
 export default function authHeader()
 {
-  let user = JSON.parse(localStorage.getItem('user') || '{}');
+  const user = JSON.parse(<string>localStorage.getItem('user'));
 
-  if (user && user.accessToken)
+  if (user)
+  try
   {
-    return {Authorization: 'Bearer' + user.accessToken};
+      if (user?.token)
+      {
+        return {Authorization: 'Bearer ' + user.token};
+      }
+    }
+    catch (e)
+    {
+      console.error('Błąd parsowania usera:', e);
+    }
   }
-  else
-  {
-    return {};
-  }
-}
+

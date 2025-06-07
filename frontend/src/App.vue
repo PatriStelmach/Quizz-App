@@ -10,7 +10,10 @@ import LoginForm from "@/components/LoginForm.vue";
 <template>
   <ViewMode></ViewMode>
   <header>
+
   </header>
 <LoginForm></LoginForm>
   <RouterView/>
 </template>
+
+
