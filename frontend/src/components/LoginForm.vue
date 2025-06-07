@@ -25,9 +25,9 @@ const form = useForm({
 })
 
 const onSubmit = form.handleSubmit(async (values) => {
-  // await AuthService.login(values)
-  await AuthService.getall()
-  // console.log('Form submitted with values: ', values)
+  await AuthService.login(values)
+  //await AuthService.getall()
+  console.log('Form submitted with values: ', values)
   await router.push('/home')
 })
 </script>
