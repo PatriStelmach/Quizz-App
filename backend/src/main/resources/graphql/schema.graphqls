@@ -66,24 +66,24 @@ type User
     id: ID!
     username: String!
     roles: [Role!]!
-    email: String!
+    email: String
     avatar: String
     bio: String
     isActive: Boolean!
     accountLocked: Boolean!
     enabled: Boolean!
-    userLevel: UserLevel!
+    userLevel: UserLevel
     streak: Int
     score: Int
     finishedAmount: Int
-    finishedQuizzes: QuizConnection!
-    quizScores: [QuizScore!]!
-    quizzesCreated: QuizConnection!
+    finishedQuizzes: QuizConnection
+    quizScores: [QuizScore!]
+    quizzesCreated: QuizConnection
 }
 
 type Quiz
 {
-    id: ID!
+    id: ID
     title: String!
     description: String!
     category: String!
@@ -105,7 +105,7 @@ type Question
     question: String!
     correctAnswer: String!
     openAnswer: String
-    answers: [String]
+    answers: [String!]!
     quiz: Quiz!
 }
 
@@ -125,4 +125,8 @@ type QueryQuestions
 {
     questions: [Question]
     questionsById(id:Int): Question
+}
+type Query
+{
+    hello: String!
 }
