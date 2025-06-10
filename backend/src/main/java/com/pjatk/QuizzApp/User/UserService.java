@@ -3,8 +3,10 @@ package com.pjatk.QuizzApp.User;
 import com.pjatk.QuizzApp.Exceptions.UserExistsException;
 import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
 import com.pjatk.QuizzApp.Exceptions.WrongPasswordException;
+import com.pjatk.QuizzApp.User.DTO.UserDTO;
 import com.pjatk.QuizzApp.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,11 +27,13 @@ public class UserService
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final Mapper mapper;
 
-    public User getUserById(Integer id)
+
+    public UserDTO getUserById(Integer id)
     {
-        return userRepository.findById(id).orElseThrow(()
-                -> new UserNotFoundException("User not found with id: " + id));
+        return userRepository.findById(id).map(mapper::toDto)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
     }
 
     public String getLoggedUsername()

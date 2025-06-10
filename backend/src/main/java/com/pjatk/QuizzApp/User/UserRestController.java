@@ -1,11 +1,10 @@
 package com.pjatk.QuizzApp.User;
 
 import com.pjatk.QuizzApp.User.DTO.ApiResponse;
-import com.pjatk.QuizzApp.User.DTO.GetUserDTO;
+import com.pjatk.QuizzApp.User.DTO.UserDTO;
 import com.pjatk.QuizzApp.User.DTO.PasswordChangeRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,35 +18,34 @@ import java.util.List;
 public class UserRestController
 {
     private final UserService userService;
-    private final ModelMapper modelMapper;
+   private final Mapper mapper;
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetUserDTO> getUserById(@Valid @PathVariable int id)
+    public ResponseEntity<UserDTO> getUserById(@Valid @PathVariable int id)
     {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok().body(toDto(user));
+        return ResponseEntity.ok().body(userService.getUserById(id));
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<GetUserDTO> getUserByUsername(@Valid @PathVariable String username)
+    public ResponseEntity<UserDTO> getUserByUsername(@Valid @PathVariable String username)
     {
         User user = userService.getUserByUsername(username);
-        return ResponseEntity.ok().body(toDto(user));
+        return ResponseEntity.ok().body(mapper.toDto(user));
     }
 
     @GetMapping("/{email}")
-    public ResponseEntity<GetUserDTO> getUserByEmail(@Valid @PathVariable String email)
+    public ResponseEntity<UserDTO> getUserByEmail(@Valid @PathVariable String email)
     {
         User user = userService.getUserByEmail(email);
-        return ResponseEntity.ok().body(toDto(user));
+        return ResponseEntity.ok().body(mapper.toDto(user));
     }
 
     @GetMapping("/all-users")
-    public ResponseEntity<List<GetUserDTO>> getAllUsers()
+    public ResponseEntity<List<UserDTO>> getAllUsers()
     {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok().body(users.stream()
-                .map(this::toDto)
+                .map(mapper::toDto)
                 .toList());
     }
 
@@ -104,9 +102,6 @@ public class UserRestController
         return null;
     }
 
-    private GetUserDTO toDto(User user)
-    {
-        return modelMapper.map(user, GetUserDTO.class);
-    }
+
 
 }

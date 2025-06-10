@@ -4,7 +4,6 @@ spring:
   graphql:
     graphiql:
       enabled: true
-      path: /graphql
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html

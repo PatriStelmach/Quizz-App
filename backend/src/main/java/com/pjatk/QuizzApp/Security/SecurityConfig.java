@@ -33,8 +33,8 @@ public class SecurityConfig
                 .authorizeHttpRequests(req ->
                                         req.requestMatchers(
                                                         "/auth/**",
-                                                        "/graphql",
-                                                        "/graphiql",
+                                                        "/graphql/**",
+                                                        "/graphiql/**",
                                                         "/oauth2/**",
                                                         "/swagger-resources",
                                                         "/swagger-resources/**",
