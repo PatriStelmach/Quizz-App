@@ -1,5 +1,5 @@
 scalar Instant
-scalar LocalDateTime
+scalar LOCALDATETIME
 enum Diff
 {
     EASY
@@ -90,7 +90,7 @@ type Quiz
     diff: Diff!
     author: User!
     createdAt: Instant
-    timeLimit: LocalDateTime!
+    timeLimit: LOCALDATETIME!
     maxPoints: Int!
     questions: [Question!]!
 

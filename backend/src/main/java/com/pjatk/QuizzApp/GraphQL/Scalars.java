@@ -1,31 +1,60 @@
 package com.pjatk.QuizzApp.GraphQL;
 
-import graphql.GraphQLContext;
 import graphql.schema.Coercing;
 import graphql.schema.GraphQLScalarType;
+import io.micrometer.common.lang.NonNull;
 
-import java.util.Locale;
+import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class Scalars
 {
+
     public static final GraphQLScalarType INSTANT = GraphQLScalarType.newScalar()
             .name("INSTANT")
             .description("A current moment in time")
-            .coercing(new Coercing()
+            .coercing(new Coercing<Instant, String>()
             {
                @Override
-               public Object serialize(Object dataFetcherResult, GraphQLContext context, Locale locale)
+               public String serialize(@NonNull Object input)
                {
-                   return serializeInstant(dataFetcherResult);
+                   return input.toString();
                }
 
-               @Override
-                public Object parsevalue(Object input, GraphQLContext context, Locale locale)
-               {
-                   return parseInstantFromVariable(input);
-               }
+                @Override
+                public Instant parseValue(Object input) {
+                    return Instant.parse(input.toString());
+                }
 
                @Override
-                public Object parse
+                public Instant parseLiteral(Object input)
+               {
+                   return Instant.parse(input.toString());
+               }
             })
+            .build();
+
+    public static final GraphQLScalarType LOCALDATETIME = GraphQLScalarType.newScalar()
+            .name("LocalDateTime")
+            .description("A representation of date")
+            .coercing(new Coercing<LocalDateTime, String>()
+            {
+                @Override
+                public String serialize(@NonNull Object input)
+                {
+                    return input.toString();
+                }
+
+                @Override
+                public LocalDateTime parseValue(Object input) {
+                    return LocalDateTime.parse(input.toString());
+                }
+
+                @Override
+                public LocalDateTime parseLiteral(Object input)
+                {
+                    return LocalDateTime.parse(input.toString());
+                }
+            })
+            .build();
 }
