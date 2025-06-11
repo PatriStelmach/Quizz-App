@@ -5,6 +5,7 @@ import com.pjatk.QuizzApp.User.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Quiz")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -53,7 +53,7 @@ public class Quiz
     @NotEmpty(message = "Author cannot be empty")
     @NotBlank(message = "Author cannot be blank")
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
     private Instant createdAt = Instant.now();
@@ -63,26 +63,11 @@ public class Quiz
     @Column(nullable = false)
     private LocalDateTime timeLimit;
 
-    @ManyToMany
-    @JoinTable(
-            name= "users_who_finished",
-            joinColumns = @JoinColumn(name = "quiz_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> finishedByUsers = new HashSet<>();
 
-    @NotEmpty(message = "Max points cannot be empty")
-    @NotBlank(message = "Max points cannot be blank")
+
+    @NotNull
     @Column(nullable = false)
     private Integer maxPoints;
-
-    @ManyToMany
-    @JoinTable(
-            name= "user_score",
-            joinColumns = @JoinColumn(name = "quiz_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> userScore = new HashSet<>();
 
     @OneToMany(mappedBy = "quiz")
     @Column(nullable = false)

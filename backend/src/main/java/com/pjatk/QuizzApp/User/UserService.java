@@ -3,6 +3,7 @@ package com.pjatk.QuizzApp.User;
 import com.pjatk.QuizzApp.Exceptions.UserExistsException;
 import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
 import com.pjatk.QuizzApp.Exceptions.WrongPasswordException;
+import com.pjatk.QuizzApp.Quiz.Quiz;
 import com.pjatk.QuizzApp.User.DTO.UserDTO;
 import com.pjatk.QuizzApp.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,12 +55,19 @@ public class UserService
                 -> new UserNotFoundException("User not found with email: " + email));
     }
 
-    public List<User> getAllUsers()
+    public List<UserDTO> getAllUsers()
     {
-        return userRepository.findAll();
+        return userRepository.findAll().stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
-
-
+//
+//    public Set<Quiz> finishedByUser(Integer id)
+//    {
+//        return userRepository.findById(id)
+//                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id))
+//                .getFinishedQuizzes();
+//    }
 
     public String changeUsername(String username, String newUsername)
     {

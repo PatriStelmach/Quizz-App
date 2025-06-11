@@ -19,9 +19,7 @@ import java.security.Principal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -92,14 +90,7 @@ public class User implements UserDetails, Principal
     private Integer score = 0;
 
     @Column(name = "finished")
-    private Integer finished_amount = 0;
-
-
-    @ManyToMany(mappedBy = "finishedByUsers")
-    private Set<Quiz> finished_quizzes = new HashSet<>();
-
-    @ManyToMany(mappedBy = "userScore")
-    private Set<Quiz> quizScore = new HashSet<>();
+    private Integer finishedAmount = 0;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(

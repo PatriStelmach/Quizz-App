@@ -48,15 +48,18 @@ type QuizConnection
     edges: [QuizEdge!]
     pageInfo: PageInfo!
 }
-type QuizScore
-{
-    quizId: ID!
-    score: Int!
-}
+
 type PageInfo
 {
     hasNextPage: Boolean!
     endCursor: String
+}
+
+type UserQuizScore {
+    id: ID!
+    user: User!
+    quiz: Quiz!
+    score: Int!
 }
 
 type User
@@ -79,9 +82,7 @@ type User
     streak: Int
     score: Int
     finishedAmount: Int
-    finishedQuizzes: QuizConnection
-    quizScores: [QuizScore]
-    quizzesCreated: QuizConnection
+    quizzesCreated: [Quiz]
 }
 
 type Quiz
@@ -97,8 +98,6 @@ type Quiz
     timeLimit: String
     maxPoints: Int
     questions: [Question]
-    finishedByUsers: UserConnection
-    userScore: [QuizScore]
 
 }
 
@@ -120,7 +119,7 @@ type Query
     userById(id:ID): User
     users: [User!]!
 
-    quizzById(id:ID): Quiz
+    quizById(id:ID): Quiz
     quizzes: [Quiz!]!
 
     questionById(id:ID): Question

@@ -39,15 +39,15 @@ public class UserRestController
         User user = userService.getUserByEmail(email);
         return ResponseEntity.ok().body(mapper.toDto(user));
     }
-
-    @GetMapping("/all-users")
-    public ResponseEntity<List<UserDTO>> getAllUsers()
-    {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok().body(users.stream()
-                .map(mapper::toDto)
-                .toList());
-    }
+//
+//    @GetMapping("/all-users")
+//    public ResponseEntity<List<UserDTO>> getAllUsers()
+//    {
+//        List<User> users = userService.getAllUsers();
+//        return ResponseEntity.ok().body(users.stream()
+//                .map(mapper::toDto)
+//                .toList());
+//    }
 
     @GetMapping("/avatar/{username}")
     public ResponseEntity<?> getAvatar(@PathVariable String username) throws IOException

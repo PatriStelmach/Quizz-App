@@ -16,6 +16,15 @@ public class RestControllerAdvice extends ResponseEntityExceptionHandler
         return ResponseEntity.status(404).body(customException);
     }
 
+    @ExceptionHandler(QuizNotFoundException.class)
+    public ResponseEntity<CustomException> QuizNotFoundHandler()
+    {
+        CustomException customException = new CustomException();
+        customException.setCode(404);
+        customException.setMessage("Quiz not found");
+        return ResponseEntity.status(404).body(customException);
+    }
+
     @ExceptionHandler(TokenNotFoundException.class)
     public ResponseEntity<CustomException> TokenNotFoundHandler()
     {
