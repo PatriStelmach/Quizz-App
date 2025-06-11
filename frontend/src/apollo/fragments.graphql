@@ -1,0 +1,22 @@
+fragment UserBasicFields on User {
+  id
+  username
+  email
+  userLevel
+}
+
+fragment QuizBasicFields on Quiz {
+  id
+  title
+  category
+  diff
+  maxPoints
+}
+
+fragment QuestionDetails on Question {
+  id
+  question
+  questionType
+  correctAnswer
+  answers
+}

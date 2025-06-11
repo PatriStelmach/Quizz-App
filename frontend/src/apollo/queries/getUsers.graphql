@@ -1,0 +1,23 @@
+query GetUserById($id: ID!) {
+  userById(id: $id) {
+    id
+    username
+    email
+    roles
+    userLevel
+    score
+    quizzesCreated {
+      id
+      title
+    }
+  }
+}
+
+query GetAllUsers {
+  users {
+    id
+    username
+    email
+    createdAt
+  }
+}

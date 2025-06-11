@@ -1,0 +1,21 @@
+query GetQuestionById($id: ID!) {
+  questionById(id: $id) {
+    id
+    question
+    questionType
+    diff
+    correctAnswer
+    quiz {
+      id
+      title
+    }
+  }
+}
+
+query GetAllQuestions {
+  questions {
+    id
+    question
+    questionType
+  }
+}

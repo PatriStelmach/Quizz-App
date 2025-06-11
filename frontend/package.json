@@ -8,6 +8,7 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
+    "codegen": "graphql-codegen --config codegen.ts",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
@@ -15,6 +16,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
+    "@graphql-codegen/typescript-resolvers": "^4.5.1",
+    "@graphql-codegen/typescript-vue-apollo": "^4.1.2",
     "@tailwindcss/cli": "^4.1.8",
     "@tailwindcss/vite": "^4.1.8",
     "@vee-validate/zod": "^4.15.0",
@@ -43,6 +46,10 @@
     "zod": "^3.25.42"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-operations": "^4.6.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.3",
     "@iconify-json/radix-icons": "^1.2.2",
     "@iconify/vue": "^5.0.0",
     "@tsconfig/node22": "^22.0.1",

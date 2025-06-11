@@ -1,13 +1,12 @@
-import { DefaultApolloClient } from '@vue/apollo-composable'
-import { createApp, h, provide } from 'vue'
-import App from "./src/App.vue";
-import { apolloClient } from './src/apollo/apolloClient'
-
-
-const app = createApp({
-  setup() {
-    provide(DefaultApolloClient, apolloClient)
+module.exports = {
+  client: {
+    service: {
+      name: 'quiz-client',
+      url: 'http://localhost:10000/graphql',
+    },
+    includes: [
+      'src/**/*.vue',
+      'src/**/*.ts',
+    ],
   },
-
-  render: () => h(App),
-})
+}
