@@ -1,6 +1,6 @@
 services:
   mysql:
-    container_name: mysql-quizz
+    container_name: quizz-app-mysql
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -12,19 +12,22 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - quizz-network
-#    restart: unless-stopped
+      - quizz-app-network
+    #    restart: unless-stopped
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root" ]
       interval: 10s
       timeout: 5s
       retries: 5
+
   mail-dev:
     container_name: quizz-app-mail-dev
     image: maildev/maildev
     ports:
-    - "1080:1080"
-    - "1025:1025"
+      - "1080:1080"
+      - "1025:1025"
+    networks:
+      - quizz-app-network
 
   backend:
     build:
@@ -41,10 +44,22 @@ services:
     ports:
       - "10000:10000"
     networks:
-      - quizz-network
+      - quizz-app-network
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    container_name: quizz-app-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - quizz-app-network
 
 networks:
-  quizz-network:
+  quizz-app-network:
     name: quizz-app-network
 
 volumes:
