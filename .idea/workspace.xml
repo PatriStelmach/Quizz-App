@@ -4,24 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="authentication store">
-      <change afterPath="$PROJECT_DIR$/.idea/graphql-settings.xml" afterDir="false" />
+    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="graphql endpoint">
       <change afterPath="$PROJECT_DIR$/apollo_key.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/Mapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/Resolver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.graphqlconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/codegen.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/graphql.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/apollo/fragments.graphql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/apollo/queries/getQuestions.graphql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/apollo/queries/getQuiz.graphql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/apollo/queries/getUsers.graphql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/61643a07-35cc-4312-8dfc-4b27020c47a3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/61643a07-35cc-4312-8dfc-4b27020c47a3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/GraphQL/Scalars.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/DTO/GetUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/DTO/UserDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserGraphController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserGraphController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserRestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/graphql/schema.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/graphql/schema.graphqls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/apollo.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/apollo.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/graphql.config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/apollo/apolloClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/apollo/client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +89,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Application.executor": "Run",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "apollo",
     "ignore.preview.features.used": "true",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/patrz/IdeaProjects/QuizzApp/frontend",
@@ -178,6 +183,8 @@
       <workItem from="1749334778286" duration="2533000" />
       <workItem from="1749404488742" duration="3971000" />
       <workItem from="1749571381303" duration="11036000" />
+      <workItem from="1749587857915" duration="164000" />
+      <workItem from="1749655533763" duration="9599000" />
     </task>
     <task id="LOCAL-00001" summary="docker updated">
       <option name="closed" value="true" />
@@ -243,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748983050979</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="graphql endpoint">
+      <option name="closed" value="true" />
+      <created>1749587905342</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1749587905342</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,7 +270,8 @@
     <MESSAGE value="First user endpoints, adding DTO's" />
     <MESSAGE value="graphql" />
     <MESSAGE value="authentication store" />
-    <option name="LAST_COMMIT_MESSAGE" value="authentication store" />
+    <MESSAGE value="graphql endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="graphql endpoint" />
   </component>
   <component name="com.apollographql.ijplugin.settings.ProjectSettingsState">
     <option name="hasEnabledGraphQLPluginApolloKotlinSupport" value="true" />

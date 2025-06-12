@@ -19,6 +19,7 @@ import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -61,13 +62,16 @@ public class UserService
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
-//
-//    public Set<Quiz> finishedByUser(Integer id)
-//    {
-//        return userRepository.findById(id)
-//                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id))
-//                .getFinishedQuizzes();
-//    }
+
+    public UserDTO updateUser(Integer id, UserDTO userDTO)
+    {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+        mapper.toEntity(userDTO);
+        user.setUpdatedAt(LocalDateTime.now());
+
+        return mapper.toDto(userRepository.save(user));
+    }
 
     public String changeUsername(String username, String newUsername)
     {
