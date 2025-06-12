@@ -5,6 +5,11 @@
 import { RouterLink, RouterView } from 'vue-router'
 import ViewMode from "@/components/ViewMode.vue";
 import LoginForm from "@/components/LoginForm.vue";
+import { computed } from 'vue'
+
+
+const users = computed(() => result.value?.allUsers ?? []);
+console.log(users);
 </script>
 
 <template>

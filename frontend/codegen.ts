@@ -1,19 +1,16 @@
-import { CodegenConfig } from "@graphql-codegen/cli";
+
+import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: "../backend/src/main/resources/graphql/schema.graphqls",
+  overwrite: true,
+  schema: "https://localhost:10000/graphql",
+  documents: "src/**/*.vue",
   generates: {
-    "./src/__generated__/resolvers-types.ts": {
-      config: {
-        federation: true,
-        useIndexSignature: true,
-        contextType: '../types/DataSourceContext#DataSourceContext',
-
-      },
-      plugins: ["typescript","typescript-resolvers", 'typescript-operations',
-        'typescript-react-apollo']
-    },
-  },
+    "src/gql/": {
+      preset: "client",
+      plugins: []
+    }
+  }
 };
 
 export default config;

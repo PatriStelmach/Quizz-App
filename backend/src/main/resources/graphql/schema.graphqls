@@ -1,23 +1,23 @@
 # This file was generated. Do not edit manually.
 
-schema {
-    query: Query
-    mutation: Mutation
-}
-
-"This directive allows results to be deferred during execution"
-directive @defer(
-        "Deferred behaviour is controlled by this argument"
-        if: Boolean!, 
-        "A unique label that represents the fragment being deferred"
-        label: String
-    ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
-
-"This directive disables error propagation when a non nullable field returns null for the given operation."
-directive @experimental_disableErrorPropagation on QUERY | MUTATION | SUBSCRIPTION
-
-"Indicates an Input Object is a OneOf Input Object."
-directive @oneOf on INPUT_OBJECT
+#schema {
+#    query: Query
+#    mutation: Mutation
+#}
+#
+#"This directive allows results to be deferred during execution"
+#directive @defer(
+#        "Deferred behaviour is controlled by this argument"
+#        if: Boolean!,
+#        "A unique label that represents the fragment being deferred"
+#        label: String
+#    ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+#
+#"This directive disables error propagation when a non nullable field returns null for the given operation."
+#directive @experimental_disableErrorPropagation on QUERY | MUTATION | SUBSCRIPTION
+#
+#"Indicates an Input Object is a OneOf Input Object."
+#directive @oneOf on INPUT_OBJECT
 
 type Mutation {
     updateUser(id: ID!, input: UserInput!): User!
@@ -31,7 +31,7 @@ type PageInfo {
 type Query {
     allQuestions: [Question!]!
     allQuizzes: [Quiz!]!
-    allUsers: [User!]!
+    allUsers: [User]
     questionById(id: ID): Question
     quizById(id: ID): Quiz
     userById(id: ID): User

@@ -28,7 +28,7 @@ public class UserGraphController
     }
 
     @QueryMapping
-    public List<UserDTO> users()
+    public List<UserDTO> allUsers()
     {
         return userService.getAllUsers();
     }

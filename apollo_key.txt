@@ -1,1 +1,0 @@
-$env:APOLLO_KEY = "service:user-ibv888k:sdjKa5El0X7glzr3A_cYBg"; $env:APOLLO_GRAPH_REF = "user-ibv888k@current"; rover dev --supergraph-config supergraph.yaml
