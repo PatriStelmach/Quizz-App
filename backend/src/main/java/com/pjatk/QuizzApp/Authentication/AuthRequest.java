@@ -13,9 +13,9 @@ import lombok.Setter;
 public class AuthRequest
 {
 
-    @NotEmpty(message = "Username is mandatory")
-    @NotNull(message = "Username is mandatory")
-    private String username;
+    @NotEmpty(message = "identifier is mandatory")
+    @NotNull(message = "identifier is mandatory")
+    private String identifier;
 
     @NotEmpty(message = "Password is mandatory")
     @NotNull(message = "Password is mandatory")

@@ -14,7 +14,6 @@ import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +23,6 @@ import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -102,9 +100,16 @@ public class AuthService
 
     public AuthResponse authenticate(@Valid AuthRequest request)
     {
+        String usernameOrEmail = request.getIdentifier();
+        if(usernameOrEmail.contains("@"))
+        {
+            User user = userRepository.findByEmail(usernameOrEmail).orElseThrow(() ->
+                    new UserNotFoundException("User not found with given email."));
+            usernameOrEmail = user.getUsername();
+        }
         var auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                     request.getUsername(),
+                     usernameOrEmail,
                      request.getPassword()
                 )
         );
