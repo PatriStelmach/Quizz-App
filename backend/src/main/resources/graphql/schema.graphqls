@@ -1,185 +1,184 @@
-# This file was generated. Do not edit manually.
-
-#schema {
-#    query: Query
-#    mutation: Mutation
-#}
-#
-#"This directive allows results to be deferred during execution"
-#directive @defer(
-#        "Deferred behaviour is controlled by this argument"
-#        if: Boolean!,
-#        "A unique label that represents the fragment being deferred"
-#        label: String
-#    ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
-#
-#"This directive disables error propagation when a non nullable field returns null for the given operation."
-#directive @experimental_disableErrorPropagation on QUERY | MUTATION | SUBSCRIPTION
-#
-#"Indicates an Input Object is a OneOf Input Object."
-#directive @oneOf on INPUT_OBJECT
-
-type Mutation {
-    updateUser(id: ID!, input: UserInput!): User!
+enum Diff
+{
+    EASY
+    MEDIUM
+    HARD
+    EXPERT
+}
+enum UserLevel
+{
+    NEWBIE
+    NOOB
+    CASUAL
+    PRO
+    MASTER
+}
+enum Role
+{
+    USER
+    ADMIN
+}
+enum QuestionType
+{
+    SINGLE_CHOICE
+    MULTIPLE_CHOICE
+    OPEN
 }
 
-type PageInfo {
-    endCursor: String
-    hasNextPage: Boolean!
-}
-
-type Query {
-    allQuestions: [Question!]!
-    allQuizzes: [Quiz!]!
-    allUsers: [User]
-    questionById(id: ID): Question
-    quizById(id: ID): Quiz
-    userById(id: ID): User
-}
-
-type Question {
-    answers: [String]
-    correctAnswer: String
-    diff: Diff
-    id: ID!
-    openAnswer: String
-    question: String!
-    questionType: QuestionType
-    quiz: Quiz!
-}
-
-type Quiz {
-    author: User
-    category: String
-    createdAt: String
-    description: String
-    diff: Diff
-    id: ID!
-    image: String
-    maxPoints: Int
-    questions: [Question]
-    timeLimit: String
-    title: String!
-}
-
-type QuizConnection {
-    edges: [QuizEdge!]
-    pageInfo: PageInfo!
-}
-
-type QuizEdge {
-    cursor: String!
-    node: Quiz!
-}
-
-type User {
-    accountLocked: Boolean!
-    avName: String
-    avType: String
-    avatar: String
-    bio: String
-    birthDate: String
-    createdAt: String
-    email: String
-    enabled: Boolean!
-    finishedAmount: Int
-    id: ID!
-    isActive: Boolean
-    quizzesCreated: [Quiz]
-    roles: [Role!]!
-    score: Int
-    streak: Int
-    updatedAt: String
-    userLevel: UserLevel
-    username: String!
-}
-
-type UserConnection {
+type UserConnection
+{
     edges: [UserEdge!]
     pageInfo: PageInfo!
 }
 
-type UserEdge {
-    cursor: String!
+type UserEdge
+{
     node: User!
+    cursor: String!
+}
+
+type QuizEdge
+{
+    node: Quiz!
+    cursor: String!
+}
+
+type QuizConnection
+{
+    edges: [QuizEdge!]
+    pageInfo: PageInfo!
+}
+
+type PageInfo
+{
+    hasNextPage: Boolean!
+    endCursor: String
 }
 
 type UserQuizScore {
     id: ID!
+    user: User!
     quiz: Quiz!
     score: Int!
-    user: User!
 }
 
-enum Diff {
-    EASY
-    EXPERT
-    HARD
-    MEDIUM
-}
-
-enum QuestionType {
-    MULTIPLE_CHOICE
-    OPEN
-    SINGLE_CHOICE
-}
-
-enum Role {
-    ADMIN
-    USER
-}
-
-enum UserLevel {
-    CASUAL
-    MASTER
-    NEWBIE
-    NOOB
-    PRO
-}
-
-input QuestionInput {
-    answers: [String]
-    correctAnswer: String
-    diff: Diff
+type User
+{
     id: ID!
-    openAnswer: String
-    question: String!
-    questionType: QuestionType
-    quiz: QuizInput!
-}
-
-input QuizInput {
-    author: UserInput
-    category: String
-    createdAt: String
-    description: String
-    diff: Diff
-    id: ID!
-    image: String
-    maxPoints: Int
-    questions: [QuestionInput]
-    timeLimit: String
-    title: String!
-}
-
-input UserInput {
-    accountLocked: Boolean!
+    username: String!
+    roles: [Role!]!
+    email: String
     avName: String
     avType: String
     avatar: String
     bio: String
-    birthDate: String
-    createdAt: String
-    email: String
-    enabled: Boolean!
-    finishedAmount: Int
-    id: ID!
     isActive: Boolean
-    quizzesCreated: [QuizInput]
-    roles: [Role!]!
-    score: Int
-    streak: Int
+    accountLocked: Boolean!
+    enabled: Boolean!
+    createdAt: String
     updatedAt: String
+    birthDate: String
     userLevel: UserLevel
+    streak: Int
+    score: Int
+    finishedAmount: Int
+    quizzesCreated: [Quiz]
+}
+
+type Quiz
+{
+    id: ID!
+    title: String!
+    description: String
+    category: String
+    diff: Diff
+    image: String
+    author: User
+    createdAt: String
+    timeLimit: String
+    maxPoints: Int
+    questions: [Question]
+
+}
+
+
+type Question
+{
+    id: ID!
+    diff: Diff
+    questionType: QuestionType
+    question: String!
+    correctAnswer: String
+    openAnswer: String
+    answers: [String]
+    quiz: Quiz!
+}
+
+input UserInput
+{
+    id: ID!
     username: String!
+    roles: [Role!]!
+    email: String
+    avName: String
+    avType: String
+    avatar: String
+    bio: String
+    isActive: Boolean
+    accountLocked: Boolean!
+    enabled: Boolean!
+    createdAt: String
+    updatedAt: String
+    birthDate: String
+    userLevel: UserLevel
+    streak: Int
+    score: Int
+    finishedAmount: Int
+    quizzesCreated: [QuizInput]
+}
+
+input QuizInput
+{
+    id: ID!
+    title: String!
+    description: String
+    category: String
+    diff: Diff
+    image: String
+    author: UserInput
+    createdAt: String
+    timeLimit: String
+    maxPoints: Int
+    questions: [Question]
+
+}
+
+
+input QuestionInput
+{
+    id: ID!
+    diff: Diff
+    questionType: QuestionType
+    question: String!
+    correctAnswer: String
+    openAnswer: String
+    answers: [String]
+    quiz: QuizInput!
+}
+
+type Query
+{
+    userById(id:ID): User
+    allUsers: [User!]!
+
+    quizById(id:ID): Quiz
+    allQuizzes: [Quiz!]!
+
+    questionById(id:ID): Question
+    allQuestions: [Question!]!
+}
+
+type Mutation
+{
+    updateUser(id: ID!, input: UserInput!): User!
 }

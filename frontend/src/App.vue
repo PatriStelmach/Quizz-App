@@ -5,17 +5,13 @@
 import { RouterLink, RouterView } from 'vue-router'
 import ViewMode from "@/components/ViewMode.vue";
 import LoginForm from "@/components/LoginForm.vue";
-import { computed } from 'vue'
-
-
-const users = computed(() => result.value?.allUsers ?? []);
-console.log(users);
+import UsersList from '@/components/UsersList.vue'
 </script>
 
 <template>
   <ViewMode></ViewMode>
   <header>
-
+<UsersList/>
   </header>
 <LoginForm></LoginForm>
   <RouterView/>

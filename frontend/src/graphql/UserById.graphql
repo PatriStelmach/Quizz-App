@@ -1,0 +1,6 @@
+query UserById {
+  userById(id: 1) {
+    email
+    username
+  }
+}
