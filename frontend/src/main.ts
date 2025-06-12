@@ -7,6 +7,7 @@ import App from './App.vue'
 import router from './router'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const httpLink = createHttpLink({
   // You should use an absolute URL here
@@ -29,7 +30,9 @@ const app = createApp({
   render: () => h(App),
 })
 
-app.use(createPinia())
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+app.use(pinia)
 app.use(router)
 
 app.mount('#app')

@@ -12,9 +12,10 @@ import {
 } from '@/components/ui/form'
 import { Button } from "@/components/ui/button";
 import { useRouter } from "vue-router";
-import AuthService from '../services/auth.service';
+import authStore from '@/store/auth.store.ts'
 
 const router = useRouter()
+const useAuthStore = authStore()
 const formSchema = toTypedSchema(z.object({
   username: z.string().min(2, "Username must be at least 2 characters").max(50),
   password: z.string().min(6, "Password must be at least 6 characters")
@@ -25,15 +26,14 @@ const form = useForm({
 })
 
 const onSubmit = form.handleSubmit(async (values) => {
-  await AuthService.login(values)
-  //await AuthService.getall()
+  await useAuthStore.login(values)
   console.log('Form submitted with values: ', values)
   await router.push('/home')
 })
 </script>
 
 <template>
-  <form class="p-10 w-92 grid justify-center rounded-md bg-indigo-900 m-auto" @submit="onSubmit">
+  <form class="p-10 w-92  grid justify-center rounded-md  m-auto" @submit="onSubmit">
     <FormField v-slot="{ componentField }" name="username">
       <FormItem class="w-2xs mb-5">
         <FormDescription class="text-2xl text-center mb-5">Login Form</FormDescription>

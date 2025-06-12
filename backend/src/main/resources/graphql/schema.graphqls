@@ -149,7 +149,7 @@ input QuizInput
     createdAt: String
     timeLimit: String
     maxPoints: Int
-    questions: [Question]
+    questions: [QuestionInput]
 
 }
 

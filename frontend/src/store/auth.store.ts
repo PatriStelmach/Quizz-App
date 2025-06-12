@@ -1,72 +1,111 @@
 import AuthService from '../services/auth.service';
 import type {UserLogin} from "@/types/user.login.ts";
 import { defineStore } from "pinia";
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
+import { ref } from 'vue';
+import type { UserRegister } from '@/types/user.register.ts'
 
 
 
-const useAuthStore = defineStore('auth',
+const authStore = defineStore('user',
+   () =>
+      {
+        const user = ref<UserLogin | null>(null);
+        const loggedIn = ref(false);
+        const error = ref<string | null>(null);
+
+        const setUser = (newUser: UserLogin) =>
+        {
+          user.value = newUser;
+        };
+
+
+        const setLoggedIn = (status: boolean) =>
+        {
+          loggedIn.value = status;
+        };
+
+        const setError = (newError: string | null) =>
+        {
+          error.value = newError;
+        };
+
+        const clearUser = () =>
+        {
+          user.value = null;
+          loggedIn.value = false;
+          error.value = null;
+        };
+
+        const login = async (user: UserLogin) =>
+        {
+          try
+          {
+            const loggedInUser = await AuthService.login(user);
+            setUser(loggedInUser);
+            setLoggedIn(true);
+            setError(null);
+            return loggedInUser;
+          }
+          catch (err)
+          {
+            setLoggedIn(false);
+            setError(err instanceof Error ? err.message : 'An unknown error occurred');
+            throw err;
+          }
+        };
+
+        const register = async (user: UserRegister) =>
+        {
+          try
+          {
+            await AuthService.register(user);
+            setLoggedIn(false);
+            setError(null);
+            return 'registered';
+          }
+          catch (err)
+          {
+            setLoggedIn(false);
+            setError(err instanceof Error ? err.message : 'An unknown error occurred');
+            throw err;
+          }
+        };
+
+        const logout = async () =>
+        {
+          try
+          {
+            await AuthService.logout();
+            clearUser();
+            return 'logged out';
+          }
+          catch (err)
+          {
+            setError(err instanceof Error ? err.message : 'An unknown error occurred');
+            throw err;
+          }
+        };
+
+        return{
+          user,
+          loggedIn,
+          error,
+          login,
+          register,
+          logout,
+          setUser,
+          setLoggedIn,
+          setError,
+          clearUser,
+        }
+        },
   {
-    state: () =>
-      ({
-        user: null as UserLogin | null,
-        loggedIn: false,
-        error: null as any
-      }),
     persist:
       {
-        key: 'jwt',
-        paths: ['user', loggedIn]
-      },
-    actions:
-      {
-        async login(user: UserLogin)
-        {
-          try
-          {
-            this.user = await AuthService.login(user)
-            this.loggedIn = true
-            this.error = null
-            return this.user
-          }
-            catch(error)
-            {
-              this.loggedIn = false
-              throw this.error
-            }
-          },
-          async register(user: UserLogin)
-          {
-            try
-            {
-              await AuthService.register(user)
-              this.loggedIn = false
-              this.error = null
-              return 'registered'
-            }
-            catch (error)
-            {
-              this.loggedIn = false
-              throw this.error
-            }
-          },
-        async logout()
-        {
-          try
-          {
-            AuthService.logout()
-            this.user = null
-            this.loggedIn = false
-            this.error = null
-            return 'logged out'
-          }
-          catch(error)
-          {
-            throw this.error
-          }
-        }
-        }
+          key: 'user',
+          storage: localStorage,
+    }
+  });
 
-  })
 
-export default useAuthStore
+export default authStore
