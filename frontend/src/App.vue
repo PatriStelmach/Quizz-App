@@ -4,8 +4,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import ViewMode from "@/components/ViewMode.vue";
-import LoginForm from "@/components/LoginForm.vue";
-import UsersList from '@/components/UsersList.vue'
 import Navbar from '@/components/Navbar.vue'
 </script>
 

@@ -51,7 +51,8 @@ public class SecurityConfig
                 )
                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                .formLogin(withDefaults())
-               .oauth2Login(withDefaults())
+               .oauth2Login(oauth2 -> oauth2
+                       .defaultSuccessUrl("http://localhost:5173/home", true))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

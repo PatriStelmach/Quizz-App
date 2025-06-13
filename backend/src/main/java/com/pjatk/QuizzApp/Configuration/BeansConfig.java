@@ -1,6 +1,8 @@
 package com.pjatk.QuizzApp.Configuration;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.Condition;
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,6 +44,10 @@ public class BeansConfig
     @Bean
     public ModelMapper modelMapper()
     {
-        return new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+        return modelMapper;
     }
+
+
 }

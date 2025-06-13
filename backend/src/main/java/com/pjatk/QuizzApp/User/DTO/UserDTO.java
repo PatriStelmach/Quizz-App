@@ -18,14 +18,12 @@ public class UserDTO
 {
     private Integer id;
     private String username;
-    private Set<Role> roles;
     private String email;
     private String avName;
     private String avType;
     private String avatar;
     private String bio;
     private boolean isActive;
-    private boolean accountLocked;
     private boolean enabled;
     private Instant createdAt;
     private LocalDateTime updatedAt;
@@ -35,6 +33,5 @@ public class UserDTO
     private Integer score;
     private Integer finished_amount;
     private Set<Quiz> finished_quizzes;
-    private Set<Quiz> quizScore;
     private Set<Quiz> quizzesCreated;
 }
