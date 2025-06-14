@@ -16,6 +16,30 @@ const router = createRouter
         name:'login',
 
         component: () => import('../views/LoginView.vue')
+      },
+      {
+        path:'/top-players',
+        name:'top-players',
+
+        component: () => import('../views/TopPlayers.vue')
+      },
+      {
+        path:'/user-profile',
+        name:'user-profile',
+
+        component: () => import('../views/UserProfile.vue')
+      },
+      {
+        path:'/create-quiz',
+        name:'create-quiz',
+
+        component: () => import('../views/CreateQuiz.vue')
+      },
+      {
+        path:'/register',
+        name:'register',
+
+        component: () => import('../views/Register.vue')
       }
 
   ],

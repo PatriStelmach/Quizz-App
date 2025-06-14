@@ -2,6 +2,7 @@ package com.pjatk.QuizzApp.Authentication;
 
 import com.nimbusds.openid.connect.sdk.AuthenticationRequest;
 import com.nimbusds.openid.connect.sdk.AuthenticationResponse;
+import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/auth")
@@ -28,10 +31,17 @@ public class AuthController
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> authenticate(@RequestBody @Valid AuthRequest request)
+    public ResponseEntity<?> authenticate(@RequestBody @Valid AuthRequest request)
     {
 
+        try
+        {
         return ResponseEntity.ok(authService.authenticate(request));
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(420).body("Wrong credentials");
+        }
     }
 
 

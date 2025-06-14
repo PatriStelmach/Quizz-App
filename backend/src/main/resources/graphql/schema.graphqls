@@ -66,15 +66,13 @@ type User
 {
     id: ID!
     username: String!
-    roles: [Role!]!
     email: String
     avName: String
     avType: String
     avatar: String
     bio: String
     isActive: Boolean
-    accountLocked: Boolean!
-    enabled: Boolean!
+    enabled: Boolean
     createdAt: String
     updatedAt: String
     birthDate: String
@@ -116,17 +114,15 @@ type Question
 
 input UserInput
 {
-    id: ID!
+    id: ID
     username: String!
-    roles: [Role!]!
     email: String
     avName: String
     avType: String
     avatar: String
     bio: String
     isActive: Boolean
-    accountLocked: Boolean!
-    enabled: Boolean!
+    enabled: Boolean
     createdAt: String
     updatedAt: String
     birthDate: String
@@ -180,5 +176,6 @@ type Query
 
 type Mutation
 {
-    updateUser(id: ID!, input: UserInput!): User!
+    updateUser(username: String!, input: UserInput!): User!
+    createQuiz(quiz: QuizInput!): Quiz!
 }

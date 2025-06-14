@@ -22,4 +22,9 @@ public class QuizService
     {
         return quizRepository.findById(id).orElseThrow(()->new QuizNotFoundException("Quiz not found"));
     }
+
+    public Quiz createQuiz(Quiz quiz)
+    {
+        return quizRepository.save(quiz);
+    }
 }

@@ -43,21 +43,17 @@ public class User implements UserDetails, Principal
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty(message = "Username cannot be null")
-    @NotBlank(message = "Username cannot be blank")
+
     @Column(unique = true, nullable = false)
     private String username;
 
-    @NotEmpty(message = "Password cannot be null")
-    @NotBlank(message = "Password cannot be blank")
     @Column(nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @NotEmpty(message = "email can't be null")
-    @NotBlank(message = "email can't be blank")
+
     @Column(unique = true, nullable = false)
     @Email(message = "Invalid email address")
     private String email;
@@ -80,7 +76,6 @@ public class User implements UserDetails, Principal
     private LocalDateTime updatedAt;
 
 
-    @Column(nullable = false)
     private LocalDate birthDate;
 
     @Enumerated(EnumType.STRING)

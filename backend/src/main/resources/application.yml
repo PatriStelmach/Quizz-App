@@ -49,6 +49,8 @@ spring:
           google:
             client-id: 1021798723236-ruvtmh631s5pq1lgn9ivuud9mqicpuch.apps.googleusercontent.com
             client-secret: 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
+            scope: email, profile
+            redirect-uri: http://localhost:5173/home
   servlet:
     multipart:
       max-file-size: 50MB
