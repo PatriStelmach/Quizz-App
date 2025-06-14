@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { useForm } from 'vee-validate'
+import { useField, useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,6 +13,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { onMounted, ref } from 'vue'
+import * as yup from 'yup'
 
 const isShowing = ref(false)
 const isHiding = ref(false)
@@ -25,17 +25,36 @@ onMounted(() =>
   }, 60)
 });
 
-const formSchema = toTypedSchema(z.object({
-  username: z.string().min(2).max(50),
-}))
+// const formSchema = toTypedSchema(z.object({
+//   username: z.string().min(2).max(50),
+//   password: z.string().min(6).max(50),
+//   email: z.string().min(1, { message: 'Email is required' }).email({ message: 'Invalid email' })
+//
+// }))
 
-const form = useForm({
-  validationSchema: formSchema,
+const { value: emailValue, errorMessage: emailErrorMessage } = useField('email');
+
+const { handleSubmit } = useForm({
+  validationSchema: yup.object({
+    username: yup.string()
+      .required('Username is required')
+      .min(6, 'Username must be at least 6 characters')
+      .max(50, 'Username must be at most 50 characters'),
+    email: yup.string().required('Email is required').email('Invalid email'),
+    password: yup.string()
+      .required('Password is required')
+      .min(6, 'Password must be at least 6 characters'), passwordConfirm: yup
+      .string()
+      .required('Password do not match!')
+      .min(6, 'Password must be at least 6 characters')
+      .oneOf([yup.ref('password')] , 'Passwords must match'),
+    birthDate: yup.date().required('Birth date is required'),
+  }),
 })
 
-const onSubmit = form.handleSubmit((values) => {
-  console.log('Form submitted!', values)
-})
+const onSubmit = handleSubmit(values => {
+  alert(JSON.stringify(values, null, 2));
+});
 </script>
 
 <template>
@@ -47,56 +66,58 @@ const onSubmit = form.handleSubmit((values) => {
     }"
     @submit="onSubmit"
   >
-    <FormField v-slot="{ componentField }" name="username">
-      <FormItem>
+    <FormField v-slot="{ componentField }" name="email">
+      <FormItem class="mb-5">
         <FormLabel>E-mail</FormLabel>
         <FormControl>
-          <Input type="text" placeholder="email@example.com" v-bind="componentField" />
+          <Input type="text" v-model="emailValue" placeholder="email@example.com" v-bind="componentField" />
+          <span> {{ emailErrorMessage}}</span>
         </FormControl>
-        <FormDescription class="mb-5">
-          Email address of your account
-        </FormDescription>
-        <FormMessage />
-      </FormItem>
-    </FormField>
-    <FormField v-slot="{ componentField }" name="username">
-      <FormItem>
-        <FormLabel>Username</FormLabel>
-        <FormControl>
-          <Input type="text" placeholder="shadcn" v-bind="componentField" />
-        </FormControl>
-        <FormDescription class="mb-5">
-          This is your public display name.
-        </FormDescription>
-        <FormMessage />
-      </FormItem>
-    </FormField>
-    <FormField v-slot="{ componentField }" name="username">
-      <FormItem>
-        <FormLabel>Username</FormLabel>
-        <FormControl>
-          <Input type="text" placeholder="shadcn" v-bind="componentField" />
-        </FormControl>
-        <FormDescription class="mb-5">
-          This is your public display name.
-        </FormDescription>
-        <FormMessage />
-      </FormItem>
-    </FormField>
-    <FormField v-slot="{ componentField }" name="username">
-      <FormItem>
-        <FormLabel>Username</FormLabel>
-        <FormControl>
-          <Input type="text" placeholder="shadcn" v-bind="componentField" />
-        </FormControl>
-        <FormDescription class="mb-5">
-          This is your public display name.
-        </FormDescription>
         <FormMessage />
       </FormItem>
     </FormField>
 
-    <Button type="submit">
+    <FormField v-slot="{ componentField }" name="username">
+      <FormItem  class="mb-5">
+        <FormLabel>Username</FormLabel>
+        <FormControl>
+          <Input type="text" placeholder="username" v-bind="componentField" />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+
+    <FormField v-slot="{ componentField }" name="password">
+      <FormItem  class="mb-5">
+        <FormLabel>Password</FormLabel>
+        <FormControl>
+          <Input type="password" autocomplete="new-password" placeholder="password" v-bind="componentField" />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+
+    <FormField v-slot="{ componentField }" name="passwordConfirm">
+      <FormItem  class="mb-5">
+        <FormLabel>Confirm password</FormLabel>
+        <FormControl>
+          <Input type="password" autocomplete="new-password" placeholder="confirm password" v-bind="componentField" />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+
+    <FormField v-slot="{ componentField }" name="birth-date">
+      <FormItem  class="mb-5">
+        <FormLabel>Birth Date</FormLabel>
+        <FormControl>
+          <Input type="date" placeholder="DD-MM-YYYY" v-bind="componentField" />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+
+    <Button class="cursor-pointer" type="submit">
       Submit
     </Button>
   </form>
