@@ -10,6 +10,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Set;
 
@@ -41,9 +42,9 @@ public class UserGraphController
     }
 
     @MutationMapping
-    public UserDTO updateUser(@Argument int id, @Argument UserDTO input)
+    public UserDTO updateUser(@Argument String username, @Argument UserDTO input) throws AccessDeniedException
     {
-        return userService.updateUser(id, input);
+        return userService.updateUser(username, input);
     }
 
 

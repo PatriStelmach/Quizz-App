@@ -19,25 +19,10 @@ public class UserRestController
     private final UserService userService;
    private final Mapper mapper;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@Valid @PathVariable int id)
-    {
-        return ResponseEntity.ok().body(userService.getUserById(id));
-    }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<UserDTO> getUserByUsername(@Valid @PathVariable String username)
-    {
-        User user = userService.getUserByUsername(username);
-        return ResponseEntity.ok().body(mapper.toDto(user));
-    }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<UserDTO> getUserByEmail(@Valid @PathVariable String email)
-    {
-        User user = userService.getUserByEmail(email);
-        return ResponseEntity.ok().body(mapper.toDto(user));
-    }
+
+
 //
 //    @GetMapping("/all-users")
 //    public ResponseEntity<List<UserDTO>> getAllUsers()

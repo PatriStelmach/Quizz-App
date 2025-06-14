@@ -19,6 +19,7 @@ import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -63,12 +64,30 @@ public class UserService
                 .collect(Collectors.toList());
     }
 
-    public UserDTO updateUser(Integer id, UserDTO userDTO)
+    public UserDTO updateUser(String username, UserDTO userDTO) throws AccessDeniedException
     {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
-        mapper.toEntity(userDTO);
-        user.setUpdatedAt(LocalDateTime.now());
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new UserNotFoundException("User not found with id: " + username));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null && authentication.isAuthenticated())
+        {
+            String currentUsername = authentication.getName();
+            String profileUsername = user.getUsername();
+
+            boolean isAdmin = authentication.getAuthorities()
+                    .stream()
+                    .anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
+            if(isAdmin || currentUsername.equals(profileUsername))
+            {
+                mapper.toEntity(userDTO, user);
+                user.setUpdatedAt(LocalDateTime.now());
+            }
+            else
+            {
+                throw new AccessDeniedException("You don't have permission to update this user");
+            }
+        }
+
 
         return mapper.toDto(userRepository.save(user));
     }

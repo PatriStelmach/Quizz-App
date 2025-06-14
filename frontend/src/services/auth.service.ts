@@ -6,7 +6,7 @@ const  API_URL = 'http://localhost:10000/auth/'
 
 class AuthService
 {
-  login(user: UserLogin)
+  async login(user: UserLogin)
   {
     return axios.post(API_URL + 'login',
       {
@@ -15,6 +15,7 @@ class AuthService
     })
       .then(response =>
       {
+
         if (response.data.token)
         {
           localStorage.setItem('user', JSON.stringify(response.data));

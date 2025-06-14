@@ -18,13 +18,13 @@ const mode = useColorMode()
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent class="w-2.5" align="end">
-      <DropdownMenuItem class="cursor-pointer data-[highlighted]:bg-violet-700" @click="mode = 'light'">
+      <DropdownMenuItem class="cursor-pointer data-[highlighted]:bg-primary" @click="mode = 'light'">
         Light
       </DropdownMenuItem>
-      <DropdownMenuItem class="cursor-pointer data-[highlighted]:bg-violet-700" @click="mode = 'dark'">
+      <DropdownMenuItem class="cursor-pointer data-[highlighted]:bg-primary" @click="mode = 'dark'">
         Dark
       </DropdownMenuItem>
-      <DropdownMenuItem class="cursor-pointer data-[highlighted]:bg-violet-700" @click="mode = 'auto'">
+      <DropdownMenuItem class="cursor-pointer data-[highlighted]:bg-primary" @click="mode = 'auto'">
         System
       </DropdownMenuItem>
     </DropdownMenuContent>
