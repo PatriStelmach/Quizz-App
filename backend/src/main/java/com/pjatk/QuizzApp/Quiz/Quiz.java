@@ -40,8 +40,7 @@ public class Quiz
     @Column(nullable = false)
     private String category;
 
-    @NotEmpty(message = "Diff cannot be empty")
-    @NotBlank(message = "Diff cannot be blank")
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Diff diff;
@@ -50,25 +49,18 @@ public class Quiz
     private byte[] image;
 
 
-    @NotEmpty(message = "Author cannot be empty")
-    @NotBlank(message = "Author cannot be blank")
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
     private Instant createdAt = Instant.now();
 
-    @NotEmpty(message = "Time limit cannot be empty")
-    @NotBlank(message = "Time limit cannot be blank")
     @Column(nullable = false)
     private LocalDateTime timeLimit;
 
-    @NotNull
     @Column(nullable = false)
     private Integer maxPoints;
 
     @OneToMany(mappedBy = "quiz")
-    @Column(nullable = false)
     private Set<Question> questions = new HashSet<>();
 
 

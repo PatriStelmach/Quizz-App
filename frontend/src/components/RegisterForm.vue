@@ -143,7 +143,6 @@ const exitAlert = () =>
   </form>
 
   <Transition
-
     appear
     enter-active-class="transition duration-500 ease-out"
     enter-from-class="opacity-0 scale-95 translate-y-4"

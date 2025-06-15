@@ -4,6 +4,7 @@ import com.pjatk.QuizzApp.Configuration.Mapper;
 import com.pjatk.QuizzApp.Exceptions.QuizNotFoundException;
 import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
 import com.pjatk.QuizzApp.User.User;
+import com.pjatk.QuizzApp.User.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ public class QuizService
 {
     private final QuizRepository quizRepository;
     private final Mapper mapper;
+    private final UserRepository userRepository;
 
     public Set<Quiz> getAllByAuthorId(Integer creatorId)
     {
@@ -43,7 +45,13 @@ public class QuizService
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null && authentication.isAuthenticated())
         {
-            int userId = id;
+
+            int userId = userRepository
+                    .findByUsername(authentication
+                            .getName())
+                    .orElseThrow(() ->
+                    new UserNotFoundException("User not found"))
+                    .getId();
             int AuthorId = quiz.getAuthor().getId();
 
             boolean isAdmin = authentication.getAuthorities()

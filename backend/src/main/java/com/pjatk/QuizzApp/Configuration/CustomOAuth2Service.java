@@ -3,6 +3,7 @@ package com.pjatk.QuizzApp.Configuration;
 import com.pjatk.QuizzApp.User.User;
 import com.pjatk.QuizzApp.User.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -57,29 +58,36 @@ public class CustomOAuth2Service extends DefaultOAuth2UserService
 
         // Znajdź lub stwórz użytkownika
         User user = userRepository.findByEmail(email)
-                .map(existingUser -> updateExistingUser(existingUser, name, picture))
                 .orElse(createNewUser(email, name, picture));
 
 
         return new CustomOAuth2User(user, attributes);
     }
 
-    private User createNewUser(String email, String name, String picture)
-    {
-        System.out.println(111);
-        User user = new User();
-        user.setEmail(email);
-        user.setUsername(name);
-        user.setAvatar(picture.getBytes());
+    private User createNewUser(String email, String name, String picture) {
+        try
+        {
+            User user = new User();
+            user.setEmail(email);
+            if(userRepository.findByUsername(name).isEmpty())
+            {
+                user.setUsername(name);
+            }
+            else
+            {
+                user.setUsername(email.replace('@', ' '));
+            }
+            user.setAvatar(picture.getBytes());
+            user.setEnabled(true);
+            return userRepository.save(user);
+        }
+        catch (DataIntegrityViolationException e)
+        {
 
-        return userRepository.save(user);
+            return userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("User creation failed"));
+        }
     }
 
-    private User updateExistingUser(User existingUser, String name, String picture)
-    {
-        System.out.println(222);
-        existingUser.setUsername(name);
-        existingUser.setAvatar(picture.getBytes());
-        return userRepository.save(existingUser);
-    }
+
 }
