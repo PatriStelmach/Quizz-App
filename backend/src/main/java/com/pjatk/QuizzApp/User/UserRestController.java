@@ -1,7 +1,7 @@
 package com.pjatk.QuizzApp.User;
 
+import com.pjatk.QuizzApp.Configuration.Mapper;
 import com.pjatk.QuizzApp.User.DTO.ApiResponse;
-import com.pjatk.QuizzApp.User.DTO.UserDTO;
 import com.pjatk.QuizzApp.User.DTO.PasswordChangeRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

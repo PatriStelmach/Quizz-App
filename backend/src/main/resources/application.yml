@@ -10,17 +10,19 @@ spring:
     cache: false
     mode: HTML
   mail:
-    host: localhost
-    port: 1025
-    username: user
-    password: password
+    protocol: smtp
+    host: smtp.gmail.com
+    port: 587
+    username: syntarzana@gmail.com
+    password: ypgummodxpddyuve
     properties:
       mail:
         smtp:
-          trust: "*"
-        auth: true
-        starttls:
-          enable: true
+          trust: "smtp.gmail.com"
+          auth: true
+          starttls:
+            enable: true
+            required: true
           connectiontimeout: 5000
           timeout: 3000
           writetimeout: 5000
@@ -49,7 +51,9 @@ spring:
           google:
             client-id: 1021798723236-ruvtmh631s5pq1lgn9ivuud9mqicpuch.apps.googleusercontent.com
             client-secret: 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
-            scope: email, profile
+            scope:
+              - email
+              - profile
             redirect-uri: http://localhost:5173/home
   servlet:
     multipart:
@@ -64,4 +68,4 @@ application:
       expiration: 86400000
   mailing:
     frontend:
-      activation-url: http://localhost:5173/activate-account
+      activation-url: http://192.168.0.126:5173/home

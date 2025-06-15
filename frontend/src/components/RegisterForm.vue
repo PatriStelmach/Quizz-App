@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { useField, useForm } from 'vee-validate'
-import { toTypedSchema } from '@vee-validate/zod'
-import * as z from 'zod'
+import {useForm } from 'vee-validate'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -14,27 +12,30 @@ import {
 import { Input } from '@/components/ui/input'
 import { onMounted, ref } from 'vue'
 import * as yup from 'yup'
+import authStore from '@/store/auth.store.ts'
+import type { UserRegister } from '@/types/user.register.ts'
+import { useRouter } from 'vue-router'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
-const isShowing = ref(false)
-const isHiding = ref(false)
+
+const router = useRouter()
+const isAfterSubmit = ref(false)
+const isFormShowing = ref(false)
+const isFormHiding = ref(false)
+const isAlertShowing = ref(false)
+const isAlertHiding = ref(false)
+const useAuthStore = authStore()
 
 onMounted(() =>
 {
-  setTimeout(() => {
-    isShowing.value = true;
+  setTimeout(() =>
+  {
+    isFormShowing.value = true;
   }, 60)
 });
 
-// const formSchema = toTypedSchema(z.object({
-//   username: z.string().min(2).max(50),
-//   password: z.string().min(6).max(50),
-//   email: z.string().min(1, { message: 'Email is required' }).email({ message: 'Invalid email' })
-//
-// }))
 
-const { value: emailValue, errorMessage: emailErrorMessage } = useField('email');
-
-const { handleSubmit } = useForm({
+const form  = useForm<UserRegister & { passwordConfirm: string }>({
   validationSchema: yup.object({
     username: yup.string()
       .required('Username is required')
@@ -43,39 +44,66 @@ const { handleSubmit } = useForm({
     email: yup.string().required('Email is required').email('Invalid email'),
     password: yup.string()
       .required('Password is required')
-      .min(6, 'Password must be at least 6 characters'), passwordConfirm: yup
+      .min(8, 'Password must be at least 6 characters'), passwordConfirm: yup
       .string()
       .required('Password do not match!')
-      .min(6, 'Password must be at least 6 characters')
+      .min(8, 'Password must be at least 6 characters')
       .oneOf([yup.ref('password')] , 'Passwords must match'),
-    birthDate: yup.date().required('Birth date is required'),
   }),
+
+
 })
 
-const onSubmit = handleSubmit(values => {
-  alert(JSON.stringify(values, null, 2));
-});
+const onSubmit = form.handleSubmit(async (values) =>
+{
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { passwordConfirm, ...registerData } = values;
+  await useAuthStore.register(registerData)
+  console.log('Form submitted with values: ', values)
+
+  isAlertShowing.value = true;
+  isAfterSubmit.value = true;
+})
+
+const exitAlert = () =>
+{
+
+  setTimeout( () =>
+  {
+    isAfterSubmit.value = false;
+  }, 300);
+
+  isAlertHiding.value = true;
+
+  setTimeout(() =>
+  {
+    router.push('/login');
+  }, 700);
+}
+
 </script>
 
 <template>
   <form
     class="p-10 mt-20 w-92 grid justify-center rounded-md m-auto border border-gray-300 shadow-md transition-all duration-500 ease-in-out"
     :class="{
-      'opacity-0 scale-95 translate-y-4': isHiding || !isShowing,
-      'opacity-100 scale-100 translate-y-0': !isHiding && isShowing
+      'opacity-0 scale-95 translate-y-4': isFormHiding || !isFormShowing,
+      'opacity-100 scale-100 translate-y-0': !isFormHiding && isFormShowing,
+      'border-none blur': isAfterSubmit
     }"
-    @submit="onSubmit"
+    @submit.prevent="onSubmit"
   >
     <FormField v-slot="{ componentField }" name="email">
       <FormItem class="mb-5">
         <FormLabel>E-mail</FormLabel>
         <FormControl>
-          <Input type="text" v-model="emailValue" placeholder="email@example.com" v-bind="componentField" />
-          <span> {{ emailErrorMessage}}</span>
+          <Input type="text" placeholder="email@example.com" v-bind="componentField" />
         </FormControl>
         <FormMessage />
       </FormItem>
     </FormField>
+
+
 
     <FormField v-slot="{ componentField }" name="username">
       <FormItem  class="mb-5">
@@ -107,18 +135,39 @@ const onSubmit = handleSubmit(values => {
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="birth-date">
-      <FormItem  class="mb-5">
-        <FormLabel>Birth Date</FormLabel>
-        <FormControl>
-          <Input type="date" placeholder="DD-MM-YYYY" v-bind="componentField" />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    </FormField>
+
 
     <Button class="cursor-pointer" type="submit">
       Submit
     </Button>
   </form>
+
+  <Transition
+
+    appear
+    enter-active-class="transition duration-500 ease-out"
+    enter-from-class="opacity-0 scale-95 translate-y-4"
+    enter-to-class="opacity-100 scale-100 translate-y-0"
+    leave-active-class="transition duration-300 ease-in"
+    leave-from-class="opacity-100 scale-100 translate-y-0"
+    leave-to-class="opacity-0 scale-95 translate-y-4">
+  <div v-if="isAfterSubmit"
+
+    class="fixed inset-0 z-50 flex items-center w-xl m-auto"
+    >
+
+    <Alert class="relative w-full h-48 shadow-xl shadow-primary">
+      <Button
+        class="absolute top-2 right-2 cursor-pointer"
+        @click="exitAlert">
+        X
+      </Button>
+      <AlertTitle class="text-xl">Confirm your email</AlertTitle>
+      <AlertDescription class="justify-center">
+        An confirmation e-mail has been sent to your adress. Confirm your e-mail and log in.
+      </AlertDescription>
+    </Alert>
+  </div>
+  </Transition>
+
 </template>

@@ -1,9 +1,16 @@
 package com.pjatk.QuizzApp.Quiz;
 
+import com.pjatk.QuizzApp.Configuration.Mapper;
 import com.pjatk.QuizzApp.Exceptions.QuizNotFoundException;
+import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
+import com.pjatk.QuizzApp.User.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Service
@@ -11,6 +18,7 @@ import java.util.Set;
 public class QuizService
 {
     private final QuizRepository quizRepository;
+    private final Mapper mapper;
 
     public Set<Quiz> getAllByAuthorId(Integer creatorId)
     {
@@ -26,5 +34,32 @@ public class QuizService
     public Quiz createQuiz(Quiz quiz)
     {
         return quizRepository.save(quiz);
+    }
+
+    public QuizDTO updateQuiz(Integer id, QuizDTO quizDTO) throws AccessDeniedException
+    {
+        Quiz quiz = quizRepository.findById(id)
+                .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id: " + id));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null && authentication.isAuthenticated())
+        {
+            int userId = id;
+            int AuthorId = quiz.getAuthor().getId();
+
+            boolean isAdmin = authentication.getAuthorities()
+                    .stream()
+                    .anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
+            if(isAdmin || userId == AuthorId)
+            {
+                mapper.quizDTOToEntity(quizDTO, quiz);
+            }
+            else
+            {
+                throw new AccessDeniedException("You don't have permission to update this user");
+            }
+        }
+
+
+        return mapper.quizToDto(quizRepository.save(quiz));
     }
 }

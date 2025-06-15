@@ -1,13 +1,12 @@
 package com.pjatk.QuizzApp.User;
 
+import com.pjatk.QuizzApp.Configuration.Mapper;
 import com.pjatk.QuizzApp.Exceptions.UserExistsException;
 import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
 import com.pjatk.QuizzApp.Exceptions.WrongPasswordException;
-import com.pjatk.QuizzApp.Quiz.Quiz;
 import com.pjatk.QuizzApp.User.DTO.UserDTO;
 import com.pjatk.QuizzApp.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,8 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
@@ -79,7 +76,7 @@ public class UserService
                     .anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
             if(isAdmin || currentUsername.equals(profileUsername))
             {
-                mapper.toEntity(userDTO, user);
+                mapper.userDTOToEntity(userDTO, user);
                 user.setUpdatedAt(LocalDateTime.now());
             }
             else

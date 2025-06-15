@@ -10,9 +10,9 @@ class AuthService
   {
     return axios.post(API_URL + 'login',
       {
-      identifier: user.username,
-      password: user.password
-    })
+        identifier: user.username,
+        password: user.password
+      })
       .then(response =>
       {
 
@@ -27,18 +27,47 @@ class AuthService
   }
 
 
-  logout(): void
+  async logout(): Promise<string>
   {
     localStorage.removeItem('user');
+    return 'logged out';
   }
 
-  register(user: UserRegister)
+  async register(user: UserRegister)
   {
     return axios.post(API_URL + 'register',
       {
         username: user.username,
         email: user.email,
-        password: user.password
+        password: user.password,
+        birthDate: user.birthDate
+      })
+      .then(response =>
+      {
+        try
+        {
+          return response.data;
+        }
+        catch (e)
+        {
+          throw e
+        }
+      })
+  }
+
+  async activate(token: string)
+  {
+    return axios.get(API_URL + 'activate-acc/' + token)
+      .then(response =>
+      {
+        try
+        {
+          return response.data;
+        }
+        catch (e)
+        {
+          throw (e)
+        }
       })
   }
 }
