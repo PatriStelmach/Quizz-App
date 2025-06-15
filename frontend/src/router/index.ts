@@ -35,13 +35,18 @@ const router = createRouter
 
         component: () => import('../views/CreateQuiz.vue')
       },
+
       {
         path:'/register',
         name:'register',
 
         component: () => import('../views/Register.vue')
+      },
+      {
+        path: '/room-view/:id',
+        name: 'room-view',
+        component: () => import('@/views/RoomView.vue')
       }
-
   ],
 })
 
