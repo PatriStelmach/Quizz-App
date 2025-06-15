@@ -23,7 +23,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

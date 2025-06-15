@@ -28,9 +28,9 @@ public class Mapper
         return modelMapper.map(quiz, QuizDTO.class);
     }
 
-    public Quiz quizDTOToEntity(QuizDTO quizDto , Quiz quiz)
+    public void quizDTOToEntity(QuizDTO quizDto , Quiz quiz)
     {
-        return modelMapper.map(quizDto, Quiz.class);
+         modelMapper.map(quizDto, quiz);
     }
 
     public UserDTO toDto(User user)
