@@ -44,10 +44,10 @@ public class QuizService
 
         if(authentication != null && authentication.isAuthenticated())
         {
-            int userId = userRepository.findByUsername(authentication.getName()).orElseThrow(() -> 
+            int userId = userRepository.findByUsername(authentication.getName()).orElseThrow(() ->
                                         new UserNotFoundException("User not found")).getId();
-            quiz = mapper.quizDTOToEntity(quizDTO, quiz); 
-            quiz.setAuthor(userRepository.findById(userId).orElseThrow(() -> 
+            quiz = mapper.quizDTOToEntity(quizDTO, quiz);
+            quiz.setAuthor(userRepository.findById(userId).orElseThrow(() ->
                                         new UserNotFoundException("User not found")));
 
 
@@ -68,7 +68,13 @@ public class QuizService
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null && authentication.isAuthenticated())
         {
-            int userId = id;
+
+            int userId = userRepository
+                    .findByUsername(authentication
+                            .getName())
+                    .orElseThrow(() ->
+                    new UserNotFoundException("User not found"))
+                    .getId();
             int AuthorId = quiz.getAuthor().getId();
 
             boolean isAdmin = authentication.getAuthorities()
@@ -80,7 +86,7 @@ public class QuizService
             }
             else
             {
-                throw new AccessDeniedException("You don't have permission to update this user quiz");
+                throw new AccessDeniedException("You don't have permission to update this quiz");
             }
         }
 

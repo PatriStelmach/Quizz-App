@@ -54,6 +54,24 @@ const authStore = defineStore('user',
           }
         };
 
+        const activate = async (token: string) =>
+        {
+          try
+          {
+            const loggenInUser = await AuthService.activate(token);
+            setUser(loggenInUser);
+            setLoggedIn(true);
+            setError(null);
+            return loggenInUser;
+          }
+          catch (err)
+          {
+            setLoggedIn(false);
+            setError(err instanceof Error ? err.message : 'An unknown error occurred');
+            throw err;
+          }
+        }
+
         const register = async (user: UserRegister) =>
         {
           try
@@ -90,6 +108,7 @@ const authStore = defineStore('user',
           user,
           loggedIn,
           error,
+          activate,
           login,
           register,
           logout,

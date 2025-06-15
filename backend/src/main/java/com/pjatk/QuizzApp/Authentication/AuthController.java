@@ -48,8 +48,15 @@ public class AuthController
     @GetMapping("/activate-acc")
     public ResponseEntity<?> confirm(@RequestParam("token") String token) throws MessagingException
     {
-        authService.activateAccount(token);
-        return ResponseEntity.ok().body(authService.loginAfterActivate(token));
+        try
+        {
+            authService.activateAccount(token);
+            return ResponseEntity.ok().body(authService.loginAfterActivate(token));
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(690).body("Wrong credentials");
+        }
     }
 
 

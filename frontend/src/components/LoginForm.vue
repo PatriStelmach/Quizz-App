@@ -37,7 +37,7 @@ onMounted(() =>
 
 const formSchema = toTypedSchema(z.object({
   username: z.string().min(2, "Username must be at least 2 characters").max(50),
-  password: z.string().min(6, "Password must be at least 6 characters")
+  password: z.string().min(8, "Password must be at least 8 characters")
 }))
 
 const form = useForm({
@@ -57,7 +57,7 @@ const onSubmit = form.handleSubmit(async (values) =>
     setTimeout(async () =>
     {
       await router.push('/home')
-    }, 500)
+    }, 300)
 
   }
   catch (error)
@@ -78,7 +78,7 @@ const onSubmit = form.handleSubmit(async (values) =>
     else {
       errorMessage.value = 'An unexpected error occurred'
     }
-    }, 500)
+    }, 200)
   }
 })
 const onGoogleLogin = async () =>
@@ -88,7 +88,7 @@ const onGoogleLogin = async () =>
   {
    window.location.href = 'http://localhost:10000/oauth2/authorization/google';
     isGoogleing.value = false;
-  }, 500);
+  }, 200);
 
 }
 
@@ -100,7 +100,7 @@ const onRegister = async () =>
   {
     await router.push('/register');
     isRegistering.value = false;
-  }, 500);
+  }, 200);
 };
 </script>
 

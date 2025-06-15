@@ -125,10 +125,14 @@ public class AuthService
     {
         User userByToken = tokenRepository.findByToken(token).orElseThrow(() ->
                 new UserNotFoundException("Account not activated yet")).getUser();
-        return authenticate(AuthRequest.builder()
-                .identifier(userByToken.getUsername())
-                .password(userByToken.getPassword())
-                .build());
+
+        var claims = new HashMap<String, Object>();
+        claims.put("username", userByToken.getUsername());
+        String jwtToken = jwtService.generateToken(claims, userByToken);
+
+        return AuthResponse.builder()
+                .token(jwtToken)
+                .build();
     }
 
     public void activateAccount(String token) throws TokenNotFoundException, MessagingException
