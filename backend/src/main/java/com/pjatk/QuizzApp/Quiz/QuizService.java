@@ -35,30 +35,9 @@ public class QuizService
         return quizRepository.findById(id).orElseThrow(()->new QuizNotFoundException("Quiz not found"));
     }
 
-    @Transactional
-    public QuizDTO createQuiz(QuizDTO quizDTO) throws AccessDeniedException
+    public Quiz createQuiz(Quiz quiz)
     {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Quiz quiz = new Quiz();
-
-        if(authentication != null && authentication.isAuthenticated())
-        {
-            int userId = userRepository.findByUsername(authentication.getName()).orElseThrow(() -> 
-                                        new UserNotFoundException("User not found")).getId();
-            quiz = mapper.quizDTOToEntity(quizDTO, quiz); 
-            quiz.setAuthor(userRepository.findById(userId).orElseThrow(() -> 
-                                        new UserNotFoundException("User not found")));
-
-
-        }
-        else{
-            throw new AccessDeniedException("You don't have permission to create new quiz");
-        }
-
-
-
-        return mapper.quizToDto(quizRepository.save(quiz));
+        return quizRepository.save(quiz);
     }
 
     public QuizDTO updateQuiz(Integer id, QuizDTO quizDTO) throws AccessDeniedException
@@ -68,7 +47,13 @@ public class QuizService
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null && authentication.isAuthenticated())
         {
-            int userId = id;
+
+            int userId = userRepository
+                    .findByUsername(authentication
+                            .getName())
+                    .orElseThrow(() ->
+                    new UserNotFoundException("User not found"))
+                    .getId();
             int AuthorId = quiz.getAuthor().getId();
 
             boolean isAdmin = authentication.getAuthorities()

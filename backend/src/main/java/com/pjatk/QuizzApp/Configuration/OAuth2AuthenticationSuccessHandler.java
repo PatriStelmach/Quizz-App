@@ -64,8 +64,6 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
                     return userRepository.save(u);
                 });
 
-        System.out.println("Redirecting to: http://localhost:5173/home");
-        response.sendRedirect("http://localhost:5173/home");
         System.out.println("=== OAuth2AuthenticationSuccessHandler completed ===");
         response.sendRedirect("http://localhost:5173/home");
     }

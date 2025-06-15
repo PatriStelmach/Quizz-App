@@ -43,7 +43,7 @@ const router = createRouter
         component: () => import('../views/Register.vue')
       },
       {
-        path:'/activate-account/:token',
+        path:'/activate-account',
         name:'activate-account',
 
         component: () => import('../views/ActivateAccount.vue')

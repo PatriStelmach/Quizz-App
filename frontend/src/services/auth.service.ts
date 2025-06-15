@@ -57,7 +57,7 @@ class AuthService
 
   async activate(token: string)
   {
-    return axios.get(API_URL + 'activate-acc/' + token)
+    return axios.get(API_URL + 'activate-acc?token=' + token)
       .then(response =>
       {
         try
