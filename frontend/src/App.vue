@@ -9,17 +9,21 @@ import FriendsSidebar from '@/components/FriendsSidebar.vue'
 </script>
 
 <template>
-  <ViewMode />
-  <header>
+
+  <header class="mb-20">
+    <ViewMode />
     <Navbar />
   </header>
 
-  <div class=" z-50 flex min-h-screen">
-    <FriendsSidebar />
-    <main class="flex-1 p-6">
+  <main class="flex min-h-screen">
+    <div class="z-50">
+      <FriendsSidebar />
+    </div>
+
+    <div class="flex-1 absolute left-1/3 right-1/3 p-6">
       <RouterView />
-    </main>
-  </div>
+    </div>
+  </main>
 </template>
 
 

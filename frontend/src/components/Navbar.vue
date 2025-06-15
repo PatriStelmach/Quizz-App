@@ -75,8 +75,11 @@ const logout =  async () =>
 </script>
 
 <template>
-  <Menubar class="w-8/12 shadow-md border border-gray-300 px-4 content-center m-auto h-15 flex items-center justify-between focus:outline-none">
-    <div class="flex items-center space-x-4 focus:outline-none">
+  <Menubar
+    class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-8/12 shadow-md border border-gray-300 px-4 h-16 flex items-center justify-between bg-background rounded-b-xl"
+  >
+
+  <div class="flex items-center space-x-4 focus:outline-none">
       <MenubarMenu>
         <MenubarTrigger
           :class="triggerClass(navbarStore.isHome)"

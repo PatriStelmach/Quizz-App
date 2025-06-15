@@ -40,7 +40,7 @@ onMounted(fetchSolvedQuizzesAmount)
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-background px-4">
+  <div class=" flex items-center justify-center bg-background px-4">
     <div class="w-full max-w-xl space-y-8">
 
       <!-- Statystyka -->

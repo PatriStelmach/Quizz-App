@@ -26,17 +26,19 @@ onMounted(fetchFriends)
 </script>
 
 <template>
-  <Card class="mt-10 w-64 h-screen border-r rounded-none shadow-none">
+  <Card
+    class="fixed bottom-10 right-10 w-64 h-[400px] border rounded-xl shadow-lg z-50 bg-background"
+  >
     <CardHeader>
       <CardTitle class="text-lg text-center">Znajomi</CardTitle>
     </CardHeader>
     <CardContent class="p-0">
-      <ScrollArea class="h-[calc(100vh-80px)] px-4">
+      <ScrollArea class="h-[320px] px-4">
         <div class="space-y-4 pb-4">
           <div
             v-for="friend in friends"
             :key="friend.id"
-            class="flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors"
+            class="cursor-pointer flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors"
           >
             <Avatar class="w-9 h-9">
               <AvatarFallback>{{ friend.name.slice(0, 2).toUpperCase() }}</AvatarFallback>
@@ -59,3 +61,4 @@ onMounted(fetchFriends)
     </CardContent>
   </Card>
 </template>
+
