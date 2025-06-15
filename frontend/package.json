@@ -30,6 +30,7 @@
     "graphql": "^16.11.0",
     "graphql-tag": "^2.12.6",
     "jquery": "^3.7.1",
+    "jwt-decode": "^4.0.0",
     "lucide-vue-next": "^0.511.0",
     "pinia": "^3.0.1",
     "pinia-plugin-persistedstate": "^4.3.0",

@@ -57,7 +57,7 @@ const onSubmit = form.handleSubmit(async (values) =>
     setTimeout(async () =>
     {
       await router.push('/home')
-    }, 300)
+    }, 200)
 
   }
   catch (error)

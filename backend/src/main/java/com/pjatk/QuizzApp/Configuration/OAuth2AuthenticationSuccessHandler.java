@@ -1,6 +1,7 @@
 package com.pjatk.QuizzApp.Configuration;
 
 
+import com.pjatk.QuizzApp.Security.JwtService;
 import com.pjatk.QuizzApp.User.User;
 import com.pjatk.QuizzApp.User.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -22,6 +24,7 @@ import java.util.Map;
 public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private final UserRepository userRepository;
+    private final JwtService jwtService;
 
     @Override
     @Transactional
@@ -39,7 +42,6 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
         System.out.println("OAuth2 attributes: " + attributes);
 
         String email      = (String) attributes.get("email");
-        String name       = (String) attributes.get("name");
         String pictureUrl = (String) attributes.get("picture");
 
         if (email == null || email.isEmpty())
@@ -51,20 +53,23 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
         User user = userRepository.findByEmail(email)
                 .map(existing ->
                 {
-                    existing.setUsername(name);
-                    // Tu możesz albo pobrać bytes z URL, albo tylko zapisać URL
+                    existing.setUsername(email);
                     existing.setAvatar(pictureUrl.getBytes());
                     return userRepository.save(existing);
                 })
                 .orElseGet(() -> {
                     User u = new User();
                     u.setEmail(email);
-                    u.setUsername(name);
+                    u.setUsername(email);
                     u.setAvatar(pictureUrl.getBytes());
                     return userRepository.save(u);
                 });
 
-        System.out.println("=== OAuth2AuthenticationSuccessHandler completed ===");
-        response.sendRedirect("http://localhost:5173/home");
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("username", user.getUsername());
+        String jwtToken = jwtService.generateToken(claims, user);
+
+        String redirectUrl = "http://localhost:5173/home?token=" + jwtToken;
+        response.sendRedirect(redirectUrl);
     }
 }

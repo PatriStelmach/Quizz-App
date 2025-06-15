@@ -46,9 +46,7 @@ public class CustomOAuth2Service extends DefaultOAuth2UserService
         System.out.println(11);
         Map<String, Object> attributes = oauth2User.getAttributes();
 
-        // Pobierz dane z Google
         String email = (String) attributes.get("email");
-        String name = (String) attributes.get("name");
         String picture = (String) attributes.get("picture");
 
         if (email == null || email.isEmpty())
@@ -58,25 +56,18 @@ public class CustomOAuth2Service extends DefaultOAuth2UserService
 
         // Znajdź lub stwórz użytkownika
         User user = userRepository.findByEmail(email)
-                .orElse(createNewUser(email, name, picture));
+                .orElse(createNewUser(email, picture));
 
 
         return new CustomOAuth2User(user, attributes);
     }
 
-    private User createNewUser(String email, String name, String picture) {
+    private User createNewUser(String email, String picture) {
         try
         {
             User user = new User();
             user.setEmail(email);
-            if(userRepository.findByUsername(name).isEmpty())
-            {
-                user.setUsername(name);
-            }
-            else
-            {
-                user.setUsername(email.replace('@', ' '));
-            }
+            user.setUsername(email);
             user.setAvatar(picture.getBytes());
             user.setEnabled(true);
             return userRepository.save(user);

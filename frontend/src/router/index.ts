@@ -9,7 +9,7 @@ const router = createRouter
       path:'/home',
       name:'home',
 
-      component: () => import('../views/Home.vue')
+      component: () => import('../views/HomeView.vue')
     },
       {
         path:'/login',
@@ -46,6 +46,12 @@ const router = createRouter
         name:'activate-account',
 
         component: () => import('../views/ActivateAccount.vue')
+      },
+      {
+        path:'/dashboard',
+        name:'dashboard',
+
+        component: () => import('../views/DashboardView.vue')
       }
 
   ],

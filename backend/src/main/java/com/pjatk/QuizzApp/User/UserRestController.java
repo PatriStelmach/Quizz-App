@@ -20,18 +20,13 @@ public class UserRestController
    private final Mapper mapper;
 
 
+   @GetMapping("/get-by-token")
+   public ResponseEntity<User> getProfile(@RequestHeader("Authorization") String authHeader)
+   {
+       User user = userService.getUserFromToken(authHeader);
+       return ResponseEntity.ok(user);
+   }
 
-
-
-//
-//    @GetMapping("/all-users")
-//    public ResponseEntity<List<UserDTO>> getAllUsers()
-//    {
-//        List<User> users = userService.getAllUsers();
-//        return ResponseEntity.ok().body(users.stream()
-//                .map(mapper::toDto)
-//                .toList());
-//    }
 
     @GetMapping("/avatar/{username}")
     public ResponseEntity<?> getAvatar(@PathVariable String username) throws IOException
