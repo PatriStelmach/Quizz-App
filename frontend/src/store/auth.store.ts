@@ -3,6 +3,8 @@ import type {UserLogin} from "@/types/user.login.ts";
 import { defineStore } from "pinia";
 import { ref } from 'vue';
 import type { UserRegister } from '@/types/user.register.ts'
+import { jwtDecode } from 'jwt-decode'
+import type { JwtPayload } from '@/types/JwtPayload.ts'
 
 
 
@@ -41,6 +43,7 @@ const authStore = defineStore('user',
           try
           {
             const loggedInUser = await AuthService.login(user);
+            console.log(loggedInUser);
             setUser(loggedInUser);
             setLoggedIn(true);
             setError(null);
@@ -53,6 +56,31 @@ const authStore = defineStore('user',
             throw err;
           }
         };
+
+        const googleLogin = async (token: string) =>
+        {
+          try
+          {
+            if (!token)
+            {
+              throw new Error('Invalid token from Google');
+            }
+            localStorage.setItem('user', JSON.stringify({ token }));
+
+            const decoded = jwtDecode<JwtPayload>(token);
+            setUser({ username: decoded.username, password: '' });
+            setLoggedIn(true);
+            setError(null);
+
+            return { token };
+          }
+          catch (err)
+          {
+            setLoggedIn(false);
+            setError(err instanceof Error ? err.message : 'An unknown error occurred');
+            throw err;
+          }
+        }
 
         const activate = async (token: string) =>
         {
@@ -108,6 +136,7 @@ const authStore = defineStore('user',
           user,
           loggedIn,
           error,
+          googleLogin,
           activate,
           login,
           register,

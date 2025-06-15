@@ -4,12 +4,14 @@ import com.pjatk.QuizzApp.Configuration.Mapper;
 import com.pjatk.QuizzApp.Exceptions.UserExistsException;
 import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
 import com.pjatk.QuizzApp.Exceptions.WrongPasswordException;
+import com.pjatk.QuizzApp.Security.JwtService;
 import com.pjatk.QuizzApp.User.DTO.UserDTO;
 import com.pjatk.QuizzApp.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +31,7 @@ public class UserService
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final Mapper mapper;
+    private final JwtService jwtService;
 
 
     public UserDTO getUserById(Integer id)
@@ -37,7 +40,20 @@ public class UserService
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
     }
 
-    public String getLoggedUsername()
+    public User getUserFromToken(String token)
+    {
+        if (token.startsWith("Bearer "))
+        {
+            token = token.substring(7);
+        }
+
+        return userRepository.findByUsername(jwtService.extractUsername(token))
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+
+
+        public String getLoggedUsername()
     {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }

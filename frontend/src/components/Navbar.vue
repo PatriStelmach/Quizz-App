@@ -58,8 +58,7 @@ function onSearch()
 
 function goToDashboard()
 {
-  console.log('Dashboard')
-  // router.push({ name: 'Dashboard' })
+   router.push({ name: 'dashboard' })
 }
 
 function goToProfile()

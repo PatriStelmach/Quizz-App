@@ -1,12 +1,12 @@
 <script setup lang="ts">
 
-import Home from '@/views/Home.vue'
+import HomeView from '@/views/HomeView.vue'
 import Activation from '@/components/Activation.vue'
 </script>
 
 <template>
   <Activation/>
-<Home class="blur"/>
+<HomeView class="blur"/>
 
 </template>
 
