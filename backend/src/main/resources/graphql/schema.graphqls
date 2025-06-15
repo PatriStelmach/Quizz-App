@@ -1,3 +1,5 @@
+scalar ByteArray
+
 enum Diff
 {
     EASY
@@ -69,13 +71,12 @@ type User
     email: String
     avName: String
     avType: String
-    avatar: String
+    avatar: ByteArray
     bio: String
     isActive: Boolean
     enabled: Boolean
     createdAt: String
     updatedAt: String
-    birthDate: String
     userLevel: UserLevel
     streak: Int
     score: Int
@@ -90,7 +91,7 @@ type Quiz
     description: String
     category: String
     diff: Diff
-    image: String
+    image: ByteArray
     author: User
     createdAt: String
     timeLimit: String
@@ -119,13 +120,12 @@ input UserInput
     email: String
     avName: String
     avType: String
-    avatar: String
+    avatar: ByteArray
     bio: String
     isActive: Boolean
     enabled: Boolean
     createdAt: String
     updatedAt: String
-    birthDate: String
     userLevel: UserLevel
     streak: Int
     score: Int
@@ -140,7 +140,7 @@ input QuizInput
     description: String
     category: String
     diff: Diff
-    image: String
+    image: ByteArray
     author: UserInput
     createdAt: String
     timeLimit: String
@@ -177,5 +177,5 @@ type Query
 type Mutation
 {
     updateUser(username: String!, input: UserInput!): User!
-    createQuiz(quiz: QuizInput!): Quiz!
+    updateQuiz(id: ID!, input: QuizInput): Quiz!
 }

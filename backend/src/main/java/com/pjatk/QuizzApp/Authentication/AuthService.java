@@ -47,7 +47,6 @@ public class AuthService
         var user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
-                .birthDate(request.getBirthDate())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 .enabled(false)
@@ -120,6 +119,16 @@ public class AuthService
         return AuthResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    public AuthResponse loginAfterActivate(@Valid String token)
+    {
+        User userByToken = tokenRepository.findByToken(token).orElseThrow(() ->
+                new UserNotFoundException("Account not activated yet")).getUser();
+        return authenticate(AuthRequest.builder()
+                .identifier(userByToken.getUsername())
+                .password(userByToken.getPassword())
+                .build());
     }
 
     public void activateAccount(String token) throws TokenNotFoundException, MessagingException

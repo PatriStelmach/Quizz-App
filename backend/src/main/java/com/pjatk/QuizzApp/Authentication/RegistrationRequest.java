@@ -26,5 +26,4 @@ public class RegistrationRequest
     @Email(message = "Invalid email address")
     private String email;
 
-    private LocalDate birthDate;
 }

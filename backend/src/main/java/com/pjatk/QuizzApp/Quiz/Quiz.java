@@ -46,9 +46,9 @@ public class Quiz
     @Column(nullable = false)
     private Diff diff;
 
-    @NotEmpty(message = "Image cannot be empty")
-    @NotBlank(message = "Image cannot be blank")
-    private String image;
+    @Lob
+    private byte[] image;
+
 
     @NotEmpty(message = "Author cannot be empty")
     @NotBlank(message = "Author cannot be blank")
@@ -62,8 +62,6 @@ public class Quiz
     @NotBlank(message = "Time limit cannot be blank")
     @Column(nullable = false)
     private LocalDateTime timeLimit;
-
-
 
     @NotNull
     @Column(nullable = false)

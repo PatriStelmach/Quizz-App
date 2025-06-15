@@ -9,6 +9,8 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
+import java.nio.file.AccessDeniedException;
+import java.util.Base64;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -24,9 +26,9 @@ public class QuizGraphController
     }
 
     @MutationMapping
-    public Quiz createQuiz(@Argument Quiz quiz)
+    public QuizDTO updateQuiz(@Argument Integer id, @Argument QuizDTO input) throws AccessDeniedException
     {
-        return quizService.createQuiz(quiz);
+        return quizService.updateQuiz(id, input);
     }
 
 }

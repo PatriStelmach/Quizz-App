@@ -19,63 +19,73 @@ const navbarStore = useNavbarStore()
 
 const searchTerm = ref('')
 
-const pushHome = async () => {
+const pushHome = async () =>
+{
   await router.push({ name: 'home' })
 }
 
-const pushTop = async () => {
+const pushTop = async () =>
+{
   await router.push({ name: 'top-players' })
 }
 
-const pushCreate = async () => {
+const pushCreate = async () =>
+{
   await router.push({ name: 'create-quiz' })
 }
 
-const pushLoggin = async () => {
+const pushLoggin = async () =>
+{
   await router.push({ name: 'login' })
 }
 
-function onSearch() {
-  if (searchTerm.value.trim()) {
+function triggerClass(active: boolean)
+{
+  return [
+    'px-4 py-2 mx-2 rounded-lg cursor-pointer transition duration-300 ease-in-out',
+    active ? 'bg-primary hover:bg-primary' : 'hover:bg-primary'
+  ]
+}
+
+function onSearch()
+{
+  if (searchTerm.value.trim())
+  {
     console.log(searchTerm.value)
     // router.push({ name: 'QuizSearch', query: { q: searchTerm.value } })
   }
 }
 
-function goToDashboard() {
+function goToDashboard()
+{
   console.log('Dashboard')
   // router.push({ name: 'Dashboard' })
 }
 
-function goToProfile() {
+function goToProfile()
+{
   console.log('Go to profile')
   // router.push({ name: 'Profile', params: { userId: user.value?.id } })
 }
 
-const logout =  async () => {
+const logout =  async () =>
+{
   await useAuthStore.logout()
   await router.push({ name: 'login' })
 }
 </script>
 
 <template>
-  <Menubar class="w-9/12 shadow-md border border-gray-300 px-4 content-center m-auto h-15 flex items-center justify-between focus:outline-none">
+  <Menubar class="w-8/12 shadow-md border border-gray-300 px-4 content-center m-auto h-15 flex items-center justify-between focus:outline-none">
     <div class="flex items-center space-x-4 focus:outline-none">
       <MenubarMenu>
         <MenubarTrigger
-          v-if="!navbarStore.isHome"
-          class="text-xl py-2 px-8 font-bold rounded-lg cursor-pointer focus:outline-none hover:bg-primary transition duration-300 ease-in-out"
+          :class="triggerClass(navbarStore.isHome)"
           :disabled="navbarStore.isHome"
           @click="pushHome">
           Home
         </MenubarTrigger>
-        <MenubarTrigger
-          v-if="navbarStore.isHome"
-          class="text-xl bg-primary py-2 px-8 font-bold rounded-lg cursor-pointer focus:outline-none hover:bg-primary transition duration-300 ease-in-out"
-          :disabled="!navbarStore.isHome"
-          @click="pushHome">
-          Home
-        </MenubarTrigger>
+
       </MenubarMenu>
 
       <MenubarMenu>
@@ -94,37 +104,25 @@ const logout =  async () => {
 
     <div class="flex items-center">
       <MenubarMenu>
-        <MenubarTrigger
-          class="px-4 py-2 rounded-lg cursor-pointer hover:bg-primary transition duration-300 ease-in-out"
-          v-if="!navbarStore.isTopPlayers"
-          @click="pushTop"
-          :disabled="navbarStore.isTopPlayers">
-          Top Players
-        </MenubarTrigger>
-        <MenubarTrigger
-          class="px-4 py-2 bg-primary rounded-lg cursor-pointer hover:bg-primary transition duration-300 ease-in-out"
-          v-if="navbarStore.isTopPlayers"
-          @click="pushTop"
-          :disabled="!navbarStore.isTopPlayers">
-          Top Players
-        </MenubarTrigger>
-      </MenubarMenu>
+        <MenubarMenu>
+          <MenubarTrigger
+            :class="triggerClass(navbarStore.isTopPlayers)"
+            @click="pushTop"
+            :disabled="navbarStore.isTopPlayers"
+          >
+            Top Players
+          </MenubarTrigger>
+        </MenubarMenu>
 
       <MenubarMenu>
         <MenubarTrigger
-          class="px-4 py-2 rounded-lg cursor-pointer hover:bg-primary transition duration-300 ease-in-out"
-          v-if="!navbarStore.isCreateQuiz"
+          :class="triggerClass(navbarStore.isCreateQuiz)"
           @click="pushCreate"
-          :disabled="navbarStore.isCreateQuiz">
+          :disabled="navbarStore.isCreateQuiz"
+        >
           Create Quiz
         </MenubarTrigger>
-        <MenubarTrigger
-          class="px-4 py-2 bg-primary rounded-lg cursor-pointer hover:bg-primary transition duration-300 ease-in-out"
-          v-if="navbarStore.isCreateQuiz"
-          @click="pushCreate"
-          :disabled="!navbarStore.isCreateQuiz">
-          Create Quiz
-        </MenubarTrigger>
+
       </MenubarMenu>
 
       <MenubarMenu v-if="useAuthStore.loggedIn">
@@ -144,20 +142,10 @@ const logout =  async () => {
         </MenubarContent>
       </MenubarMenu>
 
-      <MenubarMenu v-else>
         <MenubarTrigger
+          :class="triggerClass(navbarStore.isLogging)"
           @click="pushLoggin"
-          v-if="!navbarStore.isLogging"
-          :disabled="navbarStore.isLogging"
-          class="px-4 py-2 rounded-lg cursor-pointer hover:bg-primary transition duration-300 ease-in-out"
-        >
-          Log in
-        </MenubarTrigger>
-        <MenubarTrigger
-          @click="pushLoggin"
-          v-if="navbarStore.isLogging"
-          :disabled="!navbarStore.isLogging"
-          class="px-4 py-2 bg-primary rounded-lg cursor-pointer hover:bg-primary transition duration-300 ease-in-out"
+          v-if="!useAuthStore.loggedIn"
         >
           Log in
         </MenubarTrigger>

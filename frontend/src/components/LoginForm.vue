@@ -112,7 +112,7 @@ const onRegister = async () =>
       'opacity-100 scale-100 translate-y-0': !isHiding && isShowing
 
     }"
-    @submit="onSubmit"
+    @submit.prevent="onSubmit"
   >
     <Alert v-if="errorMessage" variant="destructive">
       <AlertCircle class="w-4 h-4"/>

@@ -1,4 +1,5 @@
 package com.pjatk.QuizzApp.Question;
+import com.pjatk.QuizzApp.Answer.Answer;
 import com.pjatk.QuizzApp.Quiz.Diff;
 import com.pjatk.QuizzApp.Quiz.Quiz;
 import jakarta.persistence.*;
@@ -22,11 +23,6 @@ public class Question
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotNull(message = "Diff cannot be null")
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Diff diff;
-
     @NotNull(message = "Question Type cannot be null")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -36,14 +32,9 @@ public class Question
     @Column(nullable = false)
     private String question;
 
-    private String openAnswer;
-
-    @NotNull(message = "Correct Answer cannot be null")
-    @Column(nullable = false)
-    private String correctAnswer;
-
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     @NotNull(message = "Answers cannot be null")
-    private Set<String> answers = new HashSet<>();
+    private Set<Answer> answers = new HashSet<>();
 
     @NotEmpty(message = "Quiz cannot be empty")
     @NotBlank(message = "Quiz cannot be blank")

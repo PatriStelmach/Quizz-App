@@ -44,10 +44,9 @@ public class User implements UserDetails, Principal
     private Integer id;
 
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String username;
 
-    @Column(nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -137,24 +136,16 @@ public class User implements UserDetails, Principal
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
     public boolean isAccountNonLocked() {
         return !accountLocked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
     }
 
     @Override
     public boolean isEnabled() {
         return enabled;
     }
+
+
 
 
 }
