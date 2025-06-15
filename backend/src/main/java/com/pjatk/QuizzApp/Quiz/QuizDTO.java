@@ -17,7 +17,6 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class QuizDTO
 {
     private Integer id;

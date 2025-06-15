@@ -4,6 +4,9 @@ import com.pjatk.QuizzApp.Configuration.Mapper;
 import com.pjatk.QuizzApp.Exceptions.QuizNotFoundException;
 import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
 import com.pjatk.QuizzApp.User.User;
+import com.pjatk.QuizzApp.User.UserRepository;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +21,7 @@ import java.util.Set;
 public class QuizService
 {
     private final QuizRepository quizRepository;
+    private final UserRepository userRepository;
     private final Mapper mapper;
 
     public Set<Quiz> getAllByAuthorId(Integer creatorId)
@@ -31,9 +35,30 @@ public class QuizService
         return quizRepository.findById(id).orElseThrow(()->new QuizNotFoundException("Quiz not found"));
     }
 
-    public Quiz createQuiz(Quiz quiz)
+    @Transactional
+    public QuizDTO createQuiz(QuizDTO quizDTO) throws AccessDeniedException
     {
-        return quizRepository.save(quiz);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Quiz quiz = new Quiz();
+
+        if(authentication != null && authentication.isAuthenticated())
+        {
+            int userId = userRepository.findByUsername(authentication.getName()).orElseThrow(() -> 
+                                        new UserNotFoundException("User not found")).getId();
+            quiz = mapper.quizDTOToEntity(quizDTO, quiz); 
+            quiz.setAuthor(userRepository.findById(userId).orElseThrow(() -> 
+                                        new UserNotFoundException("User not found")));
+
+
+        }
+        else{
+            throw new AccessDeniedException("You don't have permission to create new quiz");
+        }
+
+
+
+        return mapper.quizToDto(quizRepository.save(quiz));
     }
 
     public QuizDTO updateQuiz(Integer id, QuizDTO quizDTO) throws AccessDeniedException
@@ -55,7 +80,7 @@ public class QuizService
             }
             else
             {
-                throw new AccessDeniedException("You don't have permission to update this user");
+                throw new AccessDeniedException("You don't have permission to update this user quiz");
             }
         }
 
