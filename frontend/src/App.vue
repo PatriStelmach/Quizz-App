@@ -16,7 +16,7 @@ import FriendsSidebar from '@/components/FriendsSidebar.vue'
   </header>
 
   <main class="flex min-h-screen">
-    <div class="z-50">
+    <div class="">
       <FriendsSidebar />
     </div>
 
