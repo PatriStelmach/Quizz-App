@@ -105,8 +105,9 @@ const onRegister = async () =>
 </script>
 
 <template>
+  <Teleport to="main">
   <form
-    class="p-10 fixed mt-20 w-92 grid justify-center rounded-md m-auto border border-gray-300 shadow-md transition-all duration-500 ease-in-out"
+    class="p-10 fixed top-1/5 left-1/2 w-100 mt-20 grid justify-center rounded-md transform -translate-x-1/2 -translate-y-1/2 border border-gray-300 shadow-md transition-all duration-500 ease-in-out"
     :class="{
       'opacity-0 scale-95 translate-y-4': isHiding || !isShowing,
       'opacity-100 scale-100 translate-y-0': !isHiding && isShowing
@@ -195,5 +196,5 @@ const onRegister = async () =>
       <span v-if="!isGoogleing">Login with Google</span>
     </Button>
   </form>
-
+  </Teleport>
 </template>

@@ -84,8 +84,9 @@ const exitAlert = () =>
 </script>
 
 <template>
+  <Teleport to="main">
   <form
-    class="p-10 mt-20 w-92 grid justify-center rounded-md m-auto border border-gray-300 shadow-md transition-all duration-500 ease-in-out"
+    class="p-10 fixed top-1/5 left-1/2 w-100 mt-20 grid justify-center rounded-md transform -translate-x-1/2 -translate-y-1/2 border border-gray-300 shadow-md transition-all duration-500 ease-in-out"
     :class="{
       'opacity-0 scale-95 translate-y-4': isFormHiding || !isFormShowing,
       'opacity-100 scale-100 translate-y-0': !isFormHiding && isFormShowing,
@@ -94,7 +95,7 @@ const exitAlert = () =>
     @submit.prevent="onSubmit"
   >
     <FormField v-slot="{ componentField }" name="email">
-      <FormItem class="mb-5">
+      <FormItem class="mb-5 w-2xs ">
         <FormLabel>E-mail</FormLabel>
         <FormControl>
           <Input type="text" placeholder="email@example.com" v-bind="componentField" />
@@ -106,7 +107,7 @@ const exitAlert = () =>
 
 
     <FormField v-slot="{ componentField }" name="username">
-      <FormItem  class="mb-5">
+      <FormItem  class="mb-5 w-2xs ">
         <FormLabel>Username</FormLabel>
         <FormControl>
           <Input type="text" placeholder="username" v-bind="componentField" />
@@ -116,7 +117,7 @@ const exitAlert = () =>
     </FormField>
 
     <FormField v-slot="{ componentField }" name="password">
-      <FormItem  class="mb-5">
+      <FormItem  class="mb-5 w-2xs ">
         <FormLabel>Password</FormLabel>
         <FormControl>
           <Input type="password" autocomplete="new-password" placeholder="password" v-bind="componentField" />
@@ -126,7 +127,7 @@ const exitAlert = () =>
     </FormField>
 
     <FormField v-slot="{ componentField }" name="passwordConfirm">
-      <FormItem  class="mb-5">
+      <FormItem  class="mb-5 w-2xs ">
         <FormLabel>Confirm password</FormLabel>
         <FormControl>
           <Input type="password" autocomplete="new-password" placeholder="confirm password" v-bind="componentField" />
@@ -168,5 +169,5 @@ const exitAlert = () =>
     </Alert>
   </div>
   </Transition>
-
+</Teleport>
 </template>
