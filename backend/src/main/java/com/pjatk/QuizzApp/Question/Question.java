@@ -1,4 +1,5 @@
 package com.pjatk.QuizzApp.Question;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.pjatk.QuizzApp.Answer.Answer;
 import com.pjatk.QuizzApp.Quiz.Diff;
@@ -20,7 +21,7 @@ import java.util.Set;
 public class Question
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Enumerated(EnumType.STRING)
@@ -34,6 +35,7 @@ public class Question
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private Set<Answer> answers = new HashSet<>();
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;

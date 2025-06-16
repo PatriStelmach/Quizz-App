@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 public class Answer
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
-    private boolean isCorrect;
+    private boolean correct;
 
     @Column(nullable = false)
     private String answer;
