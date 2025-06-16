@@ -56,8 +56,24 @@ const router = createRouter
       {
         path: '/room-view/:id',
         name: 'room-view',
-        component: () => import('@/views/RoomView.vue')
-      }
+        component: () => import('../views/RoomView.vue')
+      },
+      {
+        path: '/quiz-game',
+        name: 'quiz-game',
+        component: () => import('../views/QuizGame.vue')
+      },
+      {
+        path: '/room/:roomId',
+        name: 'room',
+        component: () => import('@/views/RoomView.vue'),
+        props: true
+      },
+      {
+        path: '/create-room',
+        name: 'create-room',
+        component: () => import('@/views/CreateRoomView.vue'),
+      },
 
   ],
 })

@@ -14,6 +14,8 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  /** Binary data */
+  ByteArray: { input: any; output: any; }
 };
 
 export enum Diff {
@@ -22,6 +24,24 @@ export enum Diff {
   Hard = 'HARD',
   Medium = 'MEDIUM'
 }
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  updateQuiz: Quiz;
+  updateUser: User;
+};
+
+
+export type MutationUpdateQuizArgs = {
+  id: Scalars['ID']['input'];
+  input?: InputMaybe<QuizInput>;
+};
+
+
+export type MutationUpdateUserArgs = {
+  input: UserInput;
+  username: Scalars['String']['input'];
+};
 
 export type PageInfo = {
   __typename?: 'PageInfo';
@@ -66,6 +86,17 @@ export type Question = {
   quiz: Quiz;
 };
 
+export type QuestionInput = {
+  answers?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  correctAnswer?: InputMaybe<Scalars['String']['input']>;
+  diff?: InputMaybe<Diff>;
+  id: Scalars['ID']['input'];
+  openAnswer?: InputMaybe<Scalars['String']['input']>;
+  question: Scalars['String']['input'];
+  questionType?: InputMaybe<QuestionType>;
+  quiz: QuizInput;
+};
+
 export enum QuestionType {
   MultipleChoice = 'MULTIPLE_CHOICE',
   Open = 'OPEN',
@@ -80,7 +111,7 @@ export type Quiz = {
   description?: Maybe<Scalars['String']['output']>;
   diff?: Maybe<Diff>;
   id: Scalars['ID']['output'];
-  image?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['ByteArray']['output']>;
   maxPoints?: Maybe<Scalars['Int']['output']>;
   questions?: Maybe<Array<Maybe<Question>>>;
   timeLimit?: Maybe<Scalars['String']['output']>;
@@ -99,6 +130,20 @@ export type QuizEdge = {
   node: Quiz;
 };
 
+export type QuizInput = {
+  author?: InputMaybe<UserInput>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  diff?: InputMaybe<Diff>;
+  id: Scalars['ID']['input'];
+  image?: InputMaybe<Scalars['ByteArray']['input']>;
+  maxPoints?: InputMaybe<Scalars['Int']['input']>;
+  questions?: InputMaybe<Array<InputMaybe<QuestionInput>>>;
+  timeLimit?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
+};
+
 export enum Role {
   Admin = 'ADMIN',
   User = 'USER'
@@ -106,20 +151,17 @@ export enum Role {
 
 export type User = {
   __typename?: 'User';
-  accountLocked: Scalars['Boolean']['output'];
   avName?: Maybe<Scalars['String']['output']>;
   avType?: Maybe<Scalars['String']['output']>;
-  avatar?: Maybe<Scalars['String']['output']>;
+  avatar?: Maybe<Scalars['ByteArray']['output']>;
   bio?: Maybe<Scalars['String']['output']>;
-  birthDate?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Scalars['String']['output']>;
-  enabled: Scalars['Boolean']['output'];
+  enabled?: Maybe<Scalars['Boolean']['output']>;
   finishedAmount?: Maybe<Scalars['Int']['output']>;
   id: Scalars['ID']['output'];
   isActive?: Maybe<Scalars['Boolean']['output']>;
   quizzesCreated?: Maybe<Array<Maybe<Quiz>>>;
-  roles: Array<Role>;
   score?: Maybe<Scalars['Int']['output']>;
   streak?: Maybe<Scalars['Int']['output']>;
   updatedAt?: Maybe<Scalars['String']['output']>;
@@ -137,6 +179,25 @@ export type UserEdge = {
   __typename?: 'UserEdge';
   cursor: Scalars['String']['output'];
   node: User;
+};
+
+export type UserInput = {
+  avName?: InputMaybe<Scalars['String']['input']>;
+  avType?: InputMaybe<Scalars['String']['input']>;
+  avatar?: InputMaybe<Scalars['ByteArray']['input']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  finishedAmount?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  quizzesCreated?: InputMaybe<Array<InputMaybe<QuizInput>>>;
+  score?: InputMaybe<Scalars['Int']['input']>;
+  streak?: InputMaybe<Scalars['Int']['input']>;
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+  userLevel?: InputMaybe<UserLevel>;
+  username: Scalars['String']['input'];
 };
 
 export enum UserLevel {

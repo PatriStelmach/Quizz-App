@@ -12,6 +12,7 @@ import {
   MenubarTrigger,
 } from '@/components/ui/menubar'
 import { Search } from 'lucide-vue-next'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 
 const router = useRouter()
 const useAuthStore = authStore()
@@ -116,6 +117,16 @@ const logout =  async () =>
           </MenubarTrigger>
         </MenubarMenu>
 
+        <MenubarMenu>
+          <MenubarTrigger
+            :class="triggerClass(navbarStore.isTopPlayers)"
+            @click="pushTop"
+            :disabled="navbarStore.isTopPlayers"
+          >
+            Host a Game
+          </MenubarTrigger>
+        </MenubarMenu>
+
       <MenubarMenu>
         <MenubarTrigger
           :class="triggerClass(navbarStore.isCreateQuiz)"
@@ -130,11 +141,9 @@ const logout =  async () =>
       <MenubarMenu v-if="useAuthStore.loggedIn">
         <MenubarTrigger as-child>
           <button class="px-1 py-1 rounded-lg focus:outline-none cursor-pointer hover:bg-primary transition duration-300 ease-in-out">
-            <img
-              src="../images/profile-dark-mode.png"
-              alt="profile icon"
-              class="w-10 h-10"
-            />
+            <Avatar class="w-9 h-9">
+              <AvatarFallback v-if="useAuthStore.loggedIn && useAuthStore.user">{{ useAuthStore.user?.username?.slice(0, 2).toUpperCase() }}</AvatarFallback>
+            </Avatar>
           </button>
         </MenubarTrigger>
         <MenubarContent align="end">

@@ -1,4 +1,5 @@
 package com.pjatk.QuizzApp.Question;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.pjatk.QuizzApp.Answer.Answer;
 import com.pjatk.QuizzApp.Quiz.Diff;
 import com.pjatk.QuizzApp.Quiz.Quiz;
@@ -22,21 +23,17 @@ public class Question
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotNull(message = "Question Type cannot be null")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private QuestionType questionType;
 
-    @NotNull(message = "Question cannot be null")
     @Column(nullable = false)
     private String question;
 
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    @NotNull(message = "Answers cannot be null")
     private Set<Answer> answers = new HashSet<>();
 
-    @NotEmpty(message = "Quiz cannot be empty")
-    @NotBlank(message = "Quiz cannot be blank")
     @ManyToOne
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;

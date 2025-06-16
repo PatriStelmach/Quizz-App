@@ -1,8 +1,11 @@
 package com.pjatk.QuizzApp.Quiz;
 
+import com.pjatk.QuizzApp.Answer.Answer;
 import com.pjatk.QuizzApp.Configuration.Mapper;
 import com.pjatk.QuizzApp.Exceptions.QuizNotFoundException;
 import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
+import com.pjatk.QuizzApp.Question.Question;
+import com.pjatk.QuizzApp.Question.QuestionDTO;
 import com.pjatk.QuizzApp.User.User;
 import com.pjatk.QuizzApp.User.UserRepository;
 
@@ -44,8 +47,18 @@ public class QuizService
             User author = userRepository.findByUsername(authentication.getName())
                     .orElseThrow(() -> new UserNotFoundException("User not found"));
             Quiz quiz = new Quiz();
-            mapper.quizDTOToEntity(quizDTO, quiz );
+
             quiz.setAuthor(author);
+
+            for(QuestionDTO question : quizDTO.getQuestions())
+            {
+                question.setQuiz(quiz);
+                for(Answer answerDTO : question.getAnswers())
+                {
+                    answer.setQuestion(question);
+                }
+                mapper.quizDTOToEntity(quizDTO, quiz);
+            }
 
 
             return mapper.quizToDto(quizRepository.save(quiz));

@@ -1,5 +1,6 @@
 package com.pjatk.QuizzApp.Answer;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pjatk.QuizzApp.Question.Question;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

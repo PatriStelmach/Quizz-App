@@ -43,8 +43,9 @@ const authStore = defineStore('user',
           try
           {
             const loggedInUser = await AuthService.login(user);
-            console.log(loggedInUser);
-            setUser(loggedInUser);
+
+            const decoded = jwtDecode<JwtPayload>(loggedInUser.data.token);
+            setUser({ username: decoded.username, password: '' });
             setLoggedIn(true);
             setError(null);
             return loggedInUser;
@@ -65,9 +66,15 @@ const authStore = defineStore('user',
             {
               throw new Error('Invalid token from Google');
             }
-            localStorage.setItem('user', JSON.stringify({ token }));
-
             const decoded = jwtDecode<JwtPayload>(token);
+            const userObject =
+              {
+              user: { username: decoded.username, password: '' },
+              loggedIn: true,
+              error: null,
+              token
+            };
+            localStorage.setItem('user', JSON.stringify(userObject));
             setUser({ username: decoded.username, password: '' });
             setLoggedIn(true);
             setError(null);

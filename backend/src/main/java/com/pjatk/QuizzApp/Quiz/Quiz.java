@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -42,7 +43,7 @@ public class Quiz
 
     private Instant createdAt = Instant.now();
 
-    private LocalDateTime timeLimit;
+    private Duration timeLimit;
 
     private Integer maxPoints;
 
