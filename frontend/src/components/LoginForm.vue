@@ -106,7 +106,7 @@ const onRegister = async () =>
 
 <template>
   <form
-    class="p-10 mt-20 w-92 grid justify-center rounded-md m-auto border border-gray-300 shadow-md transition-all duration-500 ease-in-out"
+    class="p-10 fixed mt-20 w-92 grid justify-center rounded-md m-auto border border-gray-300 shadow-md transition-all duration-500 ease-in-out"
     :class="{
       'opacity-0 scale-95 translate-y-4': isHiding || !isShowing,
       'opacity-100 scale-100 translate-y-0': !isHiding && isShowing
