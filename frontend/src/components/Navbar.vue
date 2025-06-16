@@ -42,7 +42,7 @@ const pushLoggin = async () =>
 function triggerClass(active: boolean)
 {
   return [
-    'px-4 py-2 mx-2 rounded-lg cursor-pointer transition duration-300 ease-in-out',
+    'px-6 py-4 mx-2 rounded-lg cursor-pointer transition duration-200 ease-in-out',
     active ? 'bg-primary hover:bg-primary' : 'hover:bg-primary'
   ]
 }

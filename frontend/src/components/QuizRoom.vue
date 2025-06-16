@@ -14,7 +14,6 @@ const phase = ref<'ready' | 'countdown' | 'question' | 'summary'>('ready')
 const countdown = ref(3)
 const currentQuestionIndex = ref(0)
 const questions = ref<{ question: string; options: string[] }[]>([
-  // Placeholder questions; replace with real data from backend
   { question: 'What is 2 + 2?', options: ['3', '4', '5', '6'] },
   { question: 'What is the capital of France?', options: ['Berlin', 'London', 'Paris', 'Rome'] }
 ])
