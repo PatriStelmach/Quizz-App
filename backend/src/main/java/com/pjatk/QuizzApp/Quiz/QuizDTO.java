@@ -1,6 +1,12 @@
 package com.pjatk.QuizzApp.Quiz;
 
+import com.pjatk.QuizzApp.Question.Question;
+import com.pjatk.QuizzApp.Question.QuestionDTO;
 import lombok.*;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.time.Duration;
+import java.util.Set;
 
 @Builder
 @Data
@@ -13,4 +19,7 @@ public class QuizDTO
     private String category;
     private Diff diff;
     private Integer maxPoints;
+    private byte[] image;
+    private Duration timeLimit;
+    private Set<QuestionDTO> questions;
 }

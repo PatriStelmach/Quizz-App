@@ -43,7 +43,6 @@ onMounted(fetchSolvedQuizzesAmount)
   <div class=" flex items-center justify-center bg-background px-4">
     <div class="w-full max-w-xl space-y-8">
 
-      <!-- Statystyka -->
       <Card class="w-full shadow-md border border-muted rounded-2xl p-4">
         <CardHeader>
           <CardTitle class="text-xl font-semibold text-center">Rozwiązane quizy</CardTitle>
@@ -56,7 +55,6 @@ onMounted(fetchSolvedQuizzesAmount)
         </CardContent>
       </Card>
 
-      <!-- Wyszukiwarka -->
       <div class="w-full space-y-4">
         <Input
           v-model="searchQuery"

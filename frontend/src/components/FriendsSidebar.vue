@@ -36,19 +36,22 @@ onMounted(fetchFriends)
 
 <template>
   <Card
-    class="fixed bottom-10 right-10 border rounded-xl shadow-lg z-50 bg-background transition-all duration-500 ease-in-out overflow-hidden"
+    class="fixed bottom-10 w-4xl right-10 border justify-center rounded-xl shadow-lg z-50 bg-background transition-all duration-500 ease-in-out overflow-hidden"
     :class="[
       useAuthStore.loggedIn ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4',
-      isMinimized ? 'w-64 h-12' : 'w-64 h-[400px]'
+      isMinimized ? 'w-44 h-16' : 'w-54 h-[400px]',
     ]"
   >
-    <div class="flex justify-between  items-center px-4">
+    <div class="flex justify-between items-center h-16 px-4"
+    :class="{
+       ' pb-2 border-b' : !isMinimized
+    }">
       <CardTitle class="text-sm ">Lista znajomych</CardTitle>
       <Button
         variant="secondary"
         size="sm"
         @click="isMinimized = !isMinimized"
-        class="text-xs px-2 py-1 border:none"
+        class="text-xl px-2 py-1 border:none"
       >
         {{ isMinimized ? '↑' : '↓' }}
       </Button>
