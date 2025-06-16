@@ -4,16 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="graphql schema">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/AnswerRepository.java" afterDir="false" />
+    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="full quizz create endpoint">
+      <change afterPath="$PROJECT_DIR$/frontend/src/graphql/AllQuizes.graphql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/graphql/QuizById.graphql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/Answer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/AnswerDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/AnswerDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/Mapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/Quiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/Quiz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/BeansConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/BeansConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizGraphController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizGraphController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/FriendsSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/FriendsSidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/generated/gql.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/generated/gql.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,7 +322,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750024151673</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="full quizz create endpoint">
+      <option name="closed" value="true" />
+      <created>1750107105135</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1750107105135</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,7 +344,8 @@
     <MESSAGE value="authentication store" />
     <MESSAGE value="graphql endpoint" />
     <MESSAGE value="graphql schema" />
-    <option name="LAST_COMMIT_MESSAGE" value="graphql schema" />
+    <MESSAGE value="full quizz create endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="full quizz create endpoint" />
   </component>
   <component name="com.apollographql.ijplugin.settings.ProjectSettingsState">
     <option name="hasEnabledGraphQLPluginApolloKotlinSupport" value="true" />

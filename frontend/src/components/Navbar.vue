@@ -13,13 +13,31 @@ import {
 } from '@/components/ui/menubar'
 import { Search } from 'lucide-vue-next'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { onMounted, onBeforeUnmount } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+import { computed } from 'vue'
+import {QuizByIdDocument, type QuizByIdQueryVariables} from "@/generated/graphql.ts";
 
 const router = useRouter()
 const useAuthStore = authStore()
 const navbarStore = useNavbarStore()
-
+const showDropdown = ref(false)
 const searchTerm = ref('')
+const searchContainer = ref<HTMLElement | null>(null)
 
+
+const { result } = useQuery<QuizByIdQueryVariables>(QuizByIdDocument)
+const quiz = computed(() => result.value?.allUsers ?? [])
+
+onMounted(() =>
+{
+  document.addEventListener('click', clickOutside)
+})
+
+onBeforeUnmount(() =>
+{
+  document.removeEventListener('click', clickOutside)
+})
 const pushHome = async () =>
 {
   await router.push({ name: 'home' })
@@ -40,6 +58,13 @@ const pushLoggin = async () =>
   await router.push({ name: 'login' })
 }
 
+function filteredList()
+{
+  return quizes.filter((quiz) =>
+    quiz.toLowerCase().includes(searchTerm.value.toLowerCase())
+  );
+}
+
 function triggerClass(active: boolean)
 {
   return [
@@ -52,11 +77,17 @@ function onSearch()
 {
   if (searchTerm.value.trim())
   {
-    console.log(searchTerm.value)
-    // router.push({ name: 'QuizSearch', query: { q: searchTerm.value } })
+    showDropdown.value = true;
   }
 }
 
+function clickOutside(event: MouseEvent)
+{
+  if(searchContainer.value && !searchContainer.value.contains(event.target as Node))
+  {
+    showDropdown.value = false;
+  }
+}
 function goToDashboard()
 {
    router.push({ name: 'dashboard' })
@@ -80,7 +111,7 @@ const logout =  async () =>
     class="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 w-8/12 shadow-md border border-gray-300 px-4 h-24 flex items-center justify-between bg-background rounded-b-xl"
   >
 
-  <div class="flex items-center space-x-4 focus:outline-none">
+  <div ref="searchContainer" class="flex items-center space-x-4 focus:outline-none">
       <MenubarMenu>
         <MenubarTrigger
           :class="triggerClass(navbarStore.isHome)"
@@ -91,18 +122,35 @@ const logout =  async () =>
 
       </MenubarMenu>
 
-      <MenubarMenu>
-        <div class="relative">
-          <input
-            v-model="searchTerm"
-            @keyup.enter="onSearch"
-            type="text"
-            placeholder="Search quizzes..."
-            class="pl-10 pr-4 py-2 border-4 rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
-          />
-          <Search class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2" />
+      <div class="relative flex w-full max-w-sm">
+        <input
+          v-model="searchTerm"
+          @input="showDropdown = true"
+          @keyup.enter="onSearch"
+          type="text"
+          placeholder="Search quizzes..."
+          class="pl-10 pr-4 py-2 border-2  rounded-full focus:outline-none focus:ring-2 focus:ring-primary w-full"
+        />
+        <Search class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2" />
+
+        <div
+          v-if="searchTerm && showDropdown"
+          class="absolute top-full mt-2 w-full bg-black border  rounded-lg shadow-lg z-50"
+        >
+          <template v-if="filteredList().length">
+            <div
+              v-for="quiz in filteredList()"
+              :key="quiz"
+              class="px-4 py-2  hover:bg-primary rounded-lg cursor-pointer"
+            >
+              {{ quiz }}
+            </div>
+          </template>
+          <div v-else class="px-4 py-2  italic">
+            No results found!
+          </div>
         </div>
-      </MenubarMenu>
+      </div>
     </div>
 
     <div class="flex items-center">
@@ -114,16 +162,6 @@ const logout =  async () =>
             :disabled="navbarStore.isTopPlayers"
           >
             Top Players
-          </MenubarTrigger>
-        </MenubarMenu>
-
-        <MenubarMenu>
-          <MenubarTrigger
-            :class="triggerClass(navbarStore.isTopPlayers)"
-            @click="pushTop"
-            :disabled="navbarStore.isTopPlayers"
-          >
-            Host a Game
           </MenubarTrigger>
         </MenubarMenu>
 

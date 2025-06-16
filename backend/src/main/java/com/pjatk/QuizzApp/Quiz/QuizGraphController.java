@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import java.nio.file.AccessDeniedException;
 import java.util.Base64;
+import java.util.List;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -29,6 +30,12 @@ public class QuizGraphController
     public QuizDTO updateQuiz(@Argument int id, @Argument QuizDTO input) throws AccessDeniedException
     {
         return quizService.updateQuiz(id, input);
+    }
+
+    @MutationMapping
+    public List<QuizDTO> allQuizzes()
+    {
+        return quizService.getAll();
     }
 
 }

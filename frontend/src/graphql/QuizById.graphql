@@ -1,0 +1,17 @@
+query QuizById($id: ID!) {
+  quizById(id: $id) {
+    id
+    title
+    description
+    category
+    diff
+    image
+    author {
+      id
+      username
+    }
+    createdAt
+    timeLimit
+    maxPoints
+  }
+}
