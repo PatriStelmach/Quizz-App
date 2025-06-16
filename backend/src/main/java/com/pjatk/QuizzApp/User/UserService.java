@@ -74,7 +74,7 @@ public class UserService
     {
         return userRepository.findAll().stream()
                 .map(mapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public UserDTO updateUser(String username, UserDTO userDTO) throws AccessDeniedException

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as types from './graphql';
-import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 /**
  * Map of all GraphQL operations in the project.
@@ -15,10 +15,12 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  */
 type Documents = {
     "query Users {\n  allUsers {\n    id\n    username\n    email\n    isActive\n  }\n}": typeof types.UsersDocument,
+    "query QuizById($id: ID!) {\n  quizById(id: $id) {\n    id\n    title\n    description\n    category\n    diff\n    image\n    author {\n      id\n      username\n    }\n    createdAt\n    timeLimit\n    maxPoints\n  }\n}": typeof types.QuizByIdDocument,
     "query UserById {\n  userById(id: 1) {\n    email\n    username\n  }\n}": typeof types.UserByIdDocument,
 };
 const documents: Documents = {
     "query Users {\n  allUsers {\n    id\n    username\n    email\n    isActive\n  }\n}": types.UsersDocument,
+    "query QuizById($id: ID!) {\n  quizById(id: $id) {\n    id\n    title\n    description\n    category\n    diff\n    image\n    author {\n      id\n      username\n    }\n    createdAt\n    timeLimit\n    maxPoints\n  }\n}": types.QuizByIdDocument,
     "query UserById {\n  userById(id: 1) {\n    email\n    username\n  }\n}": types.UserByIdDocument,
 };
 
@@ -40,6 +42,10 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query Users {\n  allUsers {\n    id\n    username\n    email\n    isActive\n  }\n}"): (typeof documents)["query Users {\n  allUsers {\n    id\n    username\n    email\n    isActive\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query QuizById($id: ID!) {\n  quizById(id: $id) {\n    id\n    title\n    description\n    category\n    diff\n    image\n    author {\n      id\n      username\n    }\n    createdAt\n    timeLimit\n    maxPoints\n  }\n}"): (typeof documents)["query QuizById($id: ID!) {\n  quizById(id: $id) {\n    id\n    title\n    description\n    category\n    diff\n    image\n    author {\n      id\n      username\n    }\n    createdAt\n    timeLimit\n    maxPoints\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -39,7 +39,7 @@ onMounted(fetchFriends)
     class="fixed bottom-10 w-4xl right-10 border justify-center rounded-xl shadow-lg z-50 bg-background transition-all duration-500 ease-in-out overflow-hidden"
     :class="[
       useAuthStore.loggedIn ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4',
-      isMinimized ? 'w-44 h-16' : 'w-54 h-[400px]',
+      isMinimized ? 'w-52 h-16' : 'w-62 h-[400px]',
     ]"
   >
     <div class="flex justify-between items-center h-16 px-4"
