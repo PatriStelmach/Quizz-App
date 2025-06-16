@@ -70,9 +70,10 @@ const router = createRouter
         props: true
       },
       {
-        path: '/create-room',
-        name: 'create-room',
-        component: () => import('@/views/CreateRoomView.vue'),
+        path: '/game/:roomId',
+        name: 'game',
+        component: () => import('@/views/GameView.vue'),
+        props: true
       },
 
   ],
