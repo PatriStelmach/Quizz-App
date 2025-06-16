@@ -36,8 +36,6 @@ public class Quiz
     @Lob
     private byte[] image;
 
-
-
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private User author;

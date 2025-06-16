@@ -20,13 +20,13 @@ public class QuizGraphController
     private final QuizService quizService;
 
     @QueryMapping
-    public Quiz quizById(@Argument Integer id)
+    public Quiz quizById(@Argument int id)
     {
        return quizService.getById(id);
     }
 
     @MutationMapping
-    public QuizDTO updateQuiz(@Argument Integer id, @Argument QuizDTO input) throws AccessDeniedException
+    public QuizDTO updateQuiz(@Argument int id, @Argument QuizDTO input) throws AccessDeniedException
     {
         return quizService.updateQuiz(id, input);
     }
