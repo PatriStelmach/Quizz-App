@@ -18,6 +18,8 @@ back/.idea
 *.iws
 *.iml
 *.ipr
+backend/.idea
+.idea
 
 ### NetBeans ###
 /nbproject/private/
