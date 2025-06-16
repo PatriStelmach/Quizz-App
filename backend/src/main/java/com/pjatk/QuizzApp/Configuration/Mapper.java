@@ -1,5 +1,9 @@
 package com.pjatk.QuizzApp.Configuration;
 
+import com.pjatk.QuizzApp.Answer.Answer;
+import com.pjatk.QuizzApp.Answer.AnswerDTO;
+import com.pjatk.QuizzApp.Question.Question;
+import com.pjatk.QuizzApp.Question.QuestionDTO;
 import com.pjatk.QuizzApp.Quiz.Quiz;
 import com.pjatk.QuizzApp.Quiz.QuizDTO;
 import com.pjatk.QuizzApp.User.DTO.UserDTO;
@@ -21,7 +25,29 @@ public class Mapper
    {
        modelMapper.createTypeMap(User.class, UserDTO.class).setPropertyCondition(Conditions.isNotNull());
        modelMapper.createTypeMap(Quiz.class, QuizDTO.class).setPropertyCondition(Conditions.isNotNull());
+       modelMapper.createTypeMap(Question.class, QuestionDTO.class).setPropertyCondition(Conditions.isNotNull());
+       modelMapper.createTypeMap(Answer.class, AnswerDTO.class).setPropertyCondition(Conditions.isNotNull());
    }
+
+    public QuestionDTO questionToDto(Question question)
+    {
+        return modelMapper.map(question, QuestionDTO.class);
+    }
+
+    public void questionDTOToEntity(QuestionDTO questionDto , Question question)
+    {
+        modelMapper.map(questionDto, question);
+    }
+
+    public AnswerDTO answerToDto(Answer answer)
+    {
+        return modelMapper.map(answer, AnswerDTO.class);
+    }
+
+    public void answerDTOToEntity(AnswerDTO answerDTO , Answer answer)
+    {
+        modelMapper.map(answerDTO, answer);
+    }
 
     public QuizDTO quizToDto(Quiz quiz)
     {

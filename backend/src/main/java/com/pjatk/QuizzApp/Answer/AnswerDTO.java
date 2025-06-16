@@ -1,5 +1,6 @@
 package com.pjatk.QuizzApp.Answer;
 
+import com.pjatk.QuizzApp.Question.QuestionDTO;
 import lombok.Data;
 
 @Data

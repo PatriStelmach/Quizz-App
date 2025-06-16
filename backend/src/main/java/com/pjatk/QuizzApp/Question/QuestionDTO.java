@@ -6,9 +6,9 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class QuestionDTO {
+public class QuestionDTO
+{
     private String question;
-    private Integer point;
     private QuestionType questionType;
     private Set<AnswerDTO> answers;
 }

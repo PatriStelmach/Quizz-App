@@ -1,11 +1,14 @@
 package com.pjatk.QuizzApp.Quiz;
 
 import com.pjatk.QuizzApp.Answer.Answer;
+import com.pjatk.QuizzApp.Answer.AnswerDTO;
+import com.pjatk.QuizzApp.Answer.AnswerRepository;
 import com.pjatk.QuizzApp.Configuration.Mapper;
 import com.pjatk.QuizzApp.Exceptions.QuizNotFoundException;
 import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
 import com.pjatk.QuizzApp.Question.Question;
 import com.pjatk.QuizzApp.Question.QuestionDTO;
+import com.pjatk.QuizzApp.Question.QuestionRepository;
 import com.pjatk.QuizzApp.User.User;
 import com.pjatk.QuizzApp.User.UserRepository;
 
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -24,6 +28,8 @@ import java.util.Set;
 public class QuizService
 {
     private final QuizRepository quizRepository;
+    private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
     private final UserRepository userRepository;
     private final Mapper mapper;
 
@@ -39,29 +45,47 @@ public class QuizService
     }
 
 
-    public QuizDTO createQuiz(QuizDTO quizDTO) throws AccessDeniedException
-    {
+    public QuizDTO createQuiz(QuizDTO quizDTO) throws AccessDeniedException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
             User author = userRepository.findByUsername(authentication.getName())
                     .orElseThrow(() -> new UserNotFoundException("User not found"));
-            Quiz quiz = new Quiz();
 
+            Quiz quiz = new Quiz();
+            mapper.quizDTOToEntity(quizDTO, quiz);
             quiz.setAuthor(author);
 
-            for(QuestionDTO question : quizDTO.getQuestions())
+            Set<Question> questions = new HashSet<>();
+
+            if (quizDTO.getQuestions() != null)
             {
-                question.setQuiz(quiz);
-                for(Answer answerDTO : question.getAnswers())
+                for (QuestionDTO questionDTO : quizDTO.getQuestions())
                 {
-                    answer.setQuestion(question);
+                    Question question = new Question();
+                    mapper.questionDTOToEntity(questionDTO, question);
+                    question.setQuiz(quiz);
+
+                    Set<Answer> answers = new HashSet<>();
+                    if (questionDTO.getAnswers() != null)
+                    {
+                        for (AnswerDTO answerDTO : questionDTO.getAnswers())
+                        {
+                            Answer answer = new Answer();
+                            mapper.answerDTOToEntity(answerDTO, answer);
+                            answer.setQuestion(question);
+                            answers.add(answer);
+                        }
+                    }
+                    question.setAnswers(answers);
+                    questions.add(question);
                 }
-                mapper.quizDTOToEntity(quizDTO, quiz);
             }
 
+            quiz.setQuestions(questions);
 
             return mapper.quizToDto(quizRepository.save(quiz));
+
         } else {
             throw new AccessDeniedException("You don't have permission to create new quiz");
         }
