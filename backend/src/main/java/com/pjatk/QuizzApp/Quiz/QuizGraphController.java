@@ -32,8 +32,8 @@ public class QuizGraphController
         return quizService.updateQuiz(id, input);
     }
 
-    @MutationMapping
-    public List<QuizDTO> allQuizzes()
+    @QueryMapping
+    public List<Quiz> allQuizzes()
     {
         return quizService.getAll();
     }

@@ -1,0 +1,9 @@
+query AllQuizzes {
+  allQuizzes {
+    id
+    title
+    description
+    category
+    diff
+   }
+}

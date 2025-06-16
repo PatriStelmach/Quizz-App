@@ -101,7 +101,13 @@ type Quiz
 
 }
 
-
+type Answer
+{
+    id: ID!
+    correct: Boolean
+    answer: String
+    question: Question
+}
 type Question
 {
     id: ID!
@@ -111,7 +117,7 @@ type Question
     correctAnswer: String
     openAnswer: String
     answers: [String]
-    quiz: Quiz!
+    quiz: Quiz
 }
 
 input UserInput

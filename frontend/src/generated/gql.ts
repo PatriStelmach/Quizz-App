@@ -14,11 +14,13 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+    "query AllQuizzes {\n  allQuizzes {\n    id\n    title\n    description\n    category\n    diff\n  }\n}": typeof types.AllQuizzesDocument,
     "query Users {\n  allUsers {\n    id\n    username\n    email\n    isActive\n  }\n}": typeof types.UsersDocument,
     "query QuizById($id: ID!) {\n  quizById(id: $id) {\n    id\n    title\n    description\n    category\n    diff\n    image\n    author {\n      id\n      username\n    }\n    createdAt\n    timeLimit\n    maxPoints\n  }\n}": typeof types.QuizByIdDocument,
     "query UserById {\n  userById(id: 1) {\n    email\n    username\n  }\n}": typeof types.UserByIdDocument,
 };
 const documents: Documents = {
+    "query AllQuizzes {\n  allQuizzes {\n    id\n    title\n    description\n    category\n    diff\n  }\n}": types.AllQuizzesDocument,
     "query Users {\n  allUsers {\n    id\n    username\n    email\n    isActive\n  }\n}": types.UsersDocument,
     "query QuizById($id: ID!) {\n  quizById(id: $id) {\n    id\n    title\n    description\n    category\n    diff\n    image\n    author {\n      id\n      username\n    }\n    createdAt\n    timeLimit\n    maxPoints\n  }\n}": types.QuizByIdDocument,
     "query UserById {\n  userById(id: 1) {\n    email\n    username\n  }\n}": types.UserByIdDocument,
@@ -38,6 +40,10 @@ const documents: Documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query AllQuizzes {\n  allQuizzes {\n    id\n    title\n    description\n    category\n    diff\n  }\n}"): (typeof documents)["query AllQuizzes {\n  allQuizzes {\n    id\n    title\n    description\n    category\n    diff\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
