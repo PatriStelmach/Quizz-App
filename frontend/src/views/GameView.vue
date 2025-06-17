@@ -1,7 +1,7 @@
 <template>
   <div class="p-6">
     <h1 class="text-2xl font-bold">Quiz Game Started!</h1>
-    <p>More game logic coming here...</p>
+    <p>More game logic HERE</p>
   </div>
 </template>
 
