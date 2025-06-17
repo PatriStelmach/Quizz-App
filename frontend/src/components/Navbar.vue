@@ -29,7 +29,6 @@ const searchContainer = ref<HTMLElement | null>(null)
 
 const { result } = useQuery<AllQuizzesQuery>(AllQuizzesDocument)
 const quizList = computed(() => result.value?.allQuizzes ?? [])
-console.log(quizList.value)
 
 onMounted(() =>
 {
@@ -183,7 +182,7 @@ const logout =  async () =>
         <MenubarTrigger as-child>
           <button class="px-1 py-1 rounded-lg focus:outline-none cursor-pointer hover:bg-primary transition duration-300 ease-in-out">
             <Avatar class="w-9 h-9">
-              <AvatarFallback v-if="useAuthStore.loggedIn && useAuthStore.user">{{ useAuthStore.user?.username?.slice(0, 2).toUpperCase() }}</AvatarFallback>
+              <AvatarFallback v-if="useAuthStore.loggedIn && useAuthStore.username">{{ useAuthStore.username?.slice(0, 2).toUpperCase() }}</AvatarFallback>
             </Avatar>
           </button>
         </MenubarTrigger>

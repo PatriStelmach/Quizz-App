@@ -12,6 +12,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import {
+  NumberField,
+  NumberFieldContent,
+  NumberFieldDecrement,
+  NumberFieldIncrement,
+  NumberFieldInput,
+} from '@/components/ui/number-field'
 
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
@@ -37,9 +44,8 @@ const isShowing = ref(false)
 
 const categories = Object.entries(Category)
 const difficulties = Object.entries(Diff)
-const previewUrl = ref<string | null>(null)
 
-console.log(categories.value)
+console.log(categories)
 
 onMounted(() =>
 {
@@ -49,20 +55,6 @@ onMounted(() =>
   }, 60)
 })
 
-function handleFileChange(e: Event)
-{
-  const file = (e.target as HTMLInputElement).file
-  if (!file || !file.length) return
-
-  console.log(file, file[0])
-
-  previewUrl.value = URL.createObjectURL(file[0])
-}
-
-function removeImage()
-{
-  previewUrl.value = null
-}
 
 const formSchema = toTypedSchema(
   z.object({
@@ -161,7 +153,7 @@ const onSubmit = form.handleSubmit(async (values) =>
             <ComboboxList>
               <div class="relative w-full max-w-sm items-center">
                 <ComboboxInput
-                  class="pl-9 focus-visible:ring-0 border-0 border-b rounded-none h-10"
+                  class="pl-9 focus-visible:ring-0  border-b rounded-none h-10"
                   placeholder="Select category..."
                 />
                 <span class="absolute start-0 inset-y-0 flex items-center justify-center px-3">
@@ -222,43 +214,26 @@ const onSubmit = form.handleSubmit(async (values) =>
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="image">
+    <FormField v-slot="{ componentField }" name="time-limit">
       <FormItem>
-        <FormLabel>Quiz image</FormLabel>
-        <FormControl class=" bg-secondary">
-          <Input
-            v-bind="componentField"
-            type="file"
-            id="upload"
-            accept="image/*"
-            class="hidden"
-            @change="handleFileChange"
-          />
-          <label
-            for="upload"
-            class="inline-block w-1/3 h-8 text-center bg-primary text-white font-semibold px-4 py-1 rounded cursor-pointer hover:bg-secondary transition mb-4"
-          >
-            Wybierz plik
-          </label>
-          <div v-if="previewUrl" class="mt-4">
-            <img
-              :src="previewUrl"
-              alt="Preview"
-              class="max-w-xs rounded border shadow"
-            />
-          </div>
-          <Button
-          @click.prevent="removeImage">Remove image</Button>
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    </FormField>
-
-    <FormField v-slot="{ componentField }" name="">
-      <FormItem>
-        <FormLabel>Quiz Title</FormLabel>
         <FormControl>
-          <Input type="text" placeholder="Title" v-bind="componentField" class="mb-4 w-120 h-12" />
+          <NumberField
+            class="mb-4 w-48"
+            v-bind="componentField"
+            id="number"
+            :default-value="2"
+            :format-options="{
+      signDisplay: 'exceptZero',
+      minimumFractionDigits: 1,
+    }"
+          >
+            <Label for="number">Time limit (in minutes)</Label>
+            <NumberFieldContent>
+              <NumberFieldDecrement />
+              <NumberFieldInput />
+              <NumberFieldIncrement />
+            </NumberFieldContent>
+          </NumberField>
         </FormControl>
         <FormMessage />
       </FormItem>
