@@ -3,7 +3,6 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { ref, computed, onMounted } from 'vue'
 import { Input } from '@/components/ui/input'
 
-
 type SolvedQuiz =
   {
   id: number
@@ -28,6 +27,8 @@ const fetchSolvedQuizzes = async () =>
     { id: 3, title: 'TypeScript Intro', date: '2024-04-10' }
   ]
 }
+
+
 const solvedQuizzes = ref<number>(0)
 
 const fetchSolvedQuizzesAmount = async () =>

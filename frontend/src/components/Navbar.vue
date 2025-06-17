@@ -14,9 +14,10 @@ import {
 import { Search } from 'lucide-vue-next'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { onMounted, onBeforeUnmount } from 'vue'
-// import { useQuery } from '@vue/apollo-composable'
-// import { computed } from 'vue'
-// import {QuizByIdDocument, type QuizByIdQueryVariables} from "@/generated/graphql.ts";
+import { useQuery } from '@vue/apollo-composable'
+import { computed } from 'vue'
+import {AllQuizzesDocument, type AllQuizzesQuery} from "@/generated/graphql.ts";
+
 
 const router = useRouter()
 const useAuthStore = authStore()
@@ -26,8 +27,8 @@ const searchTerm = ref('')
 const searchContainer = ref<HTMLElement | null>(null)
 
 
-// const { result } = useQuery<QuizByIdQueryVariables>(QuizByIdDocument)
-// const quiz = computed(() => result.value?.allUsers ?? [])
+const { result } = useQuery<AllQuizzesQuery>(AllQuizzesDocument)
+const quizList = computed(() => result.value?.allQuizzes ?? [])
 
 onMounted(() =>
 {
@@ -60,8 +61,8 @@ const pushLoggin = async () =>
 
 function filteredList()
 {
-  return quizes.filter((quiz) =>
-    quiz.toLowerCase().includes(searchTerm.value.toLowerCase())
+  return quizList.value.filter((quiz) =>
+    quiz.title.toLowerCase().includes(searchTerm.value.toLowerCase())
   );
 }
 
@@ -104,6 +105,7 @@ const logout =  async () =>
   await useAuthStore.logout()
   await router.push({ name: 'login' })
 }
+
 </script>
 
 <template>
@@ -140,10 +142,10 @@ const logout =  async () =>
           <template v-if="filteredList().length">
             <div
               v-for="quiz in filteredList()"
-              :key="quiz"
+              :key="quiz.id"
               class="px-4 py-2  hover:bg-primary rounded-lg cursor-pointer"
             >
-              {{ quiz }}
+              {{ quiz.title }}
             </div>
           </template>
           <div v-else class="px-4 py-2  italic">
@@ -180,7 +182,7 @@ const logout =  async () =>
         <MenubarTrigger as-child>
           <button class="px-1 py-1 rounded-lg focus:outline-none cursor-pointer hover:bg-primary transition duration-300 ease-in-out">
             <Avatar class="w-9 h-9">
-              <AvatarFallback v-if="useAuthStore.loggedIn && useAuthStore.user">{{ useAuthStore.user?.username?.slice(0, 2).toUpperCase() }}</AvatarFallback>
+              <AvatarFallback v-if="useAuthStore.loggedIn && useAuthStore.username">{{ useAuthStore.username?.slice(0, 2).toUpperCase() }}</AvatarFallback>
             </Avatar>
           </button>
         </MenubarTrigger>

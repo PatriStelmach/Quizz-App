@@ -24,31 +24,23 @@ public class Quiz
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String title;
-
     private String description;
-
-    private String category;
-
+    @Enumerated(EnumType.STRING)
+    private Category category;
     @Enumerated(EnumType.STRING)
     private Diff diff;
-
     @Lob
     private byte[] image;
-
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
-
     private Instant createdAt = Instant.now();
-
     private Duration timeLimit;
-
     private Integer maxPoints;
-
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Question> questions = new HashSet<>();
+
 
 
 }

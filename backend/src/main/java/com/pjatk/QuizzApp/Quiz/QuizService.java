@@ -125,10 +125,8 @@ public class QuizService
         return mapper.quizToDto(quizRepository.save(quiz));
     }
 
-    public List<QuizDTO> getAll()
+    public List<Quiz> getAll()
     {
-        return quizRepository.findAll().stream()
-                .map(mapper::quizToDto)
-                .toList();
+        return quizRepository.findAll();
     }
 }

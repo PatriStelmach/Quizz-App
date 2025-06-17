@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "test:unit": "vitest",
     "codegen": "graphql-codegen --config codegen.ts",
+    "codegen:watch": "graphql-codegen --watch",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
