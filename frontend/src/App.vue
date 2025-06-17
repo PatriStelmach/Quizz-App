@@ -14,7 +14,7 @@ import FriendsSidebar from '@/components/FriendsSidebar.vue'
     <Navbar />
   </header>
 
-  <main class="flex">
+  <main class="flex ">
     <RouterView />
     <div class="friends-list-portal" />
   </main>

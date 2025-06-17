@@ -28,6 +28,19 @@ export type Answer = {
   question?: Maybe<Question>;
 };
 
+export enum Category {
+  Art = 'ART',
+  Geography = 'GEOGRAPHY',
+  History = 'HISTORY',
+  Literature = 'LITERATURE',
+  Mathematics = 'MATHEMATICS',
+  Movies = 'MOVIES',
+  Music = 'MUSIC',
+  Science = 'SCIENCE',
+  Sports = 'SPORTS',
+  Technology = 'TECHNOLOGY'
+}
+
 export enum Diff {
   Easy = 'EASY',
   Expert = 'EXPERT',
@@ -116,7 +129,7 @@ export enum QuestionType {
 export type Quiz = {
   __typename?: 'Quiz';
   author?: Maybe<User>;
-  category?: Maybe<Scalars['String']['output']>;
+  category?: Maybe<Category>;
   createdAt?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   diff?: Maybe<Diff>;
@@ -142,7 +155,7 @@ export type QuizEdge = {
 
 export type QuizInput = {
   author?: InputMaybe<UserInput>;
-  category?: InputMaybe<Scalars['String']['input']>;
+  category?: InputMaybe<Category>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   diff?: InputMaybe<Diff>;
@@ -171,7 +184,6 @@ export type User = {
   finishedAmount?: Maybe<Scalars['Int']['output']>;
   id: Scalars['ID']['output'];
   isActive?: Maybe<Scalars['Boolean']['output']>;
-  quizzesCreated?: Maybe<Array<Maybe<Quiz>>>;
   score?: Maybe<Scalars['Int']['output']>;
   streak?: Maybe<Scalars['Int']['output']>;
   updatedAt?: Maybe<Scalars['String']['output']>;
@@ -229,7 +241,7 @@ export type UserQuizScore = {
 export type AllQuizzesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllQuizzesQuery = { __typename?: 'Query', allQuizzes: Array<{ __typename?: 'Quiz', id: string, title: string, description?: string | null, category?: string | null, diff?: Diff | null }> };
+export type AllQuizzesQuery = { __typename?: 'Query', allQuizzes: Array<{ __typename?: 'Quiz', id: string, title: string, description?: string | null, category?: Category | null, diff?: Diff | null }> };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -241,7 +253,7 @@ export type QuizByIdQueryVariables = Exact<{
 }>;
 
 
-export type QuizByIdQuery = { __typename?: 'Query', quizById?: { __typename?: 'Quiz', id: string, title: string, description?: string | null, category?: string | null, diff?: Diff | null, image?: any | null, createdAt?: string | null, timeLimit?: any | null, maxPoints?: number | null, author?: { __typename?: 'User', id: string, username: string } | null } | null };
+export type QuizByIdQuery = { __typename?: 'Query', quizById?: { __typename?: 'Quiz', id: string, title: string, description?: string | null, category?: Category | null, diff?: Diff | null, image?: any | null, createdAt?: string | null, timeLimit?: any | null, maxPoints?: number | null, author?: { __typename?: 'User', id: string, username: string } | null } | null };
 
 export type UserByIdQueryVariables = Exact<{ [key: string]: never; }>;
 

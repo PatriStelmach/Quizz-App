@@ -1,11 +1,11 @@
 <script setup lang="ts">
 
 import CreateQuizForm from '@/components/QuizzGame.vue'
+import CreateForm from '@/components/CreateForm.vue'
 </script>
 
 <template>
-<CreateQuizForm></CreateQuizForm>
-
+<CreateForm/>
 
 </template>
 

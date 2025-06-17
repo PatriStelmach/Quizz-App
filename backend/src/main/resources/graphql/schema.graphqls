@@ -8,6 +8,19 @@ enum Diff
     HARD
     EXPERT
 }
+enum Category
+{
+    MATHEMATICS
+    HISTORY
+    SCIENCE
+    GEOGRAPHY
+    TECHNOLOGY
+    LITERATURE
+    ART
+    MUSIC
+    SPORTS
+    MOVIES
+}
 enum UserLevel
 {
     NEWBIE
@@ -82,7 +95,6 @@ type User
     streak: Int
     score: Int
     finishedAmount: Int
-    quizzesCreated: [Quiz]
 }
 
 type Quiz
@@ -90,7 +102,7 @@ type Quiz
     id: ID!
     title: String!
     description: String
-    category: String
+    category: Category
     diff: Diff
     image: ByteArray
     author: User
@@ -145,7 +157,7 @@ input QuizInput
     id: ID!
     title: String!
     description: String
-    category: String
+    category: Category
     diff: Diff
     image: ByteArray
     author: UserInput

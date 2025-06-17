@@ -26,7 +26,8 @@ public class Quiz
     private Integer id;
     private String title;
     private String description;
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private Category category;
     @Enumerated(EnumType.STRING)
     private Diff diff;
     @Lob
@@ -40,17 +41,6 @@ public class Quiz
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Question> questions = new HashSet<>();
 
-    /*id: ID!
-    title: String!
-    description: String
-    category: String
-    diff: Diff
-    image: ByteArray
-    author: User
-    createdAt: String
-    timeLimit: Duration
-    maxPoints: Int
-    questions: [Question] */
 
 
 }

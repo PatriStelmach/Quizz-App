@@ -17,7 +17,7 @@ public class QuizDTO
     private Integer id;
     private String title;
     private String description;
-    private String category;
+    private Category category;
     private Diff diff;
     private Integer maxPoints;
     private byte[] image;
