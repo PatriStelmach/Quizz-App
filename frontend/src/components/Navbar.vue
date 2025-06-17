@@ -14,9 +14,9 @@ import {
 import { Search } from 'lucide-vue-next'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { onMounted, onBeforeUnmount } from 'vue'
-import { useQuery } from '@vue/apollo-composable'
-import { computed } from 'vue'
-import {QuizByIdDocument, type QuizByIdQueryVariables} from "@/generated/graphql.ts";
+// import { useQuery } from '@vue/apollo-composable'
+// import { computed } from 'vue'
+// import {QuizByIdDocument, type QuizByIdQueryVariables} from "@/generated/graphql.ts";
 
 const router = useRouter()
 const useAuthStore = authStore()
@@ -26,8 +26,8 @@ const searchTerm = ref('')
 const searchContainer = ref<HTMLElement | null>(null)
 
 
-const { result } = useQuery<QuizByIdQueryVariables>(QuizByIdDocument)
-const quiz = computed(() => result.value?.allUsers ?? [])
+// const { result } = useQuery<QuizByIdQueryVariables>(QuizByIdDocument)
+// const quiz = computed(() => result.value?.allUsers ?? [])
 
 onMounted(() =>
 {

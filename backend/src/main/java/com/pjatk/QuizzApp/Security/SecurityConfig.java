@@ -58,6 +58,7 @@ public class SecurityConfig
                                                         "/swagger-ui/**",
                                                         "/webjars/**",
                                                         "/quiz-ws/**",
+                                                        "/rooms/**",
                                                         "/swagger-ui.html",
                                                         "/v3/api-docs/**"
 

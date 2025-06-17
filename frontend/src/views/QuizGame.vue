@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import QuizzGame from '@/components/QuizzGame.vue'
+//import QuizzGame from '@/components/QuizzGame.vue'
 </script>
 
 <template>

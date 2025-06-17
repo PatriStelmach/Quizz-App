@@ -1,36 +1,27 @@
-import { Client, IMessage } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { Client, Frame, over } from 'webstomp-client';
 
 let stompClient: Client | null = null;
 
-export function connectWebSocket(roomId: string, onMessage: (body: any) => void) {
-  const socket = new SockJS('http://localhost:8080/quiz-ws');
+export const connectSocket = (onConnected: () => void, onMessage: (msg: any) => void, roomId: string) => {
+  const socket = new SockJS('http://localhost:10000/quiz-ws');
+  stompClient = over(socket);
 
-  stompClient = new Client({
-    webSocketFactory: () => socket,
-    reconnectDelay: 5000,
-    onConnect: () => {
-      console.log('WebSocket connected');
-      stompClient?.subscribe(`/topic/room/${roomId}`, (message: IMessage) => {
-        const payload = JSON.parse(message.body);
-        onMessage(payload);
-      });
-    },
-    onStompError: (frame) => {
-      console.error('WebSocket error:', frame);
-    },
+  stompClient.connect({}, (frame?: Frame) => {
+    if (!frame) return;
+    console.log('Connected: ' + frame);
+    stompClient?.subscribe(`/topic/room/${roomId}/players`, message => {
+      onMessage(JSON.parse(message.body));
+    });
+    stompClient?.subscribe(`/topic/room/${roomId}`, message => {
+      const body = JSON.parse(message.body);
+      onMessage(body);
+    });
+    onConnected();
   });
-
-  stompClient.activate();
-}
-
-export function sendRoomMessage(roomId: string, data: any) {
-  stompClient?.publish({
-    destination: `/app/room/${roomId}`,
-    body: JSON.stringify(data),
-  });
-}
-
-export function disconnectWebSocket() {
-  stompClient?.deactivate();
-}
+};
+export const sendRoomMessage = (roomId: string, body: any) => {
+  if (stompClient && stompClient.connected) {
+    stompClient.send(`/app/room/${roomId}`, JSON.stringify(body), {});
+  }
+};
