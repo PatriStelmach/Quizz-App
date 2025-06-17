@@ -57,7 +57,7 @@ const onSubmit = form.handleSubmit(async (values) =>
     setTimeout(async () =>
     {
       await router.push('/home')
-    }, 200)
+    }, 100)
 
   }
   catch (error)
@@ -78,7 +78,7 @@ const onSubmit = form.handleSubmit(async (values) =>
     else {
       errorMessage.value = 'An unexpected error occurred'
     }
-    }, 200)
+    }, 100)
   }
 })
 const onGoogleLogin = async () =>
@@ -88,7 +88,7 @@ const onGoogleLogin = async () =>
   {
    window.location.href = 'http://localhost:10000/oauth2/authorization/google';
     isGoogleing.value = false;
-  }, 200);
+  }, 100);
 
 }
 
@@ -100,7 +100,7 @@ const onRegister = async () =>
   {
     await router.push('/register');
     isRegistering.value = false;
-  }, 200);
+  }, 100);
 };
 </script>
 

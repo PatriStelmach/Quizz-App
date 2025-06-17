@@ -6,7 +6,6 @@ import * as z from 'zod'
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -38,12 +37,17 @@ import {
 } from '@/components/ui/combobox'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const isHiding = ref(false)
 const isShowing = ref(false)
+const isLoading = ref(false)
 
 const categories = Object.entries(Category)
 const difficulties = Object.entries(Diff)
+const categoryKeys = Object.keys(Category) as [keyof typeof Category]
+const difficultyKeys = Object.keys(Diff) as [keyof typeof Diff]
 
 console.log(categories)
 
@@ -56,11 +60,20 @@ onMounted(() =>
 })
 
 
-const formSchema = toTypedSchema(
-  z.object({
-    title: z.string().min(2, 'Username must be at least 2 characters').max(50),
-  }),
-)
+const formSchema =
+  toTypedSchema(z.object({
+    title: z.string().min(6, 'Title must have at least 6 characters').max(50),
+    description: z.string().min(15, 'Description must have at least 15 characters').max(500),
+    category: z.enum(categoryKeys,
+      {
+        required_error: "Choose category"
+      }),
+    difficulty: z.enum(difficultyKeys,
+      {
+        required_error: "Choose difficulty level"
+      }),
+    timeLimit: z.coerce.number().min(1, 'Time limit must be between 1 and 60 minutes').max(60),
+  }))
 
 const form = useForm({
   validationSchema: formSchema,
@@ -102,6 +115,7 @@ const onSubmit = form.handleSubmit(async (values) =>
 </script>
 
 <template>
+
   <form
     @submit="onSubmit"
     class="p-10 relative mx-auto max-w-2xl grid justify-center rounded-md border border-gray-300 shadow-md transition-all duration-500 ease-in-out"
@@ -110,8 +124,9 @@ const onSubmit = form.handleSubmit(async (values) =>
       'opacity-100 scale-100 translate-y-0': !isHiding && isShowing,
     }"
   >
+    <h1 class="text-center mb-6 text-3xl border-b pb-2">Create a new quiz</h1>
     <FormField v-slot="{ componentField }" name="title">
-      <FormItem>
+      <FormItem class="mb-5">
         <FormLabel class="justify-center">Quiz Title</FormLabel>
         <FormControl>
           <Input type="text" placeholder="Title" v-bind="componentField" class="mb-4 w-120 h-12" />
@@ -121,8 +136,8 @@ const onSubmit = form.handleSubmit(async (values) =>
     </FormField>
 
     <FormField v-slot="{ componentField }" name="description">
-      <FormItem>
-        <FormLabel>Quiz Description</FormLabel>
+      <FormItem class="mb-5 ">
+        <FormLabel class="justify-center">Quiz Description</FormLabel>
         <FormControl>
           <Input
             type="text"
@@ -136,7 +151,7 @@ const onSubmit = form.handleSubmit(async (values) =>
     </FormField>
 
     <FormField v-slot="{ componentField }" name="category">
-      <FormItem>
+      <FormItem class="mb-5">
         <FormLabel>Category</FormLabel>
         <FormControl>
           <Combobox class="w-120 h-12" v-bind="componentField" by="label">
@@ -184,29 +199,19 @@ const onSubmit = form.handleSubmit(async (values) =>
     </FormField>
 
     <FormField v-slot="{ componentField }" name="difficulty">
-      <FormItem>
+      <FormItem class="mb-5">
         <FormLabel>Difficulty Level</FormLabel>
         <FormControl>
           <RadioGroup class="mb-4 mt-2 flex flex-col space-y-1" v-bind="componentField">
-            <FormItem class="flex items-center space-y-0 gap-x-3">
+            <FormItem
+              v-for="[key, label] in difficulties"
+              :key="key"
+              class="flex items-center space-y-0 gap-x-3"
+            >
               <FormControl>
-                <RadioGroup>
-                  <FormItem
-                    class="font-normal flex cursor-pointer"
-                    v-for="[key, label] in difficulties"
-                    :key="key">
-                      <FormControl>
-                        <RadioGroupItem
-                          class="cursor-pointer"
-                          :value="key"
-                        />
-                      </FormControl>
-                    <FormLabel class="mb-0 cursor-pointer">
-                      {{ label }}
-                    </FormLabel>
-                  </FormItem>
-          </RadioGroup>
+                <RadioGroupItem class="cursor-pointer" :value="key" />
               </FormControl>
+              <FormLabel class="mb-0 cursor-pointer">{{ label }}</FormLabel>
             </FormItem>
           </RadioGroup>
         </FormControl>
@@ -214,8 +219,8 @@ const onSubmit = form.handleSubmit(async (values) =>
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="time-limit">
-      <FormItem>
+    <FormField v-slot="{ componentField }" name="timeLimit">
+      <FormItem class="mb-5">
         <FormControl>
           <NumberField
             class="mb-4 w-48"
@@ -239,25 +244,7 @@ const onSubmit = form.handleSubmit(async (values) =>
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="username">
-      <FormItem>
-        <FormLabel>Quiz Title</FormLabel>
-        <FormControl>
-          <Input type="text" placeholder="Title" v-bind="componentField" class="mb-4 w-120 h-12" />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    </FormField>
 
-    <FormField v-slot="{ componentField }" name="username">
-      <FormItem>
-        <FormLabel>Quiz Title</FormLabel>
-        <FormControl>
-          <Input type="text" placeholder="Title" v-bind="componentField" class="mb-4 w-120 h-12" />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    </FormField>
 
     <Button type="submit"> Submit </Button>
   </form>
