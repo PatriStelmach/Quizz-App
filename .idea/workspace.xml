@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="full quizz create endpoint">
+      <change afterPath="$PROJECT_DIR$/frontend/src/graphql/AllQuizes.graphql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/graphql/QuizById.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/BeansConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/BeansConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizGraphController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizGraphController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/FriendsSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/FriendsSidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/generated/gql.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/generated/gql.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Exception" />
+        <option value="Record" />
+        <option value="GraphQL File" />
+        <option value="TypeScript File" />
+        <option value="Vue Composition API Component" />
+        <option value="AnnotationType" />
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;PatriStelmach&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/PatriStelmach/QuizzApp.git&quot;,
+    &quot;accountId&quot;: &quot;81d98f74-ea2e-414d-bf59-bba483bdca7c&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/6.4.4/spring-security-core-6.4.4.jar!/org/springframework/security/authentication/AuthenticationManager.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/6.2.5/spring-webmvc-6.2.5-sources.jar!/org/springframework/web/servlet/config/annotation/CorsRegistration.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/frontend/node_modules/pinia/dist/pinia.d.ts" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2xPgOk4HapwaGWmMsIpaxUQZytO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "HTTP Request.generated-requests | #1.executor": "Run",
+    "Maven. [clean,install].executor": "Run",
+    "Maven.quizz-app [clean,install].executor": "Run",
+    "Maven.quizz-app [clean,package].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.Application.executor": "Run",
+    "git-widget-placeholder": "no-tailwind-autocomplete",
+    "ignore.preview.features.used": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/patrz/IdeaProjects/QuizzApp/frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Users\\patrz\\IdeaProjects\\QuizzApp\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ],
+    "vue.recent.templates": [
+      "Vue Composition API Component"
+    ]
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.pjatk.QuizzApp.User" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\patrz\IdeaProjects\QuizzApp\frontend" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\patrz\IdeaProjects\QuizzApp\frontend\src\apollo" />
+      <recent name="C:\Users\patrz\IdeaProjects\QuizzApp\frontend\src" />
+      <recent name="C:\Users\patrz\IdeaProjects\QuizzApp\frontend" />
+      <recent name="C:\Users\patrz\IdeaProjects\QuizzApp\frontend\src\lib" />
+      <recent name="C:\Users\patrz\IdeaProjects\QuizzApp\frontend\src\assets" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean package" />
+      <command value="mvn clean install" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.Application">
+    <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="quizz-app" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.pjatk.QuizzApp.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.generated-requests | #1" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="" />
+      <created>1747845093187</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747845093187</updated>
+      <workItem from="1747845094451" duration="1090000" />
+      <workItem from="1747846411158" duration="14277000" />
+      <workItem from="1747922214693" duration="10519000" />
+      <workItem from="1748001053575" duration="27897000" />
+      <workItem from="1748197684775" duration="858000" />
+      <workItem from="1748291885664" duration="42000" />
+      <workItem from="1748621792332" duration="628000" />
+      <workItem from="1748689112884" duration="3085000" />
+      <workItem from="1748705005364" duration="1477000" />
+      <workItem from="1748707335616" duration="1100000" />
+      <workItem from="1748710721375" duration="56000" />
+      <workItem from="1748711948560" duration="3000" />
+      <workItem from="1748769878295" duration="56000" />
+      <workItem from="1748771347502" duration="1236000" />
+      <workItem from="1748772608648" duration="24574000" />
+      <workItem from="1748970882446" duration="16594000" />
+      <workItem from="1749152319102" duration="1193000" />
+      <workItem from="1749239280701" duration="10000" />
+      <workItem from="1749239346230" duration="1946000" />
+      <workItem from="1749249370824" duration="21000" />
+      <workItem from="1749328052000" duration="2494000" />
+      <workItem from="1749334778286" duration="2533000" />
+      <workItem from="1749404488742" duration="3971000" />
+      <workItem from="1749571381303" duration="11036000" />
+      <workItem from="1749587857915" duration="164000" />
+      <workItem from="1749655533763" duration="10179000" />
+      <workItem from="1749719677316" duration="8996000" />
+      <workItem from="1749734658079" duration="9977000" />
+      <workItem from="1749822833261" duration="13487000" />
+      <workItem from="1749841115483" duration="188000" />
+      <workItem from="1749841311290" duration="38744000" />
+      <workItem from="1749994625152" duration="17141000" />
+      <workItem from="1750021235675" duration="3422000" />
+      <workItem from="1750084543506" duration="847000" />
+      <workItem from="1750086705726" duration="1000" />
+      <workItem from="1750086729344" duration="20000" />
+      <workItem from="1750088234344" duration="43000" />
+      <workItem from="1750092610882" duration="120000" />
+      <workItem from="1750092915389" duration="640000" />
+    </task>
+    <task id="LOCAL-00001" summary="docker updated">
+      <option name="closed" value="true" />
+      <created>1747845646249</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1747845646249</updated>
+    </task>
+    <task id="LOCAL-00002" summary="login auth v1 done">
+      <option name="closed" value="true" />
+      <created>1747928039460</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1747928039460</updated>
+    </task>
+    <task id="LOCAL-00003" summary="login auth v1 done">
+      <option name="closed" value="true" />
+      <created>1747928140411</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1747928140412</updated>
+    </task>
+    <task id="LOCAL-00004" summary="First user endpoints, adding DTO's">
+      <option name="closed" value="true" />
+      <created>1748044518921</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748044518921</updated>
+    </task>
+    <task id="LOCAL-00005" summary="First user endpoints, adding DTO's">
+      <option name="closed" value="true" />
+      <created>1748044567035</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748044567035</updated>
+    </task>
+    <task id="LOCAL-00006" summary="graphql">
+      <option name="closed" value="true" />
+      <created>1748785401943</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748785401943</updated>
+    </task>
+    <task id="LOCAL-00007" summary="graphql">
+      <option name="closed" value="true" />
+      <created>1748813458782</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748813458782</updated>
+    </task>
+    <task id="LOCAL-00008" summary="authentication store">
+      <option name="closed" value="true" />
+      <created>1748983050979</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748983050979</updated>
+    </task>
+    <task id="LOCAL-00009" summary="graphql endpoint">
+      <option name="closed" value="true" />
+      <created>1749587905342</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1749587905342</updated>
+    </task>
+    <task id="LOCAL-00010" summary="graphql endpoint">
+      <option name="closed" value="true" />
+      <created>1749733107276</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1749733107276</updated>
+    </task>
+    <task id="LOCAL-00011" summary="graphql schema">
+      <option name="closed" value="true" />
+      <created>1749746189432</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1749746189432</updated>
+    </task>
+    <task id="LOCAL-00012" summary="graphql schema">
+      <option name="closed" value="true" />
+      <created>1749994768618</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1749994768618</updated>
+    </task>
+    <task id="LOCAL-00013" summary="graphql schema">
+      <option name="closed" value="true" />
+      <created>1750006694572</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1750006694572</updated>
+    </task>
+    <task id="LOCAL-00014" summary="graphql schema">
+      <option name="closed" value="true" />
+      <created>1750024151673</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1750024151673</updated>
+    </task>
+    <task id="LOCAL-00015" summary="full quizz create endpoint">
+      <option name="closed" value="true" />
+      <created>1750107105135</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1750107105135</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="docker updated" />
+    <MESSAGE value="login auth v1 done" />
+    <MESSAGE value="First user endpoints, adding DTO's" />
+    <MESSAGE value="graphql" />
+    <MESSAGE value="authentication store" />
+    <MESSAGE value="graphql endpoint" />
+    <MESSAGE value="graphql schema" />
+    <MESSAGE value="full quizz create endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="full quizz create endpoint" />
+  </component>
+  <component name="com.apollographql.ijplugin.settings.ProjectSettingsState">
+    <option name="hasEnabledGraphQLPluginApolloKotlinSupport" value="true" />
+    <option name="lspPassPathToSuperGraphYaml" value="false" />
+    <option name="telemetryInstanceId" value="5703d0b2-5e4a-46e8-98e0-7eb9937acdff" />
+  </component>
+</project>
