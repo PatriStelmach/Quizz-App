@@ -68,7 +68,7 @@ public class QuestionService
             return mapper.questionToDto(questionRepository.save(question));
 
         } else {
-            throw new AccessDeniedException("You don't have permission to create new question");
+            throw new AccessDeniedException("You don't a have permission to create new question");
         }
     }
 
