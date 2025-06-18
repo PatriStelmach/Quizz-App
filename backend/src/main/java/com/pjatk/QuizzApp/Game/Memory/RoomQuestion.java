@@ -12,5 +12,6 @@ public class RoomQuestion {
     private String question;
     private List<String> answers;
     private int correctAnswerIndex;
+    private int duration;
 
 }

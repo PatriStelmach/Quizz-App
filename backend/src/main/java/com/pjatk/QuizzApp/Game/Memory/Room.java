@@ -3,7 +3,9 @@ package com.pjatk.QuizzApp.Game.Memory;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
@@ -16,23 +18,26 @@ public class Room {
     private List<RoomQuestion> roomQuestions;
     private AtomicInteger currentQuestionIndex = new AtomicInteger(0);
 
+    // Use thread-safe map
+    private Map<String, Integer> playerAnswers = new ConcurrentHashMap<>();
+
     public Room(String id, String ownerName) {
         this.id = id;
         this.ownerName = ownerName;
     }
+
     public RoomQuestion getCurrentQuestion() {
-        if (roomQuestions == null || currentQuestionIndex.get() >= roomQuestions.size()) return null;
-        return roomQuestions.get(currentQuestionIndex.get());
+        if (roomQuestions != null && currentQuestionIndex.get() < roomQuestions.size()) {
+            return roomQuestions.get(currentQuestionIndex.get());
+        }
+        return null;
     }
 
-    public RoomQuestion nextQuestion() {
-        if (roomQuestions == null || currentQuestionIndex.incrementAndGet() >= roomQuestions.size()) return null;
-        return roomQuestions.get(currentQuestionIndex.get());
+    public void moveToNextQuestion() {
+        currentQuestionIndex.incrementAndGet();
     }
 
-    public void setRoomQuestions(List<RoomQuestion> roomQuestions) {
-        this.roomQuestions = roomQuestions;
-        this.currentQuestionIndex.set(0);
+    public void clearAnswers() {
+        playerAnswers.clear();
     }
-
 }

@@ -35,7 +35,51 @@ public class RoomSocketController {
                 startQuiz(roomId);
                 // future cases: "answer", "leave", etc.
             }
+            case "answer" -> {
+                String playerName = String.valueOf(message.get("playerName"));
+                Object rawAnswer = message.get("answerIndex");
 
+                Integer answerIndex = null;
+                if (rawAnswer != null && !"null".equals(rawAnswer)) {
+                    answerIndex = (rawAnswer instanceof Integer)
+                            ? (Integer) rawAnswer
+                            : Integer.parseInt(rawAnswer.toString());
+                }
+                System.out.println("All player answers: " + room.getPlayerAnswers());
+                handleAnswer(roomId, playerName, answerIndex);
+            }
+
+        }
+    }
+
+    private void handleAnswer(String roomId, String playerName, Integer answerIndex) {
+        Room room = roomService.getRoom(roomId);
+
+        room.getPlayerAnswers().put(playerName, answerIndex != null ? answerIndex : -1); //  set -1 for: no answer
+
+
+
+        // Check if all players answered(time out or send)
+        if (room.getPlayerAnswers().size() == room.getPlayers().size()) {
+            RoomQuestion current = room.getCurrentQuestion();
+            if (current != null) {
+                messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
+                        "type", "reveal",
+                        "correctAnswer", current.getCorrectAnswerIndex()
+                ));
+            }
+            System.out.println("Saved answer for " + playerName + ": " + answerIndex);
+            // Clear answers for next round
+            room.getPlayerAnswers().clear();
+
+            // Move to next question after delay
+            new Thread(() -> {
+                try {
+                    Thread.sleep(3000);
+                    room.moveToNextQuestion();
+                    sendQuestion(roomId);
+                } catch (InterruptedException ignored) {}
+            }).start();
         }
     }
 
@@ -44,29 +88,32 @@ public class RoomSocketController {
         System.out.println("join room - room: " + room);
         System.out.println("playerName in method joinRoom: " + playerName);
 
-            if (!room.getPlayers().contains(playerName)) {
-                room.getPlayers().add(playerName);
-                messagingTemplate.convertAndSend("/topic/room/" + roomId + "/players", room.getPlayers());
-            }
+        if (!room.getPlayers().contains(playerName)) {
+            room.getPlayers().add(playerName);
+            messagingTemplate.convertAndSend("/topic/room/" + roomId + "/players", room.getPlayers());
+        }
     }
+
     @MessageMapping("/room/{roomId}/start")
     public void startQuiz(@DestinationVariable String roomId) {
         Room room = roomService.getRoom(roomId);
+
         if (room != null && !room.isStarted()) {
             room.setStarted(true);
 
-            // Notify frontend to switch to game view
+            // send msg & front route to /game/:roomId
             messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of("type", "quiz-start"));
 
-            // Delay before sending the first question
+            // INJECT QUESTIONS FOR NOW
+            if (room.getRoomQuestions() == null || room.getRoomQuestions().isEmpty()) {
+                room.setRoomQuestions(loadQuestions()); // fallback (temporary)
+            }
+
+            // delay and send first question
             new Thread(() -> {
                 try {
-                    Thread.sleep(2000); // 2 seconds
-                    messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
-                            "type", "question",
-                            "question", "What is the capital of France?",
-                            "answers", List.of("Paris", "London", "Berlin", "Madrid")
-                    ));
+                    Thread.sleep(1000);
+                    sendQuestion(roomId);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -74,42 +121,19 @@ public class RoomSocketController {
         }
     }
 
-
-//    @MessageMapping("/room/{roomId}/start")
-//    public void startQuiz(@DestinationVariable String roomId) {
-//        Room room = roomService.getRoom(roomId);
-//        if (room != null && !room.isStarted()) {
-//            room.setStarted(true);
-//
-//            // Step 1: Load questions
-//            List<RoomQuestion> questions = loadQuestions();
-//            room.setRoomQuestions(questions);
-//
-//            // Step 2: Send 'get ready' message
-//            messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
-//                    "type", "get-ready"
-//            ));
-//
-//            // Step 3: Wait 2 seconds, then send first question
-//            new Thread(() -> {
-//                try {
-//                    Thread.sleep(2000);
-//                    sendQuestion(roomId);
-//                } catch (InterruptedException ignored) {}
-//            }).start();
-//        }
-//    }
-
     private void sendQuestion(String roomId) {
         Room room = roomService.getRoom(roomId);
         RoomQuestion q = room.getCurrentQuestion();
 
         if (q != null) {
+            room.getPlayerAnswers().clear(); // clear before accepting new answers
             messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
                     "type", "question",
                     "question", q.getQuestion(),
-                    "answers", q.getAnswers()
+                    "answers", q.getAnswers(),
+                    "duration", q.getDuration()
             ));
+            startQuestionTimer(roomId, q.getDuration());
         } else {
             messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
                     "type", "quiz-end"
@@ -118,13 +142,41 @@ public class RoomSocketController {
     }
     private List<RoomQuestion> loadQuestions() {
         return List.of(
-                new RoomQuestion("What is the capital of France?",
-                        List.of("Paris", "Berlin", "Madrid", "Rome"), 0),
-                new RoomQuestion("2 + 2 = ?",
-                        List.of("3", "4", "5", "6"), 1),
-                new RoomQuestion("What color is the sky?",
-                        List.of("Green", "Blue", "Red", "Yellow"), 1)
+                new RoomQuestion("What is the capital of France (q1)?",
+                        List.of("Paris", "Berlin", "Madrid", "Rome"), 0, 15),
+                new RoomQuestion("2 + 2 = ? (q2)",
+                        List.of("3", "4", "5", "6"), 1, 10),
+                new RoomQuestion("What color is the sky? (q3)",
+                        List.of("Green", "Blue", "Red", "Yellow"), 1, 12)
         );
+
     }
 
+    private void startQuestionTimer(String roomId, int seconds) {
+        new Thread(() -> {
+            try {
+                Thread.sleep(seconds * 1000L);
+
+                Room room = roomService.getRoom(roomId);
+
+                // Reveal only if not already done
+                if (room.getPlayerAnswers().size() < room.getPlayers().size()) {
+                    RoomQuestion current = room.getCurrentQuestion();
+                    if (current != null) {
+                        messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
+                                "type", "reveal",
+                                "correctAnswer", current.getCorrectAnswerIndex()
+                        ));
+                    }
+
+                    room.getPlayerAnswers().clear();
+                    Thread.sleep(3000);
+                    room.moveToNextQuestion();
+                    sendQuestion(roomId);
+                }
+
+            } catch (InterruptedException ignored) {
+            }
+        }).start();
+    }
 }
