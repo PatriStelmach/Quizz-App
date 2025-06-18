@@ -1,21 +1,23 @@
 <template>
-  <div v-if="userName && currentQuestion" class="p-6 space-y-4">
-    <h2 class="text-2xl font-semibold">{{ currentQuestion.question }}</h2>
-    <div class="grid grid-cols-2 gap-4">
-      <button
-        v-for="(answer, index) in currentQuestion.answers"
-        :key="index"
-        class="p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-        @click="submitAnswer(index)"
-        :disabled="answered"
-      >
-        {{ answer }}
-      </button>
+  <div v-if="userName" class="p-6 space-y-4">
+    <div v-if="!currentQuestion">
+      <h2 class="text-2xl font-semibold text-yellow-400">Get ready...</h2>
     </div>
-    <div v-if="answered" class="mt-4 text-green-600 font-bold">Answer sent!</div>
-  </div>
-  <div v-else>
-    <p class="text-gray-600">Waiting for question...</p>
+    <div v-else>
+      <h2 class="text-2xl font-semibold">{{ currentQuestion.question }}</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <button
+          v-for="(answer, index) in currentQuestion.answers"
+          :key="index"
+          class="p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          @click="submitAnswer(index)"
+          :disabled="answered"
+        >
+          {{ answer }}
+        </button>
+      </div>
+      <div v-if="answered" class="mt-4 text-green-600 font-bold">Answer sent!</div>
+    </div>
   </div>
 </template>
 
@@ -37,8 +39,9 @@ onMounted(() => {
   connectSocket(() => {
     console.log("Game socket connected");
   }, (message) => {
-    console.log("Game message received:", message);
+    console.log("Game message received:", message); // <--- this logs it
     if (message.type === 'question') {
+      console.log("Setting current question...");    // <--- add this
       currentQuestion.value = {
         question: message.question,
         answers: message.answers

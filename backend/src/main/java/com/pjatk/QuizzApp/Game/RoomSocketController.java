@@ -23,15 +23,19 @@ public class RoomSocketController {
     @MessageMapping("/room/{roomId}")
     public void handleMessage(@DestinationVariable String roomId, @Payload Map<String, Object> message) {
         String type = (String) message.get("type");
-
+        Room room = roomService.getRoom(roomId);
         switch (type) {
             case "join" -> {
                 String playerName = (String) message.get("playerName");
                 System.out.println("handle Message playerName value: " + playerName);
                 joinRoom(roomId, playerName);
             }
-            case "start" -> startQuiz(roomId);
-            // future cases: "answer", "leave", etc.
+            case "start" -> {
+                System.out.println("START message received for room: " + roomId);
+                startQuiz(roomId);
+                // future cases: "answer", "leave", etc.
+            }
+
         }
     }
 
@@ -51,20 +55,26 @@ public class RoomSocketController {
         if (room != null && !room.isStarted()) {
             room.setStarted(true);
 
-            // send "quiz-start" first
+            // Notify frontend to switch to game view
             messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of("type", "quiz-start"));
 
-            // simulate question (replace with real quiz logic)
-            String question = "What is the capital of France?";
-            List<String> answers = List.of("Paris", "London", "Berlin", "Madrid");
-
-            messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
-                    "type", "question",
-                    "question", question,
-                    "answers", answers
-            ));
+            // Delay before sending the first question
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000); // 2 seconds
+                    messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
+                            "type", "question",
+                            "question", "What is the capital of France?",
+                            "answers", List.of("Paris", "London", "Berlin", "Madrid")
+                    ));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
     }
+
+
 //    @MessageMapping("/room/{roomId}/start")
 //    public void startQuiz(@DestinationVariable String roomId) {
 //        Room room = roomService.getRoom(roomId);
