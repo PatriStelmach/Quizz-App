@@ -19,9 +19,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Carousel, type CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import type { QuestionType} from "@/generated/graphql.ts";
 
-const emblaMainApi = ref<CarouselApi>()
+const questionType = ref<QuestionType>()
 const emblaThumbnailApi = ref<CarouselApi>()
 const selectedIndex = ref(0)
 
@@ -38,7 +39,7 @@ function onThumbClick(index: number) {
   emblaMainApi.value.scrollTo(index)
 }
 
-watchOnce(emblaMainApi, (emblaMainApi) => {
+watchOnce(questionType, (emblaMainApi) => {
   if (!emblaMainApi)
     return
 
@@ -52,7 +53,7 @@ watchOnce(emblaMainApi, (emblaMainApi) => {
   <div class="w-full m-auto sm:w-auto">
     <Carousel
       class="relative w-full max-w-xs"
-      @init-api="(val) => emblaMainApi = val"
+      @init-api="(val) => questionType = val"
     >
       <CarouselContent>
         <CarouselItem v-for="(_, index) in 10" :key="index">
@@ -78,23 +79,23 @@ watchOnce(emblaMainApi, (emblaMainApi) => {
                         <SelectContent position="popper">
                           <SelectItem
                             v-if="openQuestion"
-                            value="nuxt">
-                            Nuxt
+                            value="openQ">
+                            Open answer
                           </SelectItem>
                           <SelectItem
-                            v-if="multipleChoiceQuestion"
-                            value="nuxt">
-                            Nuxt
+                            v-if="multipleQuestion"
+                            value="multiQ">
+                            Multiple choice
                           </SelectItem>
                           <SelectItem
-                            v-if="singeChoiceQuestion"
-                            value="nuxt">
-                            Nuxt
+                            v-if="signleQuestion"
+                            value="singleQ">
+                            Single Choice
                           </SelectItem>
                           <SelectItem
                             v-if="trueFalseQuestion"
-                            value="nuxt">
-                            Nuxt
+                            value="trueFalse">
+                            True / False
                           </SelectItem>
                         </SelectContent>
                       </Select>

@@ -16,7 +16,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { onMounted, onBeforeUnmount } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { computed } from 'vue'
-import {AllQuizzesDocument, type AllQuizzesQuery} from "@/generated/graphql.ts";
+import { AllQuizzesDocument, type AllQuizzesQuery } from "@/generated/graphql.ts";
 
 
 const router = useRouter()
