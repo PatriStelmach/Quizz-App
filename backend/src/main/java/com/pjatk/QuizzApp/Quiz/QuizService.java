@@ -46,10 +46,12 @@ public class QuizService
     }
 
 
-    public QuizDTO createQuiz(QuizDTO quizDTO) throws AccessDeniedException {
+    public QuizDTO createQuiz(QuizDTO quizDTO) throws AccessDeniedException
+    {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication != null && authentication.isAuthenticated()) {
+        if (authentication != null && authentication.isAuthenticated())
+        {
             User author = userRepository.findByUsername(authentication.getName())
                     .orElseThrow(() -> new UserNotFoundException("User not found"));
 
@@ -57,33 +59,33 @@ public class QuizService
             mapper.quizDTOToEntity(quizDTO, quiz);
             quiz.setAuthor(author);
 
-            Set<Question> questions = new HashSet<>();
-
-            if (quizDTO.getQuestions() != null)
-            {
-                for (QuestionDTO questionDTO : quizDTO.getQuestions())
-                {
-                    Question question = new Question();
-                    mapper.questionDTOToEntity(questionDTO, question);
-                    question.setQuiz(quiz);
-
-                    Set<Answer> answers = new HashSet<>();
-                    if (questionDTO.getAnswers() != null)
-                    {
-                        for (AnswerDTO answerDTO : questionDTO.getAnswers())
-                        {
-                            Answer answer = new Answer();
-                            mapper.answerDTOToEntity(answerDTO, answer);
-                            answer.setQuestion(question);
-                            answers.add(answer);
-                        }
-                    }
-                    question.setAnswers(answers);
-                    questions.add(question);
-                }
-            }
-
-            quiz.setQuestions(questions);
+//            Set<Question> questions = new HashSet<>();
+//
+//            if (quizDTO.getQuestions() != null)
+//            {
+//                for (QuestionDTO questionDTO : quizDTO.getQuestions())
+//                {
+//                    Question question = new Question();
+//                    mapper.questionDTOToEntity(questionDTO, question);
+//                    question.setQuiz(quiz);
+//
+//                    Set<Answer> answers = new HashSet<>();
+//                    if (questionDTO.getAnswers() != null)
+//                    {
+//                        for (AnswerDTO answerDTO : questionDTO.getAnswers())
+//                        {
+//                            Answer answer = new Answer();
+//                            mapper.answerDTOToEntity(answerDTO, answer);
+//                            answer.setQuestion(question);
+//                            answers.add(answer);
+//                        }
+//                    }
+//                    question.setAnswers(answers);
+//                    questions.add(question);
+//                }
+//            }
+//
+//            quiz.setQuestions(questions);
 
             return mapper.quizToDto(quizRepository.save(quiz));
 

@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -22,5 +23,5 @@ public class QuizDTO
     private Integer maxPoints;
     private byte[] image;
     private Duration timeLimit;
-    private Set<QuestionDTO> questions;
+    private List<QuestionDTO> questions;
 }

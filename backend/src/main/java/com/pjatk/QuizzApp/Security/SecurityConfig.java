@@ -2,6 +2,7 @@ package com.pjatk.QuizzApp.Security;
 
 import com.pjatk.QuizzApp.Configuration.CustomOAuth2Service;
 import com.pjatk.QuizzApp.Configuration.OAuth2AuthenticationSuccessHandler;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -75,6 +76,16 @@ public class SecurityConfig
                        )
                        .successHandler(oauth2LoginSuccessHandler);
                })
+               .exceptionHandling(exception -> exception
+                       .authenticationEntryPoint(
+                        (request, response, authException) -> {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                })
+                .accessDeniedHandler(
+                        (request, response, accessDeniedException) -> {
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden");
+                })
+    )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionDTO {
+public class QuestionRoomDTO {
     private String questionId;
     private String questionText;
     private List<String> options;

@@ -10,14 +10,16 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@Builder
 public class Question
 {
     @Id
@@ -31,11 +33,11 @@ public class Question
     @Column(nullable = false)
     private String question;
 
-
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private Set<Answer> answers = new HashSet<>();
-
     @JsonManagedReference
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answers = new ArrayList<>();
+
+
     @ManyToOne
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;

@@ -40,10 +40,9 @@ import { Label } from '@/components/ui/label'
 import { useRouter } from 'vue-router'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import axios from 'axios'
-import type { CreateQuiz } from '@/types/create.quiz.ts'
 import authStore from '@/store/auth.store.ts'
-const useAuthstore = authStore()
 
+const useAuthstore = authStore()
 const router = useRouter()
 const isHiding = ref(false)
 const isShowing = ref(false)
@@ -78,7 +77,10 @@ const formSchema =
       {
         required_error: "Choose difficulty level"
       }),
-    timeLimit: z.coerce.number().min(1, 'Time limit must be between 1 and 60 minutes').max(60),
+    timeLimit: z.coerce.number({
+      invalid_type_error: 'Time limit must be a number',
+      required_error: 'Time limit is required',
+    }).min(1, 'Time limit must be at least 1 minute'),
   }))
 
 const form = useForm (
@@ -88,7 +90,6 @@ const form = useForm (
 
 const onSubmit = form.handleSubmit(async (values) =>
 {
-  console.log(values)
   try
   {
     await axios.post('http://localhost:10000/quiz/create', {
@@ -97,7 +98,7 @@ const onSubmit = form.handleSubmit(async (values) =>
       description: values.description,
       category: values.category.toUpperCase(),
       diff: values.difficulty,
-      timeLimit: 'PT' + values.timeLimit.toString() +'M',
+      timeLimit: 'PT' + values.timeLimit + 'M',
     },
       {
         headers:
@@ -105,16 +106,28 @@ const onSubmit = form.handleSubmit(async (values) =>
             Authorization: `Bearer ${useAuthstore.token}`
           }
       }
-    )
+    ).then((result) => {
+      if (result.status === 201)
+      {
+        setTimeout( async () =>
+        {
+          await router.push(
+            {
+            name: 'create-questions-and-answers',
+            params:{ quizId: result.data.id }
+            })
+        }, 100)
+
+      }
+
+    })
+
     isLoading.value = true
     console.log('Form submitted with values: ', values)
 
     isHiding.value = true
 
-    setTimeout(async () =>
-    {
-      await router.push('/home')
-    }, 200)
+
   } catch (error)
   {
     setTimeout(async () =>
@@ -127,7 +140,13 @@ const onSubmit = form.handleSubmit(async (values) =>
         {
           errorMessage.value = 'Invalid Quiz data'
         }
+        else if (error.message.includes('401') || error.message.includes('403'))
+        {
+          errorMessage.value = 'You have to be loged in to create a quiz'
+        }
+
       }
+
       else
       {
         errorMessage.value = 'An unexpected error occurred'
@@ -256,15 +275,16 @@ const onSubmit = form.handleSubmit(async (values) =>
         <FormControl>
           <NumberField
             class="mb-4 w-48"
-            v-bind="componentField"
+            :value="componentField.modelValue"
+            @update:modelValue="val => componentField.onChange(Number(val))"
             id="number"
             :default-value="2"
             :format-options="{
-      signDisplay: 'exceptZero',
-      minimumFractionDigits: 1,
-    }"
+          signDisplay: 'exceptZero',
+          minimumFractionDigits: 1,
+        }"
           >
-            <Label for="number">Time limit (in minutes)</Label>
+            <FormLabel for="number">Time limit (in minutes)</FormLabel>
             <NumberFieldContent>
               <NumberFieldDecrement />
               <NumberFieldInput />

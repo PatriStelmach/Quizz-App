@@ -75,6 +75,12 @@ const router = createRouter
         component: () => import('@/views/GameView.vue'),
         props: true
       },
+      {
+        path: '/create-questions-and-answers/:quizId',
+        name: 'create-questions-and-answers',
+        component: () => import('@/views/CreateQuestions.vue'),
+        props: true
+      },
 
   ],
 })
