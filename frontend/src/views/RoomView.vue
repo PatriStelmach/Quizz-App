@@ -23,9 +23,7 @@ const router = useRouter();
 const roomId = route.params.roomId as string;
 const players = ref<string[]>([]);
 
-// const userName = useAuthStore.user?.username ?? '';
 const userName = useAuthStore.username;
-console.log('userName testowanie:', userName);
 onMounted(async () => {
   try {
     const response = await axios.get(`http://localhost:10000/rooms/get?roomId=${roomId}`);
@@ -41,7 +39,7 @@ onMounted(async () => {
   connectSocket(() => {
     sendRoomMessage(roomId, { type: 'join', playerName: userName });
   }, message => {
-    //if msg is [] players
+    //if msg is [] -> players
     if (Array.isArray(message)) {
       players.value = message;
     }
