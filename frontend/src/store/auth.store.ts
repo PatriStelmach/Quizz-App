@@ -11,13 +11,18 @@ import type { JwtPayload } from '@/types/JwtPayload.ts'
 const authStore = defineStore('user',
    () =>
       {
-        const user = ref<UserLogin | null>(null);
+        const username = ref<string | null>(null);
         const loggedIn = ref(false);
         const error = ref<string | null>(null);
+        const token = ref<string | null>(null);
 
-        const setUser = (newUser: UserLogin) =>
+       const setToken = (newToken: string | null) =>
+       {
+         token.value = newToken;
+       }
+        const setUsername = (newUsername: string | null) =>
         {
-          user.value = newUser;
+          username.value = newUsername;
         };
 
 
@@ -33,7 +38,7 @@ const authStore = defineStore('user',
 
         const clearUser = () =>
         {
-          user.value = null;
+          username.value = null;
           loggedIn.value = false;
           error.value = null;
         };
@@ -45,7 +50,8 @@ const authStore = defineStore('user',
             const loggedInUser = await AuthService.login(user);
 
             const decoded = jwtDecode<JwtPayload>(loggedInUser.data.token);
-            setUser({ username: decoded.username, password: '' });
+            setToken(loggedInUser.data.token);
+            setUsername(decoded.username);
             setLoggedIn(true);
             setError(null);
             return loggedInUser;
@@ -67,15 +73,8 @@ const authStore = defineStore('user',
               throw new Error('Invalid token from Google');
             }
             const decoded = jwtDecode<JwtPayload>(token);
-            const userObject =
-              {
-              user: { username: decoded.username, password: '' },
-              loggedIn: true,
-              error: null,
-              token
-            };
-            localStorage.setItem('user', JSON.stringify(userObject));
-            setUser({ username: decoded.username, password: '' });
+            setUsername(decoded.username);
+            setToken(token);
             setLoggedIn(true);
             setError(null);
 
@@ -94,7 +93,9 @@ const authStore = defineStore('user',
           try
           {
             const loggenInUser = await AuthService.activate(token);
-            setUser(loggenInUser);
+            const decoded = jwtDecode<JwtPayload>(token);
+            setToken(token);
+            setUsername(decoded.username);
             setLoggedIn(true);
             setError(null);
             return loggenInUser;
@@ -140,15 +141,16 @@ const authStore = defineStore('user',
         };
 
         return{
-          user,
+          username,
           loggedIn,
           error,
+          token,
           googleLogin,
           activate,
           login,
           register,
           logout,
-          setUser,
+          setUser: setUsername,
           setLoggedIn,
           setError,
           clearUser,

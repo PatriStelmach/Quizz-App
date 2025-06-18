@@ -49,9 +49,7 @@ const form  = useForm<UserRegister & { passwordConfirm: string }>({
       .required('Password do not match!')
       .min(8, 'Password must be at least 6 characters')
       .oneOf([yup.ref('password')] , 'Passwords must match'),
-  }),
-
-
+  })
 })
 
 const onSubmit = form.handleSubmit(async (values) =>
@@ -71,14 +69,14 @@ const exitAlert = () =>
   setTimeout( () =>
   {
     isAfterSubmit.value = false;
-  }, 300);
+  }, 200);
 
   isAlertHiding.value = true;
 
   setTimeout(() =>
   {
     router.push('/login');
-  }, 700);
+  }, 200);
 }
 
 </script>
