@@ -5,8 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="graphql endpoint">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/ShowAllQUizes.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ShowAllQuizes.vue" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/frontend/src/components/globals/TopChart.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/checkbox/Checkbox.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/checkbox/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/progress/Progress.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/progress/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/table/Table.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/table/TableBody.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/table/TableCaption.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/table/TableCell.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/table/TableEmpty.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/table/TableFooter.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/table/TableHead.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/table/TableHeader.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/table/TableRow.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/table/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/table/utils.ts" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/frontend/src/views/AllQuizes.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_06_2025_14_58_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_06_2025_14_58__Changes_.xml" beforeDir="false" />
@@ -32,6 +47,11 @@
       <change beforePath="$PROJECT_DIR$/frontend/src/components/login/RegisterForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/RegisterForm.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/radio-group/RadioGroupItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/radio-group/RadioGroupItem.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/composables/question.types.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/generated/fragment-masking.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/generated/fragment-masking.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/generated/gql.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/generated/gql.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/graphql/AllQuizes.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/graphql/AllQuizes.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/router/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/store/auth.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/useAuthStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/store/navbar.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/useNavbarStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/store/question.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/useQuestionStore.ts" afterDir="false" />
@@ -205,7 +225,7 @@
       <workItem from="1749571381303" duration="11036000" />
       <workItem from="1749587857915" duration="164000" />
       <workItem from="1749655533763" duration="9599000" />
-      <workItem from="1750263478634" duration="14278000" />
+      <workItem from="1750263478634" duration="15074000" />
     </task>
     <task id="LOCAL-00001" summary="docker updated">
       <option name="closed" value="true" />
