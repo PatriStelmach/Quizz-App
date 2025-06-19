@@ -1,82 +1,56 @@
 <template>
-  <div class="p-6 max-w-xl mx-auto">
-    <h2 class="text-2xl font-bold mb-2">Room: {{ roomId }}</h2>
-    <p>Invite link:</p>
-    <pre class="bg-gray-100 p-2 rounded">{{ inviteLink }}</pre>
-
-    <div v-if="room">
-      <h3 class="mt-4 text-lg font-semibold">Players:</h3>
-      <ul class="list-disc ml-6">
-        <li v-for="player in room.players" :key="player">{{ player }}</li>
-      </ul>
-    </div>
-
-    <button
-      v-if="isOwner && !room?.isStarted"
-      class="mt-6 bg-blue-600 text-white px-4 py-2 rounded"
-      @click="startQuiz"
-    >
-      Start Quiz
-    </button>
+  <div v-if="userName" class="p-6">
+    <h1 class="text-2xl font-bold mb-4">Room ID: {{ roomId }}</h1>
+    <PlayerList :players="players" :currentUserName="userName" />
+    <button @click="startGame" class="mt-4 p-3 bg-green-500 text-white rounded-xl">Start Game</button>
+  </div>
+  <div v-else>
+    <p class="text-red-600">User not logged in.</p>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { connectSocket, sendRoomMessage } from '@/lib/socket';
 import axios from 'axios';
-import { connectWebSocket, disconnectWebSocket } from '@/utils/socket';
+import PlayerList from '@/components/PlayerList.vue';
+import authStore from "@/store/auth.store.ts";
 
+const useAuthStore = authStore();
 const route = useRoute();
 const router = useRouter();
 const roomId = route.params.roomId as string;
-const inviteLink = `${window.location.origin}/room/${roomId}`;
+const players = ref<string[]>([]);
 
-const room = ref<{ id: string; ownerName: string; players: string[]; isStarted: boolean } | null>(null);
-const isOwner = ref(false);
-
-function onMessage(data: any) {
-  if (data.type === 'room-update') {
-    room.value = data.room;
-  } else if (data.type === 'quiz-start') {
-    router.push({ name: 'game', params: { roomId } });
-  }
-}
-
+const userName = useAuthStore.username;
 onMounted(async () => {
   try {
-    await axios.post('http://localhost:8080/rooms/join', null, {
-      params: { roomId },
-      withCredentials: true,
-    });
+    const response = await axios.get(`http://localhost:10000/rooms/get?roomId=${roomId}`);
+    console.log('response:', response.data.players);
 
-    const res = await axios.get('http://localhost:8080/rooms/get', {
-      params: { roomId },
-      withCredentials: true,
-    });
-    room.value = res.data;
+    players.value = response.data.players || [];
 
-    const me = await axios.get('http://localhost:8080/user/me', { withCredentials: true });
-    isOwner.value = me.data.name === room.value.ownerName;
-
-    connectWebSocket(roomId, onMessage);
+    console.log('players.value:', players.value);
   } catch (err) {
-    console.error('Join room failed', err);
+    console.error("Failed to fetch room:", err);
   }
+
+  connectSocket(() => {
+    sendRoomMessage(roomId, { type: 'join', playerName: userName });
+  }, message => {
+    //if msg is [] -> players
+    if (Array.isArray(message)) {
+      players.value = message;
+    }
+    //if msg is quiz-start -> start game
+    else if (message.type === 'quiz-start') {
+      router.push({ name: 'game', params: { roomId } });
+    }
+  }, roomId);
 });
 
-onBeforeUnmount(() => {
-  disconnectWebSocket();
-});
-
-async function startQuiz() {
-  try {
-    await axios.post('http://localhost:8080/rooms/start', null, {
-      params: { roomId },
-      withCredentials: true,
-    });
-  } catch (err) {
-    console.error('Start quiz failed', err);
-  }
-}
+const startGame = () => {
+  sendRoomMessage(roomId, { type: 'start' });
+};
 </script>
