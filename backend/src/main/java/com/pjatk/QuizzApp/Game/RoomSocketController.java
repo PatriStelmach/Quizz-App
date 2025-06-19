@@ -9,8 +9,11 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
 
 @Controller
@@ -20,126 +23,128 @@ public class RoomSocketController {
     private final RoomService roomService;
     private final SimpMessagingTemplate messagingTemplate;
 
+    private final Map<String, ScheduledFuture<?>> timers = new ConcurrentHashMap<>();
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(4);
+
     @MessageMapping("/room/{roomId}")
     public void handleMessage(@DestinationVariable String roomId, @Payload Map<String, Object> message) {
         String type = (String) message.get("type");
         Room room = roomService.getRoom(roomId);
+        if (room == null) return;
+
         switch (type) {
-            case "join" -> {
-                String playerName = (String) message.get("playerName");
-                System.out.println("handle Message playerName value: " + playerName);
-                joinRoom(roomId, playerName);
-            }
-            case "start" -> {
-                System.out.println("START message received for room: " + roomId);
-                startQuiz(roomId);
-                // future cases: "answer", "leave", etc.
-            }
+            case "join" -> joinRoom(roomId, (String) message.get("playerName"));
+            case "start" -> startQuiz(roomId);
             case "answer" -> {
                 String playerName = String.valueOf(message.get("playerName"));
                 Object rawAnswer = message.get("answerIndex");
-
-                Integer answerIndex = null;
-                if (rawAnswer != null && !"null".equals(rawAnswer)) {
-                    answerIndex = (rawAnswer instanceof Integer)
-                            ? (Integer) rawAnswer
-                            : Integer.parseInt(rawAnswer.toString());
-                }
-                System.out.println("All player answers: " + room.getPlayerAnswers());
+                int answerIndex = (rawAnswer != null && !"null".equals(rawAnswer)) ? Integer.parseInt(rawAnswer.toString()) : -1;
                 handleAnswer(roomId, playerName, answerIndex);
             }
-
-        }
-    }
-
-    private void handleAnswer(String roomId, String playerName, Integer answerIndex) {
-        Room room = roomService.getRoom(roomId);
-
-        room.getPlayerAnswers().put(playerName, answerIndex != null ? answerIndex : -1); //  set -1 for: no answer
-
-
-
-        // Check if all players answered(time out or send)
-        if (room.getPlayerAnswers().size() == room.getPlayers().size()) {
-            RoomQuestion current = room.getCurrentQuestion();
-            if (current != null) {
-                messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
-                        "type", "reveal",
-                        "correctAnswer", current.getCorrectAnswerIndex()
-                ));
-            }
-            System.out.println("Saved answer for " + playerName + ": " + answerIndex);
-            // Clear answers for next round
-            room.getPlayerAnswers().clear();
-
-            // Move to next question after delay
-            new Thread(() -> {
-                try {
-                    Thread.sleep(3000);
-                    room.moveToNextQuestion();
-                    sendQuestion(roomId);
-                } catch (InterruptedException ignored) {}
-            }).start();
         }
     }
 
     private void joinRoom(String roomId, String playerName) {
         Room room = roomService.getRoom(roomId);
-        System.out.println("join room - room: " + room);
-        System.out.println("playerName in method joinRoom: " + playerName);
-
-        if (!room.getPlayers().contains(playerName)) {
-            room.getPlayers().add(playerName);
-            messagingTemplate.convertAndSend("/topic/room/" + roomId + "/players", room.getPlayers());
-        }
+        room.addPlayer(playerName);
+        messagingTemplate.convertAndSend("/topic/room/" + roomId + "/players", room.getPlayers());
     }
 
-    @MessageMapping("/room/{roomId}/start")
-    public void startQuiz(@DestinationVariable String roomId) {
+    private void startQuiz(String roomId) {
         Room room = roomService.getRoom(roomId);
+        if (room == null || room.isStarted()) return;
 
-        if (room != null && !room.isStarted()) {
-            room.setStarted(true);
+        room.setStarted(true);
+        room.setRoomQuestions(loadQuestions());
 
-            // send msg & front route to /game/:roomId
-            messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of("type", "quiz-start"));
-
-            // INJECT QUESTIONS FOR NOW
-            if (room.getRoomQuestions() == null || room.getRoomQuestions().isEmpty()) {
-                room.setRoomQuestions(loadQuestions()); // fallback (temporary)
-            }
-
-            // delay and send first question
-            new Thread(() -> {
-                try {
-                    Thread.sleep(1000);
-                    sendQuestion(roomId);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }).start();
+        // Initialize player scores and send quiz start with players + scores 0
+        List<Map<String, Object>> initialScores = new ArrayList<>();
+        for (String player : room.getPlayers()) {
+            room.getPlayerScores().putIfAbsent(player, 0);
+            initialScores.add(Map.of("player", player, "score", 0));
         }
+
+        messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
+                "type", "quiz-start",
+                "players", room.getPlayers(),
+                "scores", initialScores
+        ));
+
+        scheduler.schedule(() -> sendQuestion(roomId), 1, TimeUnit.SECONDS);
     }
 
     private void sendQuestion(String roomId) {
         Room room = roomService.getRoom(roomId);
-        RoomQuestion q = room.getCurrentQuestion();
+        RoomQuestion currentQuestion = room.getCurrentQuestion();
 
-        if (q != null) {
-            room.getPlayerAnswers().clear(); // clear before accepting new answers
+        if (currentQuestion != null) {
+            room.clearAnswers();
+
             messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
                     "type", "question",
-                    "question", q.getQuestion(),
-                    "answers", q.getAnswers(),
-                    "duration", q.getDuration()
+                    "question", currentQuestion.getQuestion(),
+                    "answers", currentQuestion.getAnswers(),
+                    "duration", currentQuestion.getDuration()
             ));
-            startQuestionTimer(roomId, q.getDuration());
+
+            ScheduledFuture<?> timer = scheduler.schedule(() -> {
+                revealAnswers(roomId, true);
+            }, currentQuestion.getDuration(), TimeUnit.SECONDS);
+
+            timers.put(roomId, timer);
         } else {
-            messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
-                    "type", "quiz-end"
-            ));
+            messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of("type", "quiz-end"));
         }
     }
+
+    private synchronized void handleAnswer(String roomId, String playerName, int answerIndex) {
+        Room room = roomService.getRoom(roomId);
+        if (room.getPlayerAnswers().containsKey(playerName)) return; // Ignore duplicates
+
+        room.getPlayerAnswers().put(playerName, answerIndex);
+
+        if (room.getPlayerAnswers().size() == room.getPlayers().size()) {
+            ScheduledFuture<?> timer = timers.remove(roomId);
+            if (timer != null) timer.cancel(false);
+            revealAnswers(roomId, false);
+        }
+    }
+
+    private void revealAnswers(String roomId, boolean timeoutTriggered) {
+        Room room = roomService.getRoom(roomId);
+        RoomQuestion current = room.getCurrentQuestion();
+        if (current == null) return;
+
+        int correctIndex = current.getCorrectAnswerIndex();
+        Map<String, Integer> scores = room.getPlayerScores();
+        List<Map<String, Object>> results = new ArrayList<>();
+
+        for (String player : room.getPlayers()) {
+            int answer = room.getPlayerAnswers().getOrDefault(player, -1);
+            boolean correct = answer == correctIndex;
+            if (correct) {
+                scores.put(player, scores.getOrDefault(player, 0) + 1);
+            }
+
+            results.add(Map.of(
+                    "player", player,
+                    "score", scores.getOrDefault(player, 0),
+                    "correct", correct
+            ));
+        }
+
+        messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
+                "type", "reveal",
+                "correctAnswer", correctIndex,
+                "results", results
+        ));
+
+        room.clearAnswers();
+        room.moveToNextQuestion();
+
+        scheduler.schedule(() -> sendQuestion(roomId), 3, TimeUnit.SECONDS);
+    }
+
     private List<RoomQuestion> loadQuestions() {
         return List.of(
                 new RoomQuestion("What is the capital of France (q1)?",
@@ -149,34 +154,5 @@ public class RoomSocketController {
                 new RoomQuestion("What color is the sky? (q3)",
                         List.of("Green", "Blue", "Red", "Yellow"), 1, 12)
         );
-
-    }
-
-    private void startQuestionTimer(String roomId, int seconds) {
-        new Thread(() -> {
-            try {
-                Thread.sleep(seconds * 1000L);
-
-                Room room = roomService.getRoom(roomId);
-
-                // Reveal only if not already done
-                if (room.getPlayerAnswers().size() < room.getPlayers().size()) {
-                    RoomQuestion current = room.getCurrentQuestion();
-                    if (current != null) {
-                        messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
-                                "type", "reveal",
-                                "correctAnswer", current.getCorrectAnswerIndex()
-                        ));
-                    }
-
-                    room.getPlayerAnswers().clear();
-                    Thread.sleep(3000);
-                    room.moveToNextQuestion();
-                    sendQuestion(roomId);
-                }
-
-            } catch (InterruptedException ignored) {
-            }
-        }).start();
     }
 }

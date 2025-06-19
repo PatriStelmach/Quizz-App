@@ -2,6 +2,7 @@ package com.pjatk.QuizzApp.Game.Memory;
 
 import lombok.Data;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -18,8 +19,10 @@ public class Room {
     private List<RoomQuestion> roomQuestions;
     private AtomicInteger currentQuestionIndex = new AtomicInteger(0);
 
-    // Use thread-safe map
+    //thread-safe map
     private Map<String, Integer> playerAnswers = new ConcurrentHashMap<>();
+
+    private final Map<String, Integer> playerScores = new ConcurrentHashMap<>();
 
     public Room(String id, String ownerName) {
         this.id = id;
@@ -39,5 +42,12 @@ public class Room {
 
     public void clearAnswers() {
         playerAnswers.clear();
+    }
+
+    public void addPlayer(String playerName) {
+        if (!players.contains(playerName)) {
+            players.add(playerName);
+            playerScores.putIfAbsent(playerName, 0);
+        }
     }
 }
