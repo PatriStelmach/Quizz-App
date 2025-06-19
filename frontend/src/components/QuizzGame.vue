@@ -11,7 +11,7 @@ import { Upload } from 'lucide-vue-next'
 type QuestionType = 'open' | 'choice' | 'truefalse'
 
 
-const questions = ref<QuizQuestion[]>([])
+const roomQuestions = ref<QuizQuestion[]>([])
 const currentIndex = ref(0)
 
 const currentQuestion = reactive<QuizQuestion>({
@@ -22,7 +22,7 @@ const currentQuestion = reactive<QuizQuestion>({
   image: null
 })
 
-const isLastStep = computed(() => currentIndex.value >= questions.value.length)
+const isLastStep = computed(() => currentIndex.value >= roomQuestions.value.length)
 
 function handleAddOption() {
   if (currentQuestion.options.length < 4) {
@@ -35,7 +35,7 @@ function handleRemoveOption(index: number) {
 }
 
 function handleNextQuestion() {
-  questions.value.push({ ...currentQuestion })
+  roomQuestions.value.push({ ...currentQuestion })
   resetCurrentQuestion()
   currentIndex.value++
 }
@@ -49,7 +49,7 @@ function resetCurrentQuestion() {
 }
 
 function handleSubmitQuiz() {
-  console.log('Quiz:', questions.value)
+  console.log('Quiz:', roomQuestions.value)
   // TODO: Wyślij dane do API
 }
 </script>
@@ -136,7 +136,7 @@ function handleSubmitQuiz() {
         <CardTitle>Quiz gotowy!</CardTitle>
       </CardHeader>
       <CardContent class="space-y-4">
-        <p>Dodano {{ questions.length }} pytań.</p>
+        <p>Dodano {{ roomQuestions.length }} pytań.</p>
         <Button @click="handleSubmitQuiz">
           Zapisz quiz
         </Button>

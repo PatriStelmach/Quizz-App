@@ -14,7 +14,6 @@ public class RoomController {
 
     private final RoomService roomService;
 
-
     @PostMapping("/create")
     public ResponseEntity<Room> createRoom() throws AccessDeniedException {
         Room room = roomService.createRoom();
@@ -23,11 +22,7 @@ public class RoomController {
 
     @GetMapping("/get")
     public ResponseEntity<Room> getRoom(@RequestParam String roomId) {
-          Room room = roomService.getRoom(roomId);
-          if (room == null) {
-              return ResponseEntity.notFound().build();
-            }
-        return ResponseEntity.ok(room);
+        Room room = roomService.getRoom(roomId);
+        return room != null ? ResponseEntity.ok(room) : ResponseEntity.notFound().build();
     }
-
 }

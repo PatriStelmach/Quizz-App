@@ -21,16 +21,19 @@ public class RoomService {
 
     private final Map<String, Room> rooms = new ConcurrentHashMap<>();
 
-    public Room createRoom() throws AccessDeniedException{
-
+    public Room createRoom() throws AccessDeniedException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
+
             String id = UUID.randomUUID().toString().substring(0, 6);
             Room room = new Room(id, authentication.getName());
+            room.setOwnerName(authentication.getName());
+            room.getPlayers().add(authentication.getName());
+
             rooms.put(id, room);
             return room;
         } else {
-            throw new AccessDeniedException("You don't have permission to create new quiz room");
+            throw new AccessDeniedException("You don't have permission to create a new quiz room");
         }
     }
 

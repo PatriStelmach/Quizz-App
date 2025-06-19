@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import authStore from '@/store/auth.store.ts'
 
-const roomId = ref('');
 const useAuthStore = authStore()
 const route = useRoute()
 const router = useRouter()
@@ -23,26 +22,10 @@ onMounted(async () =>
   }
 });
 
-
-
-function enterRoom() {
-  if (roomId.value.trim()) {
-    router.push({ name: 'room', params: { roomId: roomId.value } });
-  } else {
-    alert('Please enter a valid room ID');
-  }
-}
 </script>
 
 <template>
-  <BUTTON></BUTTON>
 <h1>HOOOOOOOOOOOOOOOOOOOOME</h1>
-
-  <input v-model="roomId" placeholder="Enter Room ID" />
-  <Button
-    @click="enterRoom()">
-    test button
-  </Button>
 </template>
 
 <style scoped>
