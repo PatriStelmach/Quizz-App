@@ -221,11 +221,11 @@ watch(currentQuestion, async (newQuestion) => {
 
 const submitAnswer = (index: number) => {
   if (answered.value || index < 0 || !currentQuestion.value?.answers[index]) {
-    console.warn('⚠️ Invalid answer submission:', index);
+    console.warn('Invalid answer submission:', index);
     return;
   }
 
-  console.log('✅ Answer submitted:', index);
+  console.log(' Answer submitted:', index);
   selectedAnswer.value = index;
   sendRoomMessage(roomId, {
     type: 'answer',
