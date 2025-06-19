@@ -124,7 +124,6 @@ type Question
 {
     id: ID!
     diff: Diff
-    questionType: QuestionType
     question: String!
     answers: [Answer]
     quiz: Quiz
@@ -178,7 +177,6 @@ input QuestionInput
 {
     id: ID!
     diff: Diff
-    questionType: QuestionType
     question: String!
     answers: [AnswerInput]
     quiz: QuizInput!

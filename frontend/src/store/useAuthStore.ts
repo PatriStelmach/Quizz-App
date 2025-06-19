@@ -8,7 +8,7 @@ import type { JwtPayload } from '@/types/JwtPayload.ts'
 
 
 
-const authStore = defineStore('user',
+const useAuthStore = defineStore('user',
    () =>
       {
         const username = ref<string | null>(null);
@@ -166,4 +166,4 @@ const authStore = defineStore('user',
   });
 
 
-export default authStore
+export default useAuthStore

@@ -20,12 +20,12 @@ export type Scalars = {
   Duration: { input: any; output: any; }
 };
 
-export type AnswerDto = {
+export type Answer = {
   __typename?: 'Answer';
   answerText?: Maybe<Scalars['String']['output']>;
   correct?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
-  question?: Maybe<QuestionDto>;
+  question?: Maybe<Question>;
 };
 
 export type AnswerInput = {
@@ -81,10 +81,10 @@ export type PageInfo = {
 
 export type Query = {
   __typename?: 'Query';
-  allQuestions: Array<QuestionDto>;
+  allQuestions: Array<Question>;
   allQuizzes: Array<Quiz>;
   allUsers: Array<User>;
-  questionById?: Maybe<QuestionDto>;
+  questionById?: Maybe<Question>;
   quizById?: Maybe<Quiz>;
   userById?: Maybe<User>;
 };
@@ -104,13 +104,12 @@ export type QueryUserByIdArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type QuestionDto = {
+export type Question = {
   __typename?: 'Question';
-  answers?: Maybe<Array<Maybe<AnswerDto>>>;
+  answers?: Maybe<Array<Maybe<Answer>>>;
   diff?: Maybe<Diff>;
   id: Scalars['ID']['output'];
   question: Scalars['String']['output'];
-  questionType?: Maybe<QuestionType>;
   quiz?: Maybe<Quiz>;
 };
 
@@ -119,7 +118,6 @@ export type QuestionInput = {
   diff?: InputMaybe<Diff>;
   id: Scalars['ID']['input'];
   question: Scalars['String']['input'];
-  questionType?: InputMaybe<QuestionType>;
   quiz: QuizInput;
 };
 
@@ -139,7 +137,7 @@ export type Quiz = {
   id: Scalars['ID']['output'];
   image?: Maybe<Scalars['ByteArray']['output']>;
   maxPoints?: Maybe<Scalars['Int']['output']>;
-  questions?: Maybe<Array<Maybe<QuestionDto>>>;
+  questions?: Maybe<Array<Maybe<Question>>>;
   timeLimit?: Maybe<Scalars['Duration']['output']>;
   title: Scalars['String']['output'];
 };
@@ -244,7 +242,7 @@ export type UserQuizScore = {
 export type AllQuizzesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllQuizzesQuery = { __typename?: 'Query', allQuizzes: Array<{ __typename?: 'Quiz', id: string, title: string, description?: string | null, category?: Category | null, diff?: Diff | null }> };
+export type AllQuizzesQuery = { __typename?: 'Query', allQuizzes: Array<{ __typename?: 'Quiz', id: string, title: string, description?: string | null, category?: Category | null, diff?: Diff | null, maxPoints?: number | null, timeLimit?: any | null }> };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -264,7 +262,7 @@ export type UserByIdQueryVariables = Exact<{ [key: string]: never; }>;
 export type UserByIdQuery = { __typename?: 'Query', userById?: { __typename?: 'User', email?: string | null, username: string } | null };
 
 
-export const AllQuizzesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AllQuizzes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allQuizzes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"Field","name":{"kind":"Name","value":"diff"}}]}}]}}]} as unknown as DocumentNode<AllQuizzesQuery, AllQuizzesQueryVariables>;
+export const AllQuizzesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AllQuizzes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allQuizzes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"Field","name":{"kind":"Name","value":"diff"}},{"kind":"Field","name":{"kind":"Name","value":"maxPoints"}},{"kind":"Field","name":{"kind":"Name","value":"timeLimit"}}]}}]}}]} as unknown as DocumentNode<AllQuizzesQuery, AllQuizzesQueryVariables>;
 export const UsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}}]}}]}}]} as unknown as DocumentNode<UsersQuery, UsersQueryVariables>;
 export const QuizByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QuizById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quizById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"Field","name":{"kind":"Name","value":"diff"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"timeLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxPoints"}}]}}]}}]} as unknown as DocumentNode<QuizByIdQuery, QuizByIdQueryVariables>;
 export const UserByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserById"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]} as unknown as DocumentNode<UserByIdQuery, UserByIdQueryVariables>;

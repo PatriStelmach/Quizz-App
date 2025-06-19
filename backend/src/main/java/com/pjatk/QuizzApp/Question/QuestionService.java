@@ -31,7 +31,7 @@ public class QuestionService
     private final QuizRepository quizRepository;
     private final Mapper mapper;
 
-    public Object createQuestion(QuestionDTO questionDTO) throws AccessDeniedException
+    public Integer createQuestion(QuestionDTO questionDTO) throws AccessDeniedException
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -40,15 +40,11 @@ public class QuestionService
             userRepository.findByUsername(authentication.getName())
                     .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-            Question question =  new Question();
-            question.setQuiz(quizRepository.findById(questionDTO
-                    .getQuizId())
-                    .orElseThrow(()
-                    -> new QuizNotFoundException("Quiz not found")));
-
-
-
-            mapper.questionDTOToEntity(questionDTO, question);
+            Question question = new Question();
+            question.setId(null);
+            question.setQuestion(questionDTO.getQuestion());
+            question.setQuiz(quizRepository.findById(questionDTO.getQuizId())
+                    .orElseThrow(() -> new QuizNotFoundException("Quiz not found")));
 
 
             List<Answer> answers = new ArrayList<>();
@@ -57,20 +53,25 @@ public class QuestionService
                 for (AnswerDTO answerDTO : questionDTO.getAnswers())
                 {
                     Answer answer = new Answer();
+                    answer.setId(null);
                     answer.setQuestion(question);
-                    mapper.answerDTOToEntity(answerDTO, answer);
+                    answer.setAnswerText(answerDTO.getAnswerText());
+                    answer.setCorrect(answerDTO.isCorrect());
+
                     answers.add(answer);
-                    System.out.println(answer);
+                    System.out.println("Answer: " + answer);
                 }
             }
             question.setAnswers(answers);
 
-            return mapper.questionToDto(questionRepository.save(question));
 
-        } else {
+            return mapper.questionToDto(questionRepository.save(question)).getQuizId();
+        }
+        else
+        {
             throw new AccessDeniedException("You don't a have permission to create new question");
         }
     }
 
-    
+
 }

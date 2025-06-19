@@ -11,7 +11,6 @@ import java.util.Set;
 public class QuestionDTO
 {
     private String question;
-    private QuestionType questionType;
     private List<AnswerDTO> answers;
     private Integer quizId;
 }

@@ -81,6 +81,11 @@ const router = createRouter
         component: () => import('@/views/CreateQuestions.vue'),
         props: true
       },
+      {
+        path: '/all-quizes',
+        name: 'all-quizes',
+        component: () => import('../views/AllQuizes.vue')
+      },
 
   ],
 })

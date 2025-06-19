@@ -14,13 +14,13 @@ import {
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from "@/components/ui/button";
 import { useRouter } from "vue-router";
-import authStore from '@/store/auth.store.ts'
+import useAuthStore from '@/store/useAuthStore.ts'
 import { AlertCircle } from 'lucide-vue-next'
 import { onMounted } from 'vue'
 import { Input } from '@/components/ui/input'
 
 const router = useRouter()
-const useAuthStore = authStore()
+const authStore = useAuthStore()
 const isHiding = ref(false)
 const isLoading = ref(false)
 const isShowing = ref(false)
@@ -49,7 +49,7 @@ const onSubmit = form.handleSubmit(async (values) =>
   try
   {
     isLoading.value = true
-    await useAuthStore.login(values)
+    await authStore.login(values)
     console.log('Form submitted with values: ', values)
 
     isHiding.value = true

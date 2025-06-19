@@ -26,17 +26,12 @@ public class Question
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private QuestionType questionType;
-
     @Column(nullable = false)
     private String question;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<>();
-
 
     @ManyToOne
     @JoinColumn(name = "quiz_id", nullable = false)

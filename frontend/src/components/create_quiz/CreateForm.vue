@@ -40,12 +40,12 @@ import { Label } from '@/components/ui/label'
 import { useRouter } from 'vue-router'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import axios from 'axios'
-import authStore from '@/store/auth.store.ts'
-import questionStore from '@/store/question.store.ts'
+import useAuthStore from '@/store/useAuthStore.ts'
+import useQuestionStore from '@/store/useQuestionStore.ts'
 import { QuestionDto } from '@/generated/graphql.ts'
 
-const useQuestionStore = questionStore()
-const useAuthstore = authStore()
+const questionStore = useQuestionStore()
+const authStore = useAuthStore()
 const router = useRouter()
 const isHiding = ref(false)
 const isShowing = ref(false)
@@ -58,7 +58,7 @@ const difficulties = Object.entries(Diff)
 const categoryValues = Object.values(Category) as [Category]
 const difficultyValues = Object.values(Diff) as [Diff]
 
-console.log(useAuthstore.token)
+console.log(authStore.token)
 
 onMounted(() =>
 {
@@ -112,14 +112,14 @@ const onSubmit = form.handleSubmit(async (values) =>
       {
         headers:
           {
-            Authorization: `Bearer ${useAuthstore.token}`
+            Authorization: `Bearer ${authStore.token}`
           }
       }
     ).then(async (result) =>
     {
       if (result.status === 201)
       {
-        useQuestionStore.setQuestions(values.questionsAmount, result.data)
+        questionStore.setQuestions(values.questionsAmount, result.data)
         setTimeout( async () =>
         {
           await router.push(

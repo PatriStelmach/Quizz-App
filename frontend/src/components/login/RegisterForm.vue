@@ -12,7 +12,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { onMounted, ref } from 'vue'
 import * as yup from 'yup'
-import authStore from '@/store/auth.store.ts'
+import useAuthStore from '@/store/useAuthStore.ts'
 import type { UserRegister } from '@/types/user.register.ts'
 import { useRouter } from 'vue-router'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -24,7 +24,7 @@ const isFormShowing = ref(false)
 const isFormHiding = ref(false)
 const isAlertShowing = ref(false)
 const isAlertHiding = ref(false)
-const useAuthStore = authStore()
+const authStore = useAuthStore()
 
 onMounted(() =>
 {
@@ -56,7 +56,7 @@ const onSubmit = form.handleSubmit(async (values) =>
 {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { passwordConfirm, ...registerData } = values;
-  await useAuthStore.register(registerData)
+  await authStore.register(registerData)
   console.log('Form submitted with values: ', values)
 
   isAlertShowing.value = true;

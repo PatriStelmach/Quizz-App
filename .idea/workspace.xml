@@ -5,44 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="graphql endpoint">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/quiz_questions/MultipleChoice.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/quiz_questions/Open.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/quiz_questions/SIngleChoice.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/store/question.store.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/answer.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/question.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ShowAllQUizes.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/globals/TopChart.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/views/AllQuizes.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_06_2025_14_58_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_06_2025_14_58__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_06_2025_20_19_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_06_2025_20_19__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/Answer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/AnswerDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/AnswerDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/Mapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/Question.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Question/QuestionType.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/graphql/schema.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/graphql/schema.graphqls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/input.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/input.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/input.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/input.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/input.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/input.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Activation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/Activation.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/CreateForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/CreateForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/profile/Dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/FriendsSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/FriendsSidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/LoginForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/Navbar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/QuestionCarousel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/QuestionCarousel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/RegisterForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/RegisterForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SearchSolvedQuizzes.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/SearchSolvedQuizzes.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ViewMode.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/ViewMode.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/label/Label.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/label/Label.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/store/auth.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/auth.store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/views/ActivateAccount.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/ActivateAccount.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/views/CreateQuestions.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/CreateQuestions.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/views/CreateQuiz.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/CreateQuiz.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/views/DashboardView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/DashboardView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/views/LoginView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/LoginView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/views/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/Register.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/create_quiz/CreateForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/CreateForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/create_quiz/QuestionCarousel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/QuestionCarousel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/globals/FriendsSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/FriendsSidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/globals/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/login/Activation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/Activation.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/login/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/LoginForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/login/RegisterForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/RegisterForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/radio-group/RadioGroupItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/radio-group/RadioGroupItem.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/composables/question.types.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/store/auth.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/useAuthStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/store/navbar.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/useNavbarStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/store/question.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/useQuestionStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/types/question.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/question.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/TopPlayers.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/TopPlayers.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +205,7 @@
       <workItem from="1749571381303" duration="11036000" />
       <workItem from="1749587857915" duration="164000" />
       <workItem from="1749655533763" duration="9599000" />
-      <workItem from="1750263478634" duration="9231000" />
+      <workItem from="1750263478634" duration="14278000" />
     </task>
     <task id="LOCAL-00001" summary="docker updated">
       <option name="closed" value="true" />

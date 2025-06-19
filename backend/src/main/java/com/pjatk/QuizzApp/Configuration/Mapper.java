@@ -27,7 +27,9 @@ public class Mapper
        modelMapper.createTypeMap(Quiz.class, QuizDTO.class).setPropertyCondition(Conditions.isNotNull());
        modelMapper.createTypeMap(Question.class, QuestionDTO.class).setPropertyCondition(Conditions.isNotNull());
        modelMapper.createTypeMap(Answer.class, AnswerDTO.class).setPropertyCondition(Conditions.isNotNull());
+
    }
+
 
     public QuestionDTO questionToDto(Question question)
     {

@@ -10,9 +10,9 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage} from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import authStore from '@/store/auth.store.ts'
+import useAuthStore from '@/store/useAuthStore.ts'
 
-const useAuthStore = authStore()
+const authStore = useAuthStore()
 const router = useRouter()
 const isShowing = ref(false)
 
@@ -38,7 +38,7 @@ const onSubmit = form.handleSubmit((values) =>
   {
     isShowing.value = false;
   }, 50);
-  useAuthStore.activate(values.token)
+  authStore.activate(values.token)
   setTimeout( () =>
   {
     router.push('/home');

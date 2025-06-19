@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useNavbarStore } from '@/store/navbar.store.ts'
-import authStore from '@/store/auth.store.ts'
+import { useNavbarStore } from '@/store/useNavbarStore.ts'
+import useAuthStore from '@/store/useAuthStore.ts'
 
 import {
   Menubar,
@@ -20,7 +20,7 @@ import { AllQuizzesDocument, type AllQuizzesQuery } from "@/generated/graphql.ts
 
 
 const router = useRouter()
-const useAuthStore = authStore()
+const authStore = useAuthStore()
 const navbarStore = useNavbarStore()
 const showDropdown = ref(false)
 const searchTerm = ref('')
@@ -102,7 +102,7 @@ function goToProfile()
 
 const logout =  async () =>
 {
-  await useAuthStore.logout()
+  await authStore.logout()
   await router.push({ name: 'login' })
 }
 
@@ -178,11 +178,13 @@ const logout =  async () =>
 
       </MenubarMenu>
 
-      <MenubarMenu v-if="useAuthStore.loggedIn">
+      <MenubarMenu v-if="authStore.loggedIn">
         <MenubarTrigger as-child>
           <button class="px-1 py-1 rounded-lg focus:outline-none cursor-pointer hover:bg-primary transition duration-300 ease-in-out">
             <Avatar class="w-9 h-9">
-              <AvatarFallback v-if="useAuthStore.loggedIn && useAuthStore.username">{{ useAuthStore.username?.slice(0, 2).toUpperCase() }}</AvatarFallback>
+              <AvatarFallback v-if="authStore.loggedIn && authStore.username">{{
+                  authStore.username?.slice(0, 2).toUpperCase()
+                }}</AvatarFallback>
             </Avatar>
           </button>
         </MenubarTrigger>
@@ -196,7 +198,7 @@ const logout =  async () =>
         <MenubarTrigger
           :class="triggerClass(navbarStore.isLogging)"
           @click="pushLoggin"
-          v-if="!useAuthStore.loggedIn"
+          v-if="!authStore.loggedIn"
         >
           Log in
         </MenubarTrigger>

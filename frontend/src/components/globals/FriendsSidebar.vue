@@ -3,10 +3,10 @@ import { ref, onMounted, watch } from 'vue'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import AuthStore from '@/store/auth.store.ts'
 import { Button } from '@/components/ui/button'
+import useAuthStore from '@/store/useAuthStore.ts'
 
-const useAuthStore = AuthStore()
+const authStore = useAuthStore()
 const isMinimizing = ref(false)
 const isMinimized = ref(false)
 
@@ -38,7 +38,7 @@ onMounted(fetchFriends)
   <Card
     class="fixed bottom-10 w-4xl right-10 border justify-center rounded-xl shadow-lg z-50 bg-background transition-all duration-500 ease-in-out overflow-hidden"
     :class="[
-      useAuthStore.loggedIn ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4',
+      authStore.loggedIn ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4',
       isMinimized ? 'w-52 h-16' : 'w-62 h-[400px]',
     ]"
   >

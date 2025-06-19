@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import authStore from '@/store/auth.store.ts'
+import useAuthStore from '@/store/useAuthStore.ts'
 
 const roomId = ref('');
-const useAuthStore = authStore()
+const authStore = useAuthStore();
 const route = useRoute()
 const router = useRouter()
 
@@ -14,7 +14,7 @@ onMounted(async () =>
   if (token)
   {
     try {
-      await useAuthStore.googleLogin(token);
+      await authStore.googleLogin(token);
       await router.replace({ path: '/home' });
       console.log(token);
     } catch (err) {

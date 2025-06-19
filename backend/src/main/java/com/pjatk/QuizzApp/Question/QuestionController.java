@@ -21,7 +21,7 @@ public class QuestionController
     {
         try
         {
-            return ResponseEntity.ok().body(questionService.createQuestion(questionDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(questionService.createQuestion(questionDTO));
         }
         catch(Exception e)
         {
