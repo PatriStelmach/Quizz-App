@@ -4,7 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="full question + answer endpoint" />
+    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="graphql endpoint">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/quiz_questions/MultipleChoice.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/quiz_questions/Open.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/quiz_questions/SIngleChoice.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/store/question.store.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/types/answer.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/types/question.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/Answer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/AnswerDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Answer/AnswerDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/graphql/schema.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/graphql/schema.graphqls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/input.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/input.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/input.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/input.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/input.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/input.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Activation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/Activation.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/CreateForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/CreateForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/profile/Dashboard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/FriendsSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/FriendsSidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/LoginForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/QuestionCarousel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create_quiz/QuestionCarousel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/RegisterForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/RegisterForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/SearchSolvedQuizzes.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/SearchSolvedQuizzes.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ViewMode.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/ViewMode.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/label/Label.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/label/Label.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/store/auth.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/auth.store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/ActivateAccount.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/ActivateAccount.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/CreateQuestions.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/CreateQuestions.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/CreateQuiz.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/CreateQuiz.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/DashboardView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/DashboardView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/LoginView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/LoginView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/Register.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,8 +58,6 @@
         <option value="GraphQL File" />
         <option value="TypeScript File" />
         <option value="Vue Composition API Component" />
-        <option value="AnnotationType" />
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -50,10 +87,10 @@
     <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/6.2.5/spring-webmvc-6.2.5-sources.jar!/org/springframework/web/servlet/config/annotation/CorsRegistration.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/frontend/node_modules/pinia/dist/pinia.d.ts" root0="SKIP_INSPECTION" />
   </component>
-  <component name="KubernetesApiPersistence">{}</component>
-  <component name="KubernetesApiProvider">{
-  &quot;isMigrated&quot;: true
-}</component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -62,54 +99,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;HTTP Request.generated-requests | #1.executor&quot;: &quot;Run&quot;,
-    &quot;Maven. [clean,install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.quizz-app [clean,install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.quizz-app [clean,package].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.Application.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;no-tailwind-autocomplete&quot;,
-    &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/patrz/IdeaProjects/QuizzApp/frontend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\patrz\\IdeaProjects\\QuizzApp\\frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Maven. [clean,install].executor": "Run",
+    "Maven.quizz-app [clean,install].executor": "Run",
+    "Maven.quizz-app [clean,package].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.Application.executor": "Run",
+    "git-widget-placeholder": "no-tailwind-autocomplete",
+    "ignore.preview.features.used": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/patrz/IdeaProjects/QuizzApp/frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Users\\patrz\\IdeaProjects\\QuizzApp\\my-apollo-graph\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ],
-    &quot;vue.recent.templates&quot;: [
-      &quot;Vue Composition API Component&quot;
+    "vue.recent.templates": [
+      "Vue Composition API Component"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.pjatk.QuizzApp.User" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\patrz\IdeaProjects\QuizzApp\frontend" />
     </key>
@@ -123,14 +156,11 @@
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
-      <command value="mvn clean package" />
       <command value="mvn clean install" />
+      <command value="mvn clean package" />
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.Application">
-    <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#1" runType="Run single request">
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="quizz-app" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.pjatk.QuizzApp.Application" />
@@ -138,11 +168,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="HTTP Request.generated-requests | #1" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -184,21 +209,8 @@
       <workItem from="1749404488742" duration="3971000" />
       <workItem from="1749571381303" duration="11036000" />
       <workItem from="1749587857915" duration="164000" />
-      <workItem from="1749655533763" duration="10179000" />
-      <workItem from="1749719677316" duration="8996000" />
-      <workItem from="1749734658079" duration="9977000" />
-      <workItem from="1749822833261" duration="13487000" />
-      <workItem from="1749841115483" duration="188000" />
-      <workItem from="1749841311290" duration="38744000" />
-      <workItem from="1749994625152" duration="17141000" />
-      <workItem from="1750021235675" duration="3422000" />
-      <workItem from="1750084543506" duration="847000" />
-      <workItem from="1750086705726" duration="1000" />
-      <workItem from="1750086729344" duration="20000" />
-      <workItem from="1750088234344" duration="43000" />
-      <workItem from="1750092610882" duration="120000" />
-      <workItem from="1750092915389" duration="640000" />
-      <workItem from="1750173564853" duration="3919000" />
+      <workItem from="1749655533763" duration="9599000" />
+      <workItem from="1750263478634" duration="9231000" />
     </task>
     <task id="LOCAL-00001" summary="docker updated">
       <option name="closed" value="true" />
@@ -272,75 +284,34 @@
       <option name="project" value="LOCAL" />
       <updated>1749587905342</updated>
     </task>
-    <task id="LOCAL-00010" summary="graphql endpoint">
-      <option name="closed" value="true" />
-      <created>1749733107276</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1749733107276</updated>
-    </task>
-    <task id="LOCAL-00011" summary="graphql schema">
-      <option name="closed" value="true" />
-      <created>1749746189432</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1749746189432</updated>
-    </task>
-    <task id="LOCAL-00012" summary="graphql schema">
-      <option name="closed" value="true" />
-      <created>1749994768618</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1749994768618</updated>
-    </task>
-    <task id="LOCAL-00013" summary="graphql schema">
-      <option name="closed" value="true" />
-      <created>1750006694572</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1750006694572</updated>
-    </task>
-    <task id="LOCAL-00014" summary="graphql schema">
-      <option name="closed" value="true" />
-      <created>1750024151673</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1750024151673</updated>
-    </task>
-    <task id="LOCAL-00015" summary="full quizz create endpoint">
-      <option name="closed" value="true" />
-      <created>1750107105135</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1750107105135</updated>
-    </task>
-    <task id="LOCAL-00016" summary="full quizz create endpoint">
-      <option name="closed" value="true" />
-      <created>1750112961298</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1750112961298</updated>
-    </task>
-    <task id="LOCAL-00017" summary="full question + answer endpoint">
-      <option name="closed" value="true" />
-      <created>1750257287157</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1750257287157</updated>
-    </task>
-    <option name="localTasksCounter" value="18" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/no-tailwind-autocomplete" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="docker updated" />
@@ -349,10 +320,7 @@
     <MESSAGE value="graphql" />
     <MESSAGE value="authentication store" />
     <MESSAGE value="graphql endpoint" />
-    <MESSAGE value="graphql schema" />
-    <MESSAGE value="full quizz create endpoint" />
-    <MESSAGE value="full question + answer endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="full question + answer endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="graphql endpoint" />
   </component>
   <component name="com.apollographql.ijplugin.settings.ProjectSettingsState">
     <option name="hasEnabledGraphQLPluginApolloKotlinSupport" value="true" />

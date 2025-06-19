@@ -41,6 +41,7 @@ const authStore = defineStore('user',
           username.value = null;
           loggedIn.value = false;
           error.value = null;
+          token.value = null;
         };
 
         const login = async (user: UserLogin) =>

@@ -23,7 +23,7 @@ public class Answer
     private boolean correct;
 
     @Column(nullable = false)
-    private String answer;
+    private String answerText;
 
     @JsonBackReference
     @ManyToOne

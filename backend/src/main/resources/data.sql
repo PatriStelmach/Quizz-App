@@ -35,7 +35,7 @@ VALUES
     ('OPEN', 'Solve for x: 2x + 3 = 11', 1);
 
 -- Insert answers for Math Basics questions
-INSERT INTO answer (correct, answer, question_id)
+INSERT INTO answer (correct, answer_text, question_id)
 VALUES
     (true, '4', 1),
     (false, '3', 1),
@@ -64,7 +64,7 @@ VALUES
     ('SINGLE_CHOICE', 'When did the Berlin Wall fall?', 2);
 
 -- Insert answers for World History questions
-INSERT INTO answer (correct, answer, question_id)
+INSERT INTO answer (correct, answer_text, question_id)
 VALUES
     (true, '1945', 6),
     (false, '1939', 6),
@@ -93,7 +93,7 @@ VALUES
     ('SINGLE_CHOICE', 'What is the largest planet in our solar system?', 3);
 
 -- Insert answers for Science Facts questions
-INSERT INTO answer (correct, answer, question_id)
+INSERT INTO answer (correct, answer_text, question_id)
 VALUES
     (true, 'Au', 11),
     (false, 'Ag', 11),
@@ -122,7 +122,7 @@ VALUES
     ('SINGLE_CHOICE', 'Which continent is the least populated?', 4);
 
 -- Insert answers for Geography Challenge questions
-INSERT INTO answer (correct, answer, question_id)
+INSERT INTO answer (correct, answer_text, question_id)
 VALUES
     (true, 'Paris', 16),
     (false, 'London', 16),
@@ -151,7 +151,7 @@ VALUES
     ('SINGLE_CHOICE', 'What year was the first iPhone released?', 5);
 
 -- Insert answers for Tech Quiz questions
-INSERT INTO answer (correct, answer, question_id)
+INSERT INTO answer (correct, answer_text, question_id)
 VALUES
     (true, 'HyperText Markup Language', 21),
     (false, 'Hyperlinks and Text Markup Language', 21),

@@ -3,9 +3,9 @@
 </style>
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import ViewMode from "@/components/ViewMode.vue";
-import Navbar from '@/components/Navbar.vue'
-import FriendsSidebar from '@/components/FriendsSidebar.vue'
+import ViewMode from "@/components/globals/ViewMode.vue";
+import Navbar from '@/components/globals/Navbar.vue'
+import FriendsSidebar from '@/components/globals/FriendsSidebar.vue'
 </script>
 
 <template>

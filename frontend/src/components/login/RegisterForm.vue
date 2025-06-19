@@ -3,11 +3,11 @@ import {useForm } from 'vee-validate'
 
 import { Button } from '@/components/ui/button'
 import {
-  FormControl,
+  FormControl, FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { onMounted, ref } from 'vue'
@@ -84,7 +84,7 @@ const exitAlert = () =>
 <template>
   <Teleport to="main">
   <form
-    class="p-10 fixed top-1/5 left-1/2 w-100 mt-20 grid justify-center rounded-md transform -translate-x-1/2 -translate-y-1/2 border border-gray-300 shadow-md transition-all duration-500 ease-in-out"
+    class="p-10 fixed top-1/5 left-1/2 w-100 mt-20 grid justify-center rounded-md transform -translate-x-1/2 -translate-y-1/2 border shadow-xl shadow-secondary border-secondary transition-all duration-500 ease-in-out"
     :class="{
       'opacity-0 scale-95 translate-y-4': isFormHiding || !isFormShowing,
       'opacity-100 scale-100 translate-y-0': !isFormHiding && isFormShowing,
@@ -93,6 +93,7 @@ const exitAlert = () =>
     @submit.prevent="onSubmit"
   >
     <FormField v-slot="{ componentField }" name="email">
+      <FormDescription class="text-3xl mt-2 text-center mb-5 text-accent-foreground py-2 ">Sign in</FormDescription>
       <FormItem class="mb-5 w-2xs ">
         <FormLabel>E-mail</FormLabel>
         <FormControl>
@@ -136,7 +137,9 @@ const exitAlert = () =>
 
 
 
-    <Button class="cursor-pointer" type="submit">
+    <Button
+      variant="ghost"
+      class="cursor-pointer " type="submit">
       Submit
     </Button>
   </form>

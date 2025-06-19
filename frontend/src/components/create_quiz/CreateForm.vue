@@ -19,7 +19,7 @@ import {
   NumberFieldInput,
 } from '@/components/ui/number-field'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils.ts'
 import { Input } from '@/components/ui/input'
 import { AlertCircle, Check, ChevronsUpDown, Search } from 'lucide-vue-next'
 import { onMounted, ref } from 'vue'
@@ -41,13 +41,17 @@ import { useRouter } from 'vue-router'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import axios from 'axios'
 import authStore from '@/store/auth.store.ts'
+import questionStore from '@/store/question.store.ts'
+import { QuestionDto } from '@/generated/graphql.ts'
 
+const useQuestionStore = questionStore()
 const useAuthstore = authStore()
 const router = useRouter()
 const isHiding = ref(false)
 const isShowing = ref(false)
 const isLoading = ref(false)
 const errorMessage = ref('')
+
 
 const categories = Object.entries(Category)
 const difficulties = Object.entries(Diff)
@@ -81,6 +85,10 @@ const formSchema =
       invalid_type_error: 'Time limit must be a number',
       required_error: 'Time limit is required',
     }).min(1, 'Time limit must be at least 1 minute'),
+    questionsAmount: z.coerce.number({
+      invalid_type_error: 'Questions amount must be a number',
+      required_error: 'Questions amount is required',
+    }).min(2, 'Quiz must have at least 2 questions').max(50, 'Quiz must have at most 50 questions'),
   }))
 
 const form = useForm (
@@ -99,6 +107,7 @@ const onSubmit = form.handleSubmit(async (values) =>
       category: values.category.toUpperCase(),
       diff: values.difficulty,
       timeLimit: 'PT' + values.timeLimit + 'M',
+
     },
       {
         headers:
@@ -106,15 +115,17 @@ const onSubmit = form.handleSubmit(async (values) =>
             Authorization: `Bearer ${useAuthstore.token}`
           }
       }
-    ).then((result) => {
+    ).then(async (result) =>
+    {
       if (result.status === 201)
       {
+        useQuestionStore.setQuestions(values.questionsAmount, result.data)
         setTimeout( async () =>
         {
           await router.push(
             {
             name: 'create-questions-and-answers',
-            params:{ quizId: result.data.id }
+            params:{ quizId: result.data }
             })
         }, 100)
 
@@ -160,7 +171,7 @@ const onSubmit = form.handleSubmit(async (values) =>
 
   <form
     @submit="onSubmit"
-    class="p-10 mb-30 shadow-xl shadow-secondary relative mx-auto max-w-2xl grid justify-center rounded-md border border-gray-300 shadow-md transition-all duration-500 ease-in-out"
+    class="p-10 mb-30 shadow-xl shadow-secondary relative mx-auto max-w-2xl grid justify-center rounded-md border border-primary transition-all duration-500 ease-in-out"
     :class="{
       'opacity-0 scale-95 translate-y-4': isHiding || !isShowing,
       'opacity-100 scale-100 translate-y-0': !isHiding && isShowing,
@@ -200,6 +211,7 @@ const onSubmit = form.handleSubmit(async (values) =>
         <FormMessage />
       </FormItem>
     </FormField>
+
 
     <FormField v-slot="{ componentField }" name="category">
       <FormItem class="mb-5">
@@ -270,6 +282,7 @@ const onSubmit = form.handleSubmit(async (values) =>
       </FormItem>
     </FormField>
 
+    <div class="justify-between flex">
     <FormField v-slot="{ componentField }" name="timeLimit">
       <FormItem class="mb-5">
         <FormControl>
@@ -296,6 +309,32 @@ const onSubmit = form.handleSubmit(async (values) =>
       </FormItem>
     </FormField>
 
+    <FormField v-slot="{ componentField }" name="questionsAmount">
+      <FormItem class="mb-5">
+        <FormControl>
+          <NumberField
+            class="mb-4 w-48"
+            :value="componentField.modelValue"
+            @update:modelValue="val => componentField.onChange(Number(val))"
+            id="number"
+            :default-value="2"
+            :format-options="{
+          signDisplay: 'exceptZero',
+          minimumFractionDigits: 2,
+        }"
+          >
+            <FormLabel for="number">Questions amount</FormLabel>
+            <NumberFieldContent>
+              <NumberFieldDecrement />
+              <NumberFieldInput />
+              <NumberFieldIncrement />
+            </NumberFieldContent>
+          </NumberField>
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+    </div>
 
 
     <Button

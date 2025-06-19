@@ -107,7 +107,7 @@ const onRegister = async () =>
 <template>
   <Teleport to="main">
   <form
-    class="p-10 fixed top-1/5 left-1/2 w-100 mt-20 grid justify-center rounded-md transform -translate-x-1/2 -translate-y-1/2 border border-gray-300 shadow-md transition-all duration-500 ease-in-out"
+    class="p-10 fixed top-1/5 left-1/2 w-100 mt-20 grid justify-center rounded-md transform -translate-x-1/2 -translate-y-1/2 border border-secondary shadow-xl shadow-secondary transition-all duration-500 ease-in-out"
     :class="{
       'opacity-0 scale-95 translate-y-4': isHiding || !isShowing,
       'opacity-100 scale-100 translate-y-0': !isHiding && isShowing
@@ -126,7 +126,7 @@ const onRegister = async () =>
     </Alert>
     <FormField v-slot="{ componentField }" name="username">
       <FormItem class="w-2xs mb-5">
-        <FormDescription class="text-2xl mt-2 text-center mb-5">Login Form</FormDescription>
+        <FormDescription class="text-3xl mt-2 text-center mb-5 text-accent-foreground py-2 ">Sign in</FormDescription>
         <FormLabel class="w-2xs mb-2">Username</FormLabel>
         <FormControl>
           <Input
@@ -176,7 +176,7 @@ const onRegister = async () =>
       :disabled="isRegistering"
        @click="onRegister"
     >
-      <span v-if="!isRegistering">Register</span>
+      <span v-if="!isRegistering">Sign up</span>
       <span v-else class="flex items-center justify-center">
         <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -190,7 +190,7 @@ const onRegister = async () =>
             :disabled="isGoogleing"
             @click ="onGoogleLogin"
             class="cursor-pointer w-2xs transition duration-300 ease-in-out hover:bg-accent hover:text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed">
-      <img src="../images/google-oauth.png"
+      <img src="../../images/google-oauth.png"
            alt="profile icon"
            class="w-7 h-7"/>
       <span v-if="!isGoogleing">Login with Google</span>

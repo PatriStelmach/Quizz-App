@@ -46,7 +46,7 @@ public class QuizService
     }
 
 
-    public QuizDTO createQuiz(QuizDTO quizDTO) throws AccessDeniedException
+    public Integer createQuiz(QuizDTO quizDTO) throws AccessDeniedException
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -87,7 +87,8 @@ public class QuizService
 //
 //            quiz.setQuestions(questions);
 
-            return mapper.quizToDto(quizRepository.save(quiz));
+             mapper.quizToDto(quizRepository.save(quiz));
+             return quiz.getId();
 
         } else {
             throw new AccessDeniedException("You don't have permission to create new quiz");

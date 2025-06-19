@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type{ TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -20,12 +20,19 @@ export type Scalars = {
   Duration: { input: any; output: any; }
 };
 
-export type Answer = {
+export type AnswerDto = {
   __typename?: 'Answer';
-  answer?: Maybe<Scalars['String']['output']>;
+  answerText?: Maybe<Scalars['String']['output']>;
   correct?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
-  question?: Maybe<Question>;
+  question?: Maybe<QuestionDto>;
+};
+
+export type AnswerInput = {
+  answerText?: InputMaybe<Scalars['String']['input']>;
+  correct?: InputMaybe<Scalars['Boolean']['input']>;
+  id: Scalars['ID']['input'];
+  question?: InputMaybe<QuestionInput>;
 };
 
 export enum Category {
@@ -74,10 +81,10 @@ export type PageInfo = {
 
 export type Query = {
   __typename?: 'Query';
-  allQuestions: Array<Question>;
+  allQuestions: Array<QuestionDto>;
   allQuizzes: Array<Quiz>;
   allUsers: Array<User>;
-  questionById?: Maybe<Question>;
+  questionById?: Maybe<QuestionDto>;
   quizById?: Maybe<Quiz>;
   userById?: Maybe<User>;
 };
@@ -97,24 +104,20 @@ export type QueryUserByIdArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type Question = {
+export type QuestionDto = {
   __typename?: 'Question';
-  answers?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  correctAnswer?: Maybe<Scalars['String']['output']>;
+  answers?: Maybe<Array<Maybe<AnswerDto>>>;
   diff?: Maybe<Diff>;
   id: Scalars['ID']['output'];
-  openAnswer?: Maybe<Scalars['String']['output']>;
   question: Scalars['String']['output'];
   questionType?: Maybe<QuestionType>;
   quiz?: Maybe<Quiz>;
 };
 
 export type QuestionInput = {
-  answers?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  correctAnswer?: InputMaybe<Scalars['String']['input']>;
+  answers?: InputMaybe<Array<InputMaybe<AnswerInput>>>;
   diff?: InputMaybe<Diff>;
   id: Scalars['ID']['input'];
-  openAnswer?: InputMaybe<Scalars['String']['input']>;
   question: Scalars['String']['input'];
   questionType?: InputMaybe<QuestionType>;
   quiz: QuizInput;
@@ -136,7 +139,7 @@ export type Quiz = {
   id: Scalars['ID']['output'];
   image?: Maybe<Scalars['ByteArray']['output']>;
   maxPoints?: Maybe<Scalars['Int']['output']>;
-  questions?: Maybe<Array<Maybe<Question>>>;
+  questions?: Maybe<Array<Maybe<QuestionDto>>>;
   timeLimit?: Maybe<Scalars['Duration']['output']>;
   title: Scalars['String']['output'];
 };

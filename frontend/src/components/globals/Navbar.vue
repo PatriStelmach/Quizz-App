@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useNavbarStore } from '@/store/navbar.store'
+import { useNavbarStore } from '@/store/navbar.store.ts'
 import authStore from '@/store/auth.store.ts'
 
 import {
