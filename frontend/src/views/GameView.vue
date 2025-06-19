@@ -75,12 +75,12 @@
 import { ref, onMounted, onUnmounted, watch, nextTick, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { connectSocket, sendRoomMessage } from '@/lib/socket';
-import authStore from '@/store/auth.store';
+import useAuthStore from '@/store/useAuthStore.ts';
 import Scoreboard from '@/components/Scoreboard.vue';
 import QuizSummary from '@/components/QuizSummary.vue';
 
-const useAuthStore = authStore();
-const userName = useAuthStore.username;
+const authStore = useAuthStore();
+const userName = authStore.username;
 const route = useRoute();
 const roomId = route.params.roomId as string;
 

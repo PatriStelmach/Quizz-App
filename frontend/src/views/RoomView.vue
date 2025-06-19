@@ -15,15 +15,15 @@ import { useRoute, useRouter } from 'vue-router';
 import { connectSocket, sendRoomMessage } from '@/lib/socket';
 import axios from 'axios';
 import PlayerList from '@/components/PlayerList.vue';
-import authStore from "@/store/auth.store.ts";
+import useAuthStore from "@/store/useAuthStore.ts";
 
-const useAuthStore = authStore();
+const authStore = useAuthStore();
 const route = useRoute();
 const router = useRouter();
 const roomId = route.params.roomId as string;
 const players = ref<string[]>([]);
 
-const userName = useAuthStore.username;
+const userName = authStore.username;
 onMounted(async () => {
   try {
     const response = await axios.get(`http://localhost:10000/rooms/get?roomId=${roomId}`);

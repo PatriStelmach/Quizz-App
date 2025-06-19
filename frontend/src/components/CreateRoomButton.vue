@@ -7,14 +7,14 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import axios from 'axios';
-import authStore from "@/store/auth.store.ts";
+import useAuthStore from "@/store/useAuthStore.ts";
 
-const useAuthStore = authStore();
+const authStore = useAuthStore();
 
 const router = useRouter();
 
 const createRoom = async () => {
-  const token = useAuthStore.token;
+  const token = authStore.token;
   if (!token) {
     alert('No token found. Please log in first.');
     return;
