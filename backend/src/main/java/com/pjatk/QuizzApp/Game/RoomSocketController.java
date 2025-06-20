@@ -67,7 +67,7 @@ public class RoomSocketController {
                 "players", initialScores
         ));
 
-        scheduler.schedule(() -> sendQuestion(roomId), 1, TimeUnit.SECONDS);
+        scheduler.schedule(() -> sendQuestion(roomId), 3, TimeUnit.SECONDS);
     }
 
     private void sendQuestion(String roomId) {
@@ -90,6 +90,8 @@ public class RoomSocketController {
 
             timers.put(roomId, timer);
         } else {
+            //end quiz
+            roomService.saveQuizResults(room);
             messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of("type", "quiz-end"));
         }
     }
