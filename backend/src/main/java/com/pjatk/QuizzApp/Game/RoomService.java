@@ -8,8 +8,11 @@ import com.pjatk.QuizzApp.Question.Question;
 import com.pjatk.QuizzApp.Question.QuestionRepository;
 import com.pjatk.QuizzApp.Quiz.Quiz;
 import com.pjatk.QuizzApp.Quiz.QuizRepository;
+import com.pjatk.QuizzApp.Quiz.UserQuizScore;
+import com.pjatk.QuizzApp.Quiz.UserQuizScoreRepository;
 import com.pjatk.QuizzApp.User.User;
 import com.pjatk.QuizzApp.User.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +34,8 @@ public class RoomService
 
     private final QuestionRepository questionRepository;
     private final QuizRepository quizRepository;
+    private final UserRepository userRepository;
+    private final UserQuizScoreRepository userQuizScoreRepository;
 
     public Room createRoom(Integer quizId) throws AccessDeniedException
     {
@@ -60,7 +65,7 @@ public class RoomService
                 .orElseThrow(() -> new RuntimeException("Quiz not found"));
 
         List<Question> dbQuestions = questionRepository.findByQuizId(quizId);
-        int timePerQuestion = quiz.getTimeLimit() / dbQuestions.size();
+        int timePerQuestion = (int) Math.floor((double) quiz.getTimeLimit() * 60 / dbQuestions.size());
 
         List<RoomQuestion> roomQuestions = new ArrayList<>();
         for (Question q : dbQuestions) {
@@ -68,7 +73,8 @@ public class RoomService
                     .map(Answer::getAnswerText)
                     .toList();
 
-            int correctIndex = -1;
+
+            int correctIndex = -1;//none
             for (int i = 0; i < q.getAnswers().size(); i++) {
                 if (q.getAnswers().get(i).isCorrect()) {
                     correctIndex = i;
@@ -87,7 +93,23 @@ public class RoomService
         return roomQuestions;
     }
 
-    public boolean roomExists(String id) {
-        return rooms.containsKey(id);
+    @Transactional
+    public void saveQuizResults(Room room) {
+        Quiz quiz = quizRepository.findById(room.getQuizId())
+                .orElseThrow(() -> new IllegalArgumentException("Quiz not found"));
+
+        for (String playerName : room.getPlayers()) {
+            User user = userRepository.findByUsername(playerName)
+                    .orElseThrow(() -> new IllegalArgumentException("User not found: " + playerName));
+
+            int score = room.getPlayerScores().getOrDefault(playerName, 0);
+
+            UserQuizScore userQuizScore = new UserQuizScore();
+            userQuizScore.setUser(user);
+            userQuizScore.setQuiz(quiz);
+            userQuizScore.setScore(score);
+
+            userQuizScoreRepository.save(userQuizScore);
+        }
     }
 }
