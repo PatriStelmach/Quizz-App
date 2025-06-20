@@ -4,31 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="do merga">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/SolvedDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/ui/chart-bar/BarChart.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/diff.average.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/solved.quiz.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_06_2025_18_29_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/UserQuizScoreRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/UserQuizScoreRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/Resolver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/User/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/profile/Dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/profile/Dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/chart-donut/ChartCrosshair.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/chart-bar/ChartCrosshair.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/chart-donut/ChartLegend.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/chart-bar/ChartLegend.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/chart-donut/ChartSingleTooltip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/chart-bar/ChartSingleTooltip.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/chart-donut/ChartTooltip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/chart-bar/ChartTooltip.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/chart-donut/DonutChart.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/chart-donut/color.index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/chart-bar/color.index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/chart-donut/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/chart-bar/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/chart-donut/interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/chart-bar/interface.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/generated/gql.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/generated/gql.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/generated/graphql.ts" afterDir="false" />
-    </list>
+    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="do merga" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
