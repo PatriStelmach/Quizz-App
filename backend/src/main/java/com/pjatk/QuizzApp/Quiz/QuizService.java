@@ -22,17 +22,18 @@ import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class QuizService
 {
     private final QuizRepository quizRepository;
-    private final QuestionRepository questionRepository;
-    private final AnswerRepository answerRepository;
     private final UserRepository userRepository;
     private final Mapper mapper;
+    private final UserQuizScoreRepository uqRepository;
 
     public Set<Quiz> getAllByAuthorId(Integer creatorId)
     {
@@ -131,5 +132,24 @@ public class QuizService
     public List<Quiz> getAll()
     {
         return quizRepository.findAll();
+    }
+
+    public List<SolvedDto> getUserSolved(String username)
+    {
+        int userId = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found"))
+                .getId();
+
+        List<UserQuizScore> scores = uqRepository.findByUserId(userId)
+                .orElseThrow(() -> new QuizNotFoundException("Quiz not found"));
+
+        return scores.stream()
+                .map(score ->
+                        new SolvedDto(
+                                score.getQuiz().getTitle(),
+                                score.getQuiz().getCategory(),
+                                score.getQuiz().getDiff(),
+                                score.getQuiz().getMaxPoints(),
+                                score.getScore())).toList();
     }
 }
