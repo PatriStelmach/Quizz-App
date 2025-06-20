@@ -12,6 +12,7 @@ export const useNavbarStore = defineStore('navbar', () =>
   const isTopPlayers = ref(false)
   const isCreateQuiz = ref(false)
   const isLogging = ref(false)
+  const isAllQuizes = ref(false)
 
   function updateRouteState(path: string)
   {
@@ -20,6 +21,7 @@ export const useNavbarStore = defineStore('navbar', () =>
     isTopPlayers.value = path === '/top-players'
     isCreateQuiz.value = path === '/create-quiz'
     isLogging.value = path === '/login'
+    isAllQuizes.value = path === '/all-quizes'
   }
 
   watch(() => route.path, (newPath) =>
@@ -33,6 +35,7 @@ export const useNavbarStore = defineStore('navbar', () =>
     isTopPlayers,
     isCreateQuiz,
     isLogging,
-    updateRouteState
+    updateRouteState,
+    isAllQuizes,
   }
 })
