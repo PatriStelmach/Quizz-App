@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="graphql endpoint">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/BeansConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Configuration/BeansConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/graphql/schema.graphqls" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/graphql/schema.graphqls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShowAllQuizes.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/ShowAllQuizes.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/AllQuizes.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/AllQuizes.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +170,7 @@
       <workItem from="1749571381303" duration="11036000" />
       <workItem from="1749587857915" duration="164000" />
       <workItem from="1749655533763" duration="9599000" />
-      <workItem from="1750407079577" duration="4004000" />
+      <workItem from="1750407079577" duration="5225000" />
     </task>
     <task id="LOCAL-00001" summary="docker updated">
       <option name="closed" value="true" />
