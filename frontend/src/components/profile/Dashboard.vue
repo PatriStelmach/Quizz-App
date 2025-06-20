@@ -6,15 +6,16 @@ import { Chart, Grid, Bar, Tooltip } from 'vue3-charts'
 import axios from 'axios'
 import useAuthStore from '@/store/useAuthStore.ts'
 import type { SolvedDto } from '@/types/solved.quiz.dto.ts'
-import type { DiffAverage } from '@/types/diff.average.ts'
 import { Diff } from '@/generated/graphql.ts'
 
 const authStore = useAuthStore()
 const allQuizzes = ref<(SolvedDto & { percentage: number })[]>([])
 const solvedQuizzes = ref<number>(0)
 
-const averageByDiff = computed(() => {
-  const groups: Record<Diff, { totalScore: number; totalMax: number }> = {
+const averageByDiff = computed(() =>
+{
+  const groups: Record<Diff, { totalScore: number; totalMax: number }> =
+    {
     [Diff.Easy]: { totalScore: 0, totalMax: 0 },
     [Diff.Medium]: { totalScore: 0, totalMax: 0 },
     [Diff.Hard]: { totalScore: 0, totalMax: 0 },
@@ -22,6 +23,7 @@ const averageByDiff = computed(() => {
   }
 
   for (const quiz of allQuizzes.value) {
+
     const key = quiz.diff as Diff
     groups[key].totalScore += quiz.score
     groups[key].totalMax += quiz.maxPoints
@@ -38,9 +40,10 @@ const averageByDiff = computed(() => {
   })
 })
 
-// Konfiguracja dla Vue3Charts
-const chartData = computed(() => {
-  return averageByDiff.value.map(item => ({
+const chartData = computed(() =>
+{
+  return averageByDiff.value.map(item =>
+    ({
     name: item.diff,
     percentage: item.averagePercentage
   }))
@@ -53,18 +56,6 @@ const margin = ref({
   bottom: 40
 })
 
-const direction = ref('horizontal')
-
-const axis = ref({
-  primary: {
-    type: 'band'
-  },
-  secondary: {
-    domain: [0, 100],
-    type: 'linear',
-    ticks: 5
-  }
-})
 
 const solvedQuizes = async () =>
 {
@@ -125,7 +116,7 @@ console.log(authStore.token)
       <div>
         <Card class="w-full shadow-md border border-muted rounded-2xl p-4">
           <CardHeader>
-            <CardTitle class="text-xl font-semibold text-center">Solved quizzusie</CardTitle>
+            <CardTitle class="text-xl font-semibold text-center">Solved Quizzusie</CardTitle>
           </CardHeader>
           <CardContent>
             <div class="text-5xl font-bold text-primary text-center mb-10">{{ solvedQuizzes }}</div>
@@ -141,6 +132,7 @@ console.log(authStore.token)
               :size="{ width: 500, height: 300 }"
               :data="chartData"
               :margin="margin"
+              class="cursor-pointer"
             >
               <template #layers>
                 <Grid strokeDasharray="2,2" />
