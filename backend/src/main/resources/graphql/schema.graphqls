@@ -1,5 +1,4 @@
 scalar ByteArray
-scalar Duration
 
 enum Diff
 {
@@ -107,7 +106,7 @@ type Quiz
     image: ByteArray
     author: User
     createdAt: String
-    timeLimit: Duration
+    timeLimit: Int
     maxPoints: Int
     questions: [Question]
 
@@ -166,7 +165,7 @@ input QuizInput
     image: ByteArray
     author: UserInput
     createdAt: String
-    timeLimit: Duration
+    timeLimit: Int
     maxPoints: Int
     questions: [QuestionInput]
 

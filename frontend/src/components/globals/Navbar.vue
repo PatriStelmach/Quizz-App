@@ -49,6 +49,11 @@ const pushTop = async () =>
   await router.push({ name: 'top-players' })
 }
 
+const pushAll = async () =>
+{
+  await router.push({ name: 'all-quizes' })
+}
+
 const pushCreate = async () =>
 {
   await router.push({ name: 'create-quiz' })
@@ -175,7 +180,16 @@ const logout =  async () =>
         >
           Create Quiz
         </MenubarTrigger>
+      </MenubarMenu>
 
+        <MenubarMenu>
+          <MenubarTrigger
+            :class="triggerClass(navbarStore.isAllQuizes)"
+            @click="pushAll"
+            :disabled="navbarStore.isAllQuizes"
+          >
+            Quizzusie
+          </MenubarTrigger>
       </MenubarMenu>
 
       <MenubarMenu v-if="authStore.loggedIn">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ShowAllQuizes from '@/components/ShowAllQuizes.vue'
+import ShowAllQuizes from '@/components/globals/ShowAllQuizes.vue'
 </script>
 
 <template>

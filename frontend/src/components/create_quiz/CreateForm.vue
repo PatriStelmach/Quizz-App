@@ -4,13 +4,7 @@ import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 
 import { Button } from '@/components/ui/button'
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import {
   NumberField,
   NumberFieldContent,
@@ -52,7 +46,6 @@ const isShowing = ref(false)
 const isLoading = ref(false)
 const errorMessage = ref('')
 
-
 const categories = Object.entries(Category)
 const difficulties = Object.entries(Diff)
 const categoryValues = Object.values(Category) as [Category]
@@ -60,106 +53,103 @@ const difficultyValues = Object.values(Diff) as [Diff]
 
 console.log(authStore.token)
 
-onMounted(() =>
-{
-  setTimeout(() =>
-  {
+onMounted(() => {
+  setTimeout(() => {
     isShowing.value = true
   }, 60)
 })
 
-
-const formSchema =
-  toTypedSchema(z.object({
+const formSchema = toTypedSchema(
+  z.object({
     title: z.string().min(6, 'Title must have at least 6 characters').max(50),
     description: z.string().min(15, 'Description must have at least 15 characters').max(500),
-    category: z.enum(categoryValues,
-      {
-        required_error: "Choose category"
-      }),
-    difficulty: z.enum(difficultyValues,
-      {
-        required_error: "Choose difficulty level"
-      }),
-    timeLimit: z.coerce.number({
-      invalid_type_error: 'Time limit must be a number',
-      required_error: 'Time limit is required',
-    }).min(1, 'Time limit must be at least 1 minute'),
-    questionsAmount: z.coerce.number({
-      invalid_type_error: 'Questions amount must be a number',
-      required_error: 'Questions amount is required',
-    }).min(2, 'Quiz must have at least 2 questions').max(50, 'Quiz must have at most 50 questions'),
-  }))
+    category: z.enum(categoryValues, {
+      required_error: 'Choose category',
+    }),
+    difficulty: z.enum(difficultyValues, {
+      required_error: 'Choose difficulty level',
+    }),
+    timeLimit: z.coerce
+      .number({
+        invalid_type_error: 'Time limit must be a number',
+        required_error: 'Time limit is required',
+      })
+      .min(1, 'Time limit must be at least 1 minute'),
+    questionsAmount: z.coerce
+      .number({
+        invalid_type_error: 'Questions amount must be a number',
+        required_error: 'Questions amount is required',
+      })
+      .min(2, 'Quiz must have at least 2 questions')
+      .max(50, 'Quiz must have at most 50 questions'),
+  }),
+)
 
-const form = useForm (
-{
+const form = useForm({
   validationSchema: formSchema,
 })
 
-const onSubmit = form.handleSubmit(async (values) =>
-{
-  try
-  {
-    await axios.post('http://localhost:10000/quiz/create', {
-
-      title: values.title,
-      description: values.description,
-      category: values.category.toUpperCase(),
-      diff: values.difficulty,
-      timeLimit: 'PT' + values.timeLimit + 'M',
-
-    },
-      {
-        headers:
-          {
-            Authorization: `Bearer ${authStore.token}`
-          }
-      }
-    ).then(async (result) =>
+const onSubmit = form.handleSubmit(async (values) => {
+  try {
+    const points = () =>
     {
-      if (result.status === 201)
+      switch (values.difficulty)
       {
-        questionStore.setQuestions(values.questionsAmount, result.data)
-        setTimeout( async () =>
-        {
-          await router.push(
-            {
-            name: 'create-questions-and-answers',
-            params:{ quizId: result.data }
-            })
-        }, 100)
-
+        case Diff.Easy:
+          return values.questionsAmount * 2
+        case Diff.Medium:
+          return values.questionsAmount * 3
+        case Diff.Hard:
+          return values.questionsAmount * 4
+        case Diff.Expert:
+          return values.questionsAmount * 5
       }
+    }
 
-    })
+    await axios
+      .post(
+        'http://localhost:10000/quiz/create',
+        {
+          title: values.title,
+          description: values.description,
+          category: values.category.toUpperCase(),
+          diff: values.difficulty,
+          timeLimit: 'PT' + values.timeLimit + 'M',
+          maxPoints: points()
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authStore.token}`,
+          },
+        },
+      )
+      .then(async (result) => {
+        if (result.status === 201) {
+          questionStore.setQuestions(values.questionsAmount, result.data)
+          setTimeout(async () => {
+            await router.push({
+              name: 'create-questions-and-answers',
+              params: { quizId: result.data },
+            })
+          }, 100)
+        }
+      })
 
     isLoading.value = true
     console.log('Form submitted with values: ', values)
 
     isHiding.value = true
-
-
-  } catch (error)
-  {
-    setTimeout(async () =>
-    {
+  } catch (error) {
+    setTimeout(async () => {
       isLoading.value = false
-      if (error instanceof Error)
-      {
+      if (error instanceof Error) {
         errorMessage.value = error.message
-        if (error.message.includes('500'))
-        {
+        if (error.message.includes('500')) {
           errorMessage.value = 'Invalid Quiz data'
-        }
-        else if (error.message.includes('401') || error.message.includes('403'))
-        {
+        } else if (error.message.includes('401') || error.message.includes('403')) {
           errorMessage.value = 'You have to be loged in to create a quiz'
         }
-
-      }
-
-      else
-      {
+      } else {
         errorMessage.value = 'An unexpected error occurred'
       }
     }, 200)
@@ -168,7 +158,6 @@ const onSubmit = form.handleSubmit(async (values) =>
 </script>
 
 <template>
-
   <form
     @submit="onSubmit"
     class="p-10 mb-30 shadow-xl shadow-secondary relative mx-auto max-w-2xl grid justify-center rounded-md border border-primary transition-all duration-500 ease-in-out"
@@ -178,11 +167,9 @@ const onSubmit = form.handleSubmit(async (values) =>
     }"
   >
     <Alert v-if="errorMessage" variant="destructive">
-      <AlertCircle class="w-4 h-4"/>
-      <AlertTitle class="">
-        Error!
-      </AlertTitle>
-      <AlertDescription >
+      <AlertCircle class="w-4 h-4" />
+      <AlertTitle class=""> Error! </AlertTitle>
+      <AlertDescription>
         {{ errorMessage }}
       </AlertDescription>
     </Alert>
@@ -198,7 +185,7 @@ const onSubmit = form.handleSubmit(async (values) =>
     </FormField>
 
     <FormField v-slot="{ componentField }" name="description">
-      <FormItem class="mb-5 ">
+      <FormItem class="mb-5">
         <FormLabel class="justify-center">Quiz Description</FormLabel>
         <FormControl>
           <Input
@@ -211,7 +198,6 @@ const onSubmit = form.handleSubmit(async (values) =>
         <FormMessage />
       </FormItem>
     </FormField>
-
 
     <FormField v-slot="{ componentField }" name="category">
       <FormItem class="mb-5">
@@ -231,7 +217,7 @@ const onSubmit = form.handleSubmit(async (values) =>
             <ComboboxList>
               <div class="relative w-full max-w-sm items-center">
                 <ComboboxInput
-                  class="pl-9 focus-visible:ring-0  border-b rounded-none h-10"
+                  class="pl-9 focus-visible:ring-0 border-b rounded-none h-10"
                   placeholder="Select category..."
                 />
                 <span class="absolute start-0 inset-y-0 flex items-center justify-center px-3">
@@ -283,62 +269,59 @@ const onSubmit = form.handleSubmit(async (values) =>
     </FormField>
 
     <div class="justify-between flex">
-    <FormField v-slot="{ componentField }" name="timeLimit">
-      <FormItem class="mb-5">
-        <FormControl>
-          <NumberField
-            class="mb-4 w-48"
-            :value="componentField.modelValue"
-            @update:modelValue="val => componentField.onChange(Number(val))"
-            id="number"
-            :default-value="2"
-            :format-options="{
-          signDisplay: 'exceptZero',
-          minimumFractionDigits: 1,
-        }"
-          >
-            <FormLabel for="number">Time limit (in minutes)</FormLabel>
-            <NumberFieldContent>
-              <NumberFieldDecrement />
-              <NumberFieldInput />
-              <NumberFieldIncrement />
-            </NumberFieldContent>
-          </NumberField>
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    </FormField>
+      <FormField v-slot="{ componentField }" name="timeLimit">
+        <FormItem class="mb-5">
+          <FormControl>
+            <NumberField
+              class="mb-4 w-48"
+              :value="componentField.modelValue"
+              @update:modelValue="(val) => componentField.onChange(Number(val))"
+              id="number"
+              :default-value="2"
+              :format-options="{
+                signDisplay: 'exceptZero',
+                minimumFractionDigits: 1,
+              }"
+            >
+              <FormLabel for="number">Time limit (in minutes)</FormLabel>
+              <NumberFieldContent>
+                <NumberFieldDecrement />
+                <NumberFieldInput />
+                <NumberFieldIncrement />
+              </NumberFieldContent>
+            </NumberField>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      </FormField>
 
-    <FormField v-slot="{ componentField }" name="questionsAmount">
-      <FormItem class="mb-5">
-        <FormControl>
-          <NumberField
-            class="mb-4 w-48"
-            :value="componentField.modelValue"
-            @update:modelValue="val => componentField.onChange(Number(val))"
-            id="number"
-            :default-value="2"
-            :format-options="{
-          signDisplay: 'exceptZero',
-          minimumFractionDigits: 2,
-        }"
-          >
-            <FormLabel for="number">Questions amount</FormLabel>
-            <NumberFieldContent>
-              <NumberFieldDecrement />
-              <NumberFieldInput />
-              <NumberFieldIncrement />
-            </NumberFieldContent>
-          </NumberField>
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    </FormField>
+      <FormField v-slot="{ componentField }" name="questionsAmount">
+        <FormItem class="mb-5">
+          <FormControl>
+            <NumberField
+              class="mb-4 w-48"
+              :value="componentField.modelValue"
+              @update:modelValue="(val) => componentField.onChange(Number(val))"
+              id="number"
+              :default-value="2"
+              :format-options="{
+                signDisplay: 'exceptZero',
+                minimumFractionDigits: 2,
+              }"
+            >
+              <FormLabel for="number">Questions amount</FormLabel>
+              <NumberFieldContent>
+                <NumberFieldDecrement />
+                <NumberFieldInput />
+                <NumberFieldIncrement />
+              </NumberFieldContent>
+            </NumberField>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      </FormField>
     </div>
 
-
-    <Button
-      class="cursor-pointer mb-5 hover:bg-secondary"
-      type="submit"> Submit </Button>
+    <Button class="cursor-pointer mb-5 hover:bg-secondary" type="submit"> Submit </Button>
   </form>
 </template>

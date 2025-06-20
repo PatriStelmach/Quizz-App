@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import type{ TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -16,8 +16,6 @@ export type Scalars = {
   Float: { input: number; output: number; }
   /** Binary data */
   ByteArray: { input: any; output: any; }
-  /** A duration scalar that handles java.time.Duration in ISO-8601 format */
-  Duration: { input: any; output: any; }
 };
 
 export type Answer = {
@@ -138,7 +136,7 @@ export type Quiz = {
   image?: Maybe<Scalars['ByteArray']['output']>;
   maxPoints?: Maybe<Scalars['Int']['output']>;
   questions?: Maybe<Array<Maybe<Question>>>;
-  timeLimit?: Maybe<Scalars['Duration']['output']>;
+  timeLimit?: Maybe<Scalars['Int']['output']>;
   title: Scalars['String']['output'];
 };
 
@@ -164,7 +162,7 @@ export type QuizInput = {
   image?: InputMaybe<Scalars['ByteArray']['input']>;
   maxPoints?: InputMaybe<Scalars['Int']['input']>;
   questions?: InputMaybe<Array<InputMaybe<QuestionInput>>>;
-  timeLimit?: InputMaybe<Scalars['Duration']['input']>;
+  timeLimit?: InputMaybe<Scalars['Int']['input']>;
   title: Scalars['String']['input'];
 };
 
@@ -242,7 +240,7 @@ export type UserQuizScore = {
 export type AllQuizzesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllQuizzesQuery = { __typename?: 'Query', allQuizzes: Array<{ __typename?: 'Quiz', id: string, title: string, description?: string | null, category?: Category | null, diff?: Diff | null, maxPoints?: number | null, timeLimit?: any | null }> };
+export type AllQuizzesQuery = { __typename?: 'Query', allQuizzes: Array<{ __typename?: 'Quiz', id: string, title: string, description?: string | null, category?: Category | null, diff?: Diff | null, maxPoints?: number | null, timeLimit?: number | null }> };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -254,7 +252,7 @@ export type QuizByIdQueryVariables = Exact<{
 }>;
 
 
-export type QuizByIdQuery = { __typename?: 'Query', quizById?: { __typename?: 'Quiz', id: string, title: string, description?: string | null, category?: Category | null, diff?: Diff | null, image?: any | null, createdAt?: string | null, timeLimit?: any | null, maxPoints?: number | null, author?: { __typename?: 'User', id: string, username: string } | null } | null };
+export type QuizByIdQuery = { __typename?: 'Query', quizById?: { __typename?: 'Quiz', id: string, title: string, description?: string | null, category?: Category | null, diff?: Diff | null, image?: any | null, createdAt?: string | null, timeLimit?: number | null, maxPoints?: number | null, author?: { __typename?: 'User', id: string, username: string } | null } | null };
 
 export type UserByIdQueryVariables = Exact<{ [key: string]: never; }>;
 
