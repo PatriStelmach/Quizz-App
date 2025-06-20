@@ -26,7 +26,7 @@ const quizzes = computed(() => result.value?.allQuizzes ?? [])
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">{{ quiz.diff }}</td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300 text-right">{{ quiz.maxPoints }}</td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300 text-right">
-          {{ quiz.timeLimit ? formatDuration(quiz.timeLimit) : '-' }}
+          {{ quiz.timeLimit }}
         </td>
       </tr>
       </tbody>
@@ -41,25 +41,4 @@ const quizzes = computed(() => result.value?.allQuizzes ?? [])
   </div>
 </template>
 
-<script lang="ts">
-// Utility to format Duration (assuming ISO 8601 string from backend)
-import { defineProps } from 'vue'
 
-defineProps<object>()
-
-import { parseISO, intervalToDuration, formatDuration as fd } from 'date-fns'
-
-function formatDuration(duration: any): string {
-  // If duration is a ISO string, parse and format
-  if (typeof duration === 'string') {
-    try {
-      const iso = parseISO(duration)
-      const dur = intervalToDuration({ start: 0, end: iso.getTime() })
-      return fd(dur)
-    } catch {
-      return duration
-    }
-  }
-  return String(duration)
-}
-</script>

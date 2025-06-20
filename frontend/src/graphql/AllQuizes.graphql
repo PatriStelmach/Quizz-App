@@ -5,5 +5,7 @@ query AllQuizzes {
     description
     category
     diff
+    maxPoints
+    timeLimit
    }
 }
