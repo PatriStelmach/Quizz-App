@@ -56,9 +56,7 @@ public class RoomService {
                 .orElseThrow(() -> new RuntimeException("Quiz not found"));
 
         List<Question> dbQuestions = questionRepository.findByQuizId(quizId);
-
-        // fix that???
-        int timePerQuestion = (int) Math.floor((double) quiz.getTimeLimit().getSeconds() / dbQuestions.size());
+        int timePerQuestion = quiz.getTimeLimit() / dbQuestions.size();
 
         List<RoomQuestion> roomQuestions = new ArrayList<>();
         for (Question q : dbQuestions) {
