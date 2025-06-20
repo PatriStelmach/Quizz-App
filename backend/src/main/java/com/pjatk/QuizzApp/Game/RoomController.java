@@ -15,9 +15,8 @@ public class RoomController {
     private final RoomService roomService;
 
     @PostMapping("/create")
-    public ResponseEntity<Room> createRoom() throws AccessDeniedException {
-        Room room = roomService.createRoom();
-        return ResponseEntity.ok(room);
+    public ResponseEntity<Room> createRoom(@RequestParam Integer quizId) throws AccessDeniedException {
+        return ResponseEntity.ok(roomService.createRoom(quizId));
     }
 
     @GetMapping("/get")
