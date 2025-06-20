@@ -38,7 +38,7 @@ public class Quiz
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
     private Instant createdAt = Instant.now();
-    private Duration timeLimit;
+    private Integer timeLimit;
     private Integer maxPoints;
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questions = new ArrayList<>();

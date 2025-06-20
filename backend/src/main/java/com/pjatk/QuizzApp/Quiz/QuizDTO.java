@@ -22,6 +22,6 @@ public class QuizDTO
     private Diff diff;
     private Integer maxPoints;
     private byte[] image;
-    private Duration timeLimit;
+    private Integer timeLimit;
     private List<QuestionDTO> questions;
 }
