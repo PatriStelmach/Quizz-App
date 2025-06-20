@@ -41,9 +41,6 @@ public class Quiz
     private Integer timeLimit;
     private Integer maxPoints;
 
-
-    @ManyToMany
-    private List<User> userScore;
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questions = new ArrayList<>();
 

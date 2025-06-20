@@ -6,12 +6,12 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "uzer_quiz_scores")
+@Table(name = "user_quiz_scores")
 public class UserQuizScore
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private Integer score;
 
