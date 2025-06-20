@@ -2,21 +2,112 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { ref, computed, onMounted } from 'vue'
 import { Input } from '@/components/ui/input'
-import { useQuery } from '@vue/apollo-composable'
-import { AllQuizzesDocument, type AllQuizzesQuery } from '@/generated/graphql.ts'
-import { DonutChart } from '@/components/ui/chart-donut'
+import { Chart, Grid, Bar, Tooltip } from 'vue3-charts'
+import axios from 'axios'
+import useAuthStore from '@/store/useAuthStore.ts'
+import type { SolvedDto } from '@/types/solved.quiz.dto.ts'
+import type { DiffAverage } from '@/types/diff.average.ts'
+import { Diff } from '@/generated/graphql.ts'
 
-const { result, loading, error } = useQuery<AllQuizzesQuery>(AllQuizzesDocument)
-const quizzes = computed(() => result.value?.allQuizzes ?? [])
+const authStore = useAuthStore()
+const allQuizzes = ref<(SolvedDto & { percentage: number })[]>([])
+const solvedQuizzes = ref<number>(0)
 
-type SolvedQuiz =
+const averageByDiff = computed(() => {
+  const groups: Record<Diff, { totalScore: number; totalMax: number }> = {
+    [Diff.Easy]: { totalScore: 0, totalMax: 0 },
+    [Diff.Medium]: { totalScore: 0, totalMax: 0 },
+    [Diff.Hard]: { totalScore: 0, totalMax: 0 },
+    [Diff.Expert]: { totalScore: 0, totalMax: 0 },
+  }
+
+  for (const quiz of allQuizzes.value) {
+    const key = quiz.diff as Diff
+    groups[key].totalScore += quiz.score
+    groups[key].totalMax += quiz.maxPoints
+  }
+
+  return Object.entries(groups).map(([diff, { totalScore, totalMax }]) =>
   {
-  id: number
-  title: string
-  date: string
+    const percent = totalMax === 0 ? 0 : Math.round((totalScore / totalMax) * 100)
+
+    return {
+      diff: diff as Diff,
+      averagePercentage: percent,
+    }
+  })
+})
+
+// Konfiguracja dla Vue3Charts
+const chartData = computed(() => {
+  return averageByDiff.value.map(item => ({
+    name: item.diff,
+    percentage: item.averagePercentage
+  }))
+})
+
+const margin = ref({
+  left: 60,
+  top: 20,
+  right: 20,
+  bottom: 40
+})
+
+const direction = ref('horizontal')
+
+const axis = ref({
+  primary: {
+    type: 'band'
+  },
+  secondary: {
+    domain: [0, 100],
+    type: 'linear',
+    ticks: 5
+  }
+})
+
+const solvedQuizes = async () =>
+{
+  try
+  {
+    const response = await axios.get<SolvedDto[]>(
+      `http://localhost:10000/quiz/get-solved/${authStore.username}`,
+      {
+        headers:
+          {
+            Authorization: `Bearer ${authStore.token}`,
+          },
+      }
+    )
+
+    const data = response.data
+
+    allQuizzes.value = data.map((entry) =>
+      ({
+        category: entry.category,
+        diff: entry.diff,
+        title: entry.title,
+        maxPoints: entry.maxPoints,
+        score: entry.score,
+        percentage: Math.round((entry.score / entry.maxPoints) * 100)
+      }))
+
+    solvedQuizzes.value = allQuizzes.value.length
+  }
+  catch (error)
+  {
+    console.error(error)
+  }
 }
 
-const allQuizzes = ref<SolvedQuiz[]>([])
+onMounted(()=>
+{
+  setTimeout(() =>
+  {
+    solvedQuizes()
+  }, 400)
+})
+
 const searchQuery = ref('')
 
 const filteredQuizzes = computed(() =>
@@ -25,65 +116,7 @@ const filteredQuizzes = computed(() =>
   )
 )
 
-const fetchSolvedQuizzes = async () =>
-{
-  allQuizzes.value = [
-    { id: 1, title: 'JavaScript Basics', score: 10 },
-    { id: 2, title: 'Vue Fundamentals', score: 77 },
-    { id: 3, title: 'TypeScript Intro', score: 66 }
-  ]
-}
-
-
-
-const data = [
-  {
-    name: 'Jan',
-    total: Math.floor(Math.random() * 2000) + 500,
-    predicted: Math.floor(Math.random() * 2000) + 500,
-  },
-  {
-    name: 'Feb',
-    total: Math.floor(Math.random() * 2000) + 500,
-    predicted: Math.floor(Math.random() * 2000) + 500,
-  },
-  {
-    name: 'Mar',
-    total: Math.floor(Math.random() * 2000) + 500,
-    predicted: Math.floor(Math.random() * 2000) + 500,
-  },
-  {
-    name: 'Apr',
-    total: Math.floor(Math.random() * 2000) + 500,
-    predicted: Math.floor(Math.random() * 2000) + 500,
-  },
-  {
-    name: 'May',
-    total: Math.floor(Math.random() * 2000) + 500,
-    predicted: Math.floor(Math.random() * 2000) + 500,
-  },
-  {
-    name: 'Jun',
-    total: Math.floor(Math.random() * 2000) + 500,
-    predicted: Math.floor(Math.random() * 2000) + 500,
-  },
-]
-
-function valueFormatter(tick: number | Date) {
-  return typeof tick === 'number'
-    ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
-    : ''
-}
-
-const solvedQuizzes = ref<number>(0)
-
-const fetchSolvedQuizzesAmount = async () =>
-{
-  solvedQuizzes.value = 12
-}
-onMounted(fetchSolvedQuizzes)
-onMounted(fetchSolvedQuizzesAmount)
-
+console.log(authStore.token)
 </script>
 
 <template>
@@ -96,18 +129,38 @@ onMounted(fetchSolvedQuizzesAmount)
           </CardHeader>
           <CardContent>
             <div class="text-5xl font-bold text-primary text-center mb-10">{{ solvedQuizzes }}</div>
-
           </CardContent>
         </Card>
 
-        <DonutChart
-          index="name"
-          :category="'total'"
-          :data="data"
-          :value-formatter="valueFormatter"
-        />
+        <Card class="w-full mt-6">
+          <CardHeader>
+            <CardTitle class="text-lg text-center">Average Score by Difficulty</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Chart
+              :size="{ width: 500, height: 300 }"
+              :data="chartData"
+              :margin="margin"
+            >
+              <template #layers>
+                <Grid strokeDasharray="2,2" />
+                <Bar
+                  :dataKeys="['name', 'percentage']"
+                  :barStyle="{ fill: '#3b82f6', opacity: 0.8 }"
+                />
+              </template>
+              <template #widgets>
+                <Tooltip
+                  borderColor="#3b82f6"
+                  :config="{
+                    percentage: { color: '#3b82f6', name: 'Score' }
+                  }"
+                />
+              </template>
+            </Chart>
+          </CardContent>
+        </Card>
       </div>
-
 
       <div class="w-full space-y-4">
         <Input
@@ -123,11 +176,12 @@ onMounted(fetchSolvedQuizzesAmount)
           <CardContent class="space-y-2">
             <div
               v-for="quiz in filteredQuizzes"
-              :key="quiz.id"
+              :key="quiz.title"
               class="p-3 border rounded-lg hover:bg-muted transition-colors"
             >
               <div class="font-medium">{{ quiz.title }}</div>
               <div class="text-sm text-muted-foreground">Score: {{ quiz.score }}</div>
+              <div class="text-sm text-muted-foreground">Max points: {{ quiz.maxPoints }}</div>
             </div>
           </CardContent>
         </Card>
@@ -136,9 +190,6 @@ onMounted(fetchSolvedQuizzesAmount)
           Brak pasujących quizów.
         </div>
       </div>
-
     </div>
   </div>
 </template>
-
-

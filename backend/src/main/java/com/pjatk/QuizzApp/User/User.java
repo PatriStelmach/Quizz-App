@@ -44,7 +44,6 @@ public class User implements UserDetails, Principal
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     @Column(unique = true)
     private String username;
 
@@ -52,7 +51,6 @@ public class User implements UserDetails, Principal
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
-
 
     @Column(unique = true, nullable = false)
     @Email(message = "Invalid email address")
@@ -74,7 +72,6 @@ public class User implements UserDetails, Principal
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime updatedAt;
-
 
     private LocalDate birthDate;
 
