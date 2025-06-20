@@ -113,7 +113,6 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
@@ -156,7 +155,4 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 1000px #000000 inset !important;
   -webkit-text-fill-color: #ffffff !important;
 }
-
-
-
 

@@ -216,14 +216,12 @@ watchEffect((onCleanup) => {
   const timer2 = setTimeout(() => progress.value = 66, 600)
   const timer3 = setTimeout(() => progress.value = 100, 900)
 
-  // Czyszczenie timerów przy unmount
   onCleanup(() => {
     clearTimeout(timer1)
     clearTimeout(timer2)
     clearTimeout(timer3)
   })
 
-  // Opcjonalnie: ukryj loader po zakończeniu
   const finishTimer = setTimeout(() => {
     isLoading.value = false
   }, 1200)
@@ -247,7 +245,6 @@ watchEffect((onCleanup) => {
         <p class="text-sm text-muted-foreground">
           Please wait while we save your questions.
         </p>
-        <!-- Opcjonalnie dodaj procentowy postęp -->
         <p class="text-sm font-medium text-primary">{{ progress }}%</p>
       </div>
     </div>
@@ -265,7 +262,7 @@ watchEffect((onCleanup) => {
           <div class="p-1 ">
             <Card
               v-bind="questions[questionIndex]"
-              class="w-full border-primary shadow-secondary shadow-md max-w-md mx-auto">
+              class="w-full BG-Rborder-primary shadow-secondary shadow-md max-w-md mx-auto">
               <CardHeader>
                 <CardTitle>Add new question</CardTitle>
                 <CardDescription>Create questions for your quiz</CardDescription>

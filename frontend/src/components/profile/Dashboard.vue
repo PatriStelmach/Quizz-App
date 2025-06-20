@@ -2,6 +2,12 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { ref, computed, onMounted } from 'vue'
 import { Input } from '@/components/ui/input'
+import { useQuery } from '@vue/apollo-composable'
+import { AllQuizzesDocument, type AllQuizzesQuery } from '@/generated/graphql.ts'
+import { DonutChart } from '@/components/ui/chart-donut'
+
+const { result, loading, error } = useQuery<AllQuizzesQuery>(AllQuizzesDocument)
+const quizzes = computed(() => result.value?.allQuizzes ?? [])
 
 type SolvedQuiz =
   {
@@ -22,9 +28,9 @@ const filteredQuizzes = computed(() =>
 const fetchSolvedQuizzes = async () =>
 {
   allQuizzes.value = [
-    { id: 1, title: 'JavaScript Basics', date: '2024-04-01' },
-    { id: 2, title: 'Vue Fundamentals', date: '2024-04-05' },
-    { id: 3, title: 'TypeScript Intro', date: '2024-04-10' }
+    { id: 1, title: 'JavaScript Basics', score: 10 },
+    { id: 2, title: 'Vue Fundamentals', score: 77 },
+    { id: 3, title: 'TypeScript Intro', score: 66 }
   ]
 }
 
@@ -41,31 +47,38 @@ onMounted(fetchSolvedQuizzesAmount)
 </script>
 
 <template>
-  <div class=" flex items-center justify-center bg-background px-4">
+  <div class=" mx-auto w-4xl flex items-center justify-center bg-background px-4">
     <div class="w-full max-w-xl space-y-8">
+      <div>
+        <Card class="w-full shadow-md border border-muted rounded-2xl p-4">
+          <CardHeader>
+            <CardTitle class="text-xl font-semibold text-center">Solved quizzusie</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div class="text-5xl font-bold text-primary text-center mb-10">{{ solvedQuizzes }}</div>
 
-      <Card class="w-full shadow-md border border-muted rounded-2xl p-4">
-        <CardHeader>
-          <CardTitle class="text-xl font-semibold text-center">Rozwiązane quizy</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div class="text-5xl font-bold text-primary text-center">{{ solvedQuizzes }}</div>
-          <p class="text-sm text-muted-foreground mt-2 text-center">
-            Łączna liczba quizów rozwiązanych przez Ciebie
-          </p>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+
+        <DonutChart
+          index="name"
+          :category="'total'"
+          :data="data"
+          :value-formatter="valueFormatter"
+        />
+      </div>
+
 
       <div class="w-full space-y-4">
         <Input
           v-model="searchQuery"
-          placeholder="Szukaj quizu..."
+          placeholder="Search your solved quizes."
           class="w-full"
         />
 
         <Card v-if="filteredQuizzes.length">
           <CardHeader>
-            <CardTitle class="text-lg">Wyniki wyszukiwania</CardTitle>
+            <CardTitle class="text-lg">Search results</CardTitle>
           </CardHeader>
           <CardContent class="space-y-2">
             <div
@@ -74,7 +87,7 @@ onMounted(fetchSolvedQuizzesAmount)
               class="p-3 border rounded-lg hover:bg-muted transition-colors"
             >
               <div class="font-medium">{{ quiz.title }}</div>
-              <div class="text-sm text-muted-foreground">Rozwiązano: {{ quiz.date }}</div>
+              <div class="text-sm text-muted-foreground">Score: {{ quiz.score }}</div>
             </div>
           </CardContent>
         </Card>

@@ -5,11 +5,11 @@
 import { RouterView } from 'vue-router'
 import ViewMode from "@/components/globals/ViewMode.vue";
 import Navbar from '@/components/globals/Navbar.vue'
-import FriendsSidebar from '@/components/globals/FriendsSidebar.vue'
+import FriendsSidebar from '@/components/profile/FriendsSidebar.vue'
 </script>
 
 <template>
-  <header class="mb-40">
+  <header class="mb-25">
     <ViewMode />
     <Navbar />
   </header>

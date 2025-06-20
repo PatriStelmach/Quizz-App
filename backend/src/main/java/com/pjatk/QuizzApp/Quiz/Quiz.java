@@ -40,6 +40,10 @@ public class Quiz
     private Instant createdAt = Instant.now();
     private Integer timeLimit;
     private Integer maxPoints;
+
+
+    @ManyToMany
+    private List<User> userScore;
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questions = new ArrayList<>();
 

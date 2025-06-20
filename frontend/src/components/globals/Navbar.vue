@@ -12,7 +12,6 @@ import {
   MenubarTrigger,
 } from '@/components/ui/menubar'
 import { Search } from 'lucide-vue-next'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { onMounted, onBeforeUnmount } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { computed } from 'vue'
@@ -74,7 +73,7 @@ function filteredList()
 function triggerClass(active: boolean)
 {
   return [
-    'px-6 py-4 mx-2 rounded-lg cursor-pointer transition duration-200 ease-in-out',
+    'px-8 py-2 mx-2 rounded-md cursor-pointer transition duration-200 ease-in-out',
     active ? 'bg-primary hover:bg-primary' : 'hover:bg-primary'
   ]
 }
@@ -94,28 +93,16 @@ function clickOutside(event: MouseEvent)
     showDropdown.value = false;
   }
 }
-function goToDashboard()
-{
-   router.push({ name: 'dashboard' })
-}
 
-function goToProfile()
-{
-  console.log('Go to profile')
-  // router.push({ name: 'Profile', params: { userId: user.value?.id } })
-}
 
-const logout =  async () =>
-{
-  await authStore.logout()
-  await router.push({ name: 'login' })
-}
+
+
 
 </script>
 
 <template>
   <Menubar
-    class="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 w-8/12 shadow-md border border-gray-300 px-4 h-20 flex items-center justify-between bg-background rounded-b-xl"
+    class="fixed top-2 left-1/2 transform -translate-x-1/2 z-50 w-8/12 shadow-md shadow-primary  px-4 h-14 flex items-center justify-between bg-card text-card-foreground rounded-b-md"
   >
 
   <div ref="searchContainer" class="flex items-center space-x-4 focus:outline-none">
@@ -192,22 +179,7 @@ const logout =  async () =>
           </MenubarTrigger>
       </MenubarMenu>
 
-      <MenubarMenu v-if="authStore.loggedIn">
-        <MenubarTrigger as-child>
-          <button class="px-1 py-1 rounded-lg focus:outline-none cursor-pointer hover:bg-primary transition duration-300 ease-in-out">
-            <Avatar class="w-9 h-9">
-              <AvatarFallback v-if="authStore.loggedIn && authStore.username">{{
-                  authStore.username?.slice(0, 2).toUpperCase()
-                }}</AvatarFallback>
-            </Avatar>
-          </button>
-        </MenubarTrigger>
-        <MenubarContent align="end">
-          <MenubarItem class="cursor-pointer" @click="goToDashboard">Dashboard</MenubarItem>
-          <MenubarItem class="cursor-pointer" @click="goToProfile">My Profile</MenubarItem>
-          <MenubarItem class="cursor-pointer" @click="logout">Logout</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
+
 
         <MenubarTrigger
           :class="triggerClass(navbarStore.isLogging)"

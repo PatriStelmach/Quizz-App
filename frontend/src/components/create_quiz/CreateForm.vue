@@ -114,7 +114,7 @@ const onSubmit = form.handleSubmit(async (values) => {
           description: values.description,
           category: values.category.toUpperCase(),
           diff: values.difficulty,
-          timeLimit: 'PT' + values.timeLimit + 'M',
+          timeLimit: values.timeLimit,
           maxPoints: points()
         },
         {
@@ -160,7 +160,7 @@ const onSubmit = form.handleSubmit(async (values) => {
 <template>
   <form
     @submit="onSubmit"
-    class="p-10 mb-30 shadow-xl shadow-secondary relative mx-auto max-w-2xl grid justify-center rounded-md border border-primary transition-all duration-500 ease-in-out"
+    class="p-10 mb-30  bg-card text-card-foreground shadow-xl shadow-secondary relative mx-auto max-w-2xl grid justify-center rounded-md border border-primary transition-all duration-500 ease-in-out"
     :class="{
       'opacity-0 scale-95 translate-y-4': isHiding || !isShowing,
       'opacity-100 scale-100 translate-y-0': !isHiding && isShowing,
