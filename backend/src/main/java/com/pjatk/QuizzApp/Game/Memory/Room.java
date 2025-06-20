@@ -14,6 +14,7 @@ public class Room {
     private String id;
     private String ownerName;
     private List<String> players = new CopyOnWriteArrayList<>();
+    private Integer quizId;
     private boolean started = false;
 
     private List<RoomQuestion> roomQuestions;
@@ -24,9 +25,10 @@ public class Room {
 
     private final Map<String, Integer> playerScores = new ConcurrentHashMap<>();
 
-    public Room(String id, String ownerName) {
+    public Room(String id, String ownerName, Integer quizId) {
         this.id = id;
         this.ownerName = ownerName;
+        this.quizId = quizId;
     }
 
     public RoomQuestion getCurrentQuestion() {
@@ -49,5 +51,9 @@ public class Room {
             players.add(playerName);
             playerScores.putIfAbsent(playerName, 0);
         }
+    }
+
+    public boolean hasNextQuestion() {
+        return roomQuestions != null && currentQuestionIndex.get() < roomQuestions.size();
     }
 }

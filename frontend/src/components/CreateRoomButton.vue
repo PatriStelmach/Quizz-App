@@ -10,8 +10,10 @@ import axios from 'axios';
 import useAuthStore from "@/store/useAuthStore.ts";
 
 const authStore = useAuthStore();
-
 const router = useRouter();
+
+// ✅✅✅✅✅ TEMP TO CHANGE
+const quizId = 1;
 
 const createRoom = async () => {
   const token = authStore.token;
@@ -22,16 +24,16 @@ const createRoom = async () => {
 
   try {
     const response = await axios.post(
-      'http://localhost:10000/rooms/create',
+      `http://localhost:10000/rooms/create?quizId=${quizId}`,
       {},
       {
-            headers: {
+        headers: {
           Authorization: `Bearer ${token}`
         }
       }
     );
     const roomId = response.data.id;
-    console.log('Room212:', roomId);
+    console.log('Room ID:', roomId);
     await router.push({ name: 'room', params: { roomId } });
   } catch (error) {
     console.error('Room creation failed:', error);
