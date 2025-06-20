@@ -55,9 +55,8 @@ public class RoomSocketController {
         if (room == null || room.isStarted()) return;
 
         room.setStarted(true);
-        room.setRoomQuestions(loadQuestions());
+        room.setRoomQuestions(loadQuestions(roomId));
 
-        // Initialize player scores and send quiz start with players + scores 0
         List<Map<String, Object>> initialScores = new ArrayList<>();
         for (String player : room.getPlayers()) {
             room.getPlayerScores().putIfAbsent(player, 0);
@@ -66,8 +65,7 @@ public class RoomSocketController {
 
         messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
                 "type", "quiz-start",
-                "players", room.getPlayers(),
-                "scores", initialScores
+                "players", initialScores
         ));
 
         scheduler.schedule(() -> sendQuestion(roomId), 1, TimeUnit.SECONDS);
@@ -99,7 +97,7 @@ public class RoomSocketController {
 
     private synchronized void handleAnswer(String roomId, String playerName, int answerIndex) {
         Room room = roomService.getRoom(roomId);
-        if (room.getPlayerAnswers().containsKey(playerName)) return; // Ignore duplicates
+        if (room.getPlayerAnswers().containsKey(playerName)) return; // ignore duplicates
 
         room.getPlayerAnswers().put(playerName, answerIndex);
 
@@ -145,14 +143,8 @@ public class RoomSocketController {
         scheduler.schedule(() -> sendQuestion(roomId), 3, TimeUnit.SECONDS);
     }
 
-    private List<RoomQuestion> loadQuestions() {
-        return List.of(
-                new RoomQuestion("What is the capital of France (q1)?",
-                        List.of("Paris", "Berlin", "Madrid", "Rome"), 0, 15),
-                new RoomQuestion("2 + 2 = ? (q2)",
-                        List.of("3", "4", "5", "6"), 1, 10),
-                new RoomQuestion("What color is the sky? (q3)",
-                        List.of("Green", "Blue", "Red", "Yellow"), 1, 12)
-        );
+    private List<RoomQuestion> loadQuestions(String roomId) {
+        Room room = roomService.getRoom(roomId);
+        return roomService.loadRoomQuestionsFromDB(room.getQuizId());
     }
 }

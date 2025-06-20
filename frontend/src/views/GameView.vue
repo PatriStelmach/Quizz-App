@@ -106,12 +106,12 @@ onMounted(() => {
   connectSocket(
     () => {
       console.log('✅ Socket connected to room:', roomId);
-      sendRoomMessage(roomId, { type: 'get-current-state' });
+      // Removed get-current-state request here
     },
     (message) => {
       console.log('📩 Game message received:', message);
 
-      if (['quiz-start', 'current-state'].includes(message.type)) {
+      if (message.type === 'quiz-start') {
         if (Array.isArray(message.players)) {
           scoreboard.value = message.players.map((p: any) => ({
             player: p.player,
@@ -197,7 +197,7 @@ watch(currentQuestion, async (newQuestion) => {
     await nextTick();
 
     intervalId = setInterval(() => {
-      if (answered.value) return; // ✅ Prevent timer from counting down after answering
+      if (answered.value) return;
 
       secondsLeft.value -= 1;
 
@@ -252,4 +252,3 @@ const timerColor = computed(() => {
   return 'text-red-500';
 });
 </script>
-<
