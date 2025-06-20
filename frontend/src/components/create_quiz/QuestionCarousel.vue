@@ -55,7 +55,7 @@ const AnswerSchema = z.object
 })
 
 const QuestionSchema = z.object({
-  questionText: z.string().min(10, "Question must be at least 10 characters"),
+  questionText: z.string().min(5, "Question must be at least 10 characters"),
   answers: z.array(AnswerSchema)
     .min(1, "At least 1 answer required")
     .max(4, "At most 4 answers allowed"),
