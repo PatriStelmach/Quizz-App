@@ -7,6 +7,11 @@ const useQuestionStore = defineStore('question', () =>
 {
 
   const questions = ref<QuestionDto[]>([])
+  const quizId = ref<number>(0)
+  const setQuizId = (id: number) =>
+  {
+    quizId.value = id;
+  }
   const setQuestions = (questionsAmount: number, idQuiz: number) =>
   {
     const createEmptyQuestion = (index: number): QuestionDto =>
@@ -43,34 +48,28 @@ const useQuestionStore = defineStore('question', () =>
 
   }
 
-
-
-  const updateAnswer = (questionId: number, answerId: number, updatedAnswer: AnswerDto) =>
+  const clearQuestions = () =>
   {
     try
     {
-      questions.value = questions.value.map((q) =>
-        q.id === questionId
-          ? ({
-              ...q,
-              answers: q.answers?.map((a) =>
-                a?.id === answerId ? { ...a, ...updatedAnswer } : a,
-              ),
-            } as QuestionDto)
-          : q,
-      )
-    } catch (e) {
-
-      throw e
+      questions.value = []
+      quizId.value = 0;
     }
-    return updatedAnswer
+    catch (error)
+    {
+      throw error;
+    }
+
   }
+
 
   return {
     questions,
     setQuestions,
-    updateAnswer,
     updateQuestion,
+    clearQuestions,
+    setQuizId,
+    quizId,
   }
 })
 

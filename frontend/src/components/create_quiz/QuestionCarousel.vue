@@ -23,7 +23,6 @@ import {
 } from '@/components/ui/carousel'
 import useQuestionStore from '@/store/useQuestionStore.ts'
 import { Button } from '@/components/ui/button'
-import { QuestionType } from '@/generated/graphql.ts'
 import type { QuestionDto } from '@/types/question.dto.ts'
 import { z } from 'zod'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -46,7 +45,40 @@ const errorMessage = ref<string | null>(null)
 const questionUpdate = ref<boolean[]>(Array(questionsAmount).fill(false))
 const showAdded = ref(false)
 const { questions } = storeToRefs(questionStore)
+const showCancel = ref(false)
 
+const exitCancel = () =>
+{
+  setTimeout(() =>
+  {
+    showCancel.value = false
+  }, 200)
+}
+
+const cancelQuiz = async () =>
+{
+  setTimeout(async () =>
+  {
+    questionStore.clearQuestions()
+    try
+    {
+      await axios.delete(
+        `http://localhost:10000/quiz/delete/${questionStore.quizId}`,
+        {
+          headers:
+            {
+            Authorization: `Bearer ${authStore.token}`,
+          },
+        }
+      )
+    } catch (error)
+    {
+      alert(error)
+    }
+    await router.push({name: 'home'})
+    showCancel.value = false
+  }, 400)
+}
 
 const AnswerSchema = z.object
 ({
@@ -316,7 +348,9 @@ watchEffect((onCleanup) => {
                 </form>
               </CardContent>
               <CardFooter class="flex justify-between px-6 pb-6">
-                <Button class="hover:bg-destructive" variant="outline">
+                <Button
+                  @click="showCancel = true"
+                  class="hover:bg-destructive" variant="outline">
                   Cancel
                 </Button>
                 <Button @click="() => addQuestion(questions[questionIndex])">
@@ -457,6 +491,37 @@ watchEffect((onCleanup) => {
         <AlertTitle class="text-xl">Blank questions!</AlertTitle>
         <AlertDescription class="justify-center">
           You have to fill all questions before saving a quiz!
+        </AlertDescription>
+      </Alert>
+    </div>
+  </Transition>
+  <Transition
+    appear
+    enter-active-class="transition duration-500 ease-out"
+    enter-from-class="opacity-0 scale-95 translate-y-4"
+    enter-to-class="opacity-100 scale-100 translate-y-0"
+    leave-active-class="transition duration-300 ease-in"
+    leave-from-class="opacity-100 scale-100 translate-y-0"
+    leave-to-class="opacity-0 scale-95 translate-y-4">
+    <div v-if="showCancel"
+
+         class="fixed inset-0 z-50 flex items-center w-xl m-auto"
+    >
+
+      <Alert class="relative w-full h-48 shadow-xl shadow-primary">
+        <Button
+          class="left-20 absolute bottom-4 cursor-pointer"
+          @click="exitCancel">
+          Conitunue
+        </Button>
+        <Button
+          class="right-20 absolute bottom-4 cursor-pointer"
+          @click="cancelQuiz">
+          Stop creating
+        </Button>
+        <AlertTitle class="text-xl">Stopp adding Quizzuś?</AlertTitle>
+        <AlertDescription class="justify-center">
+          Do you want to stop creating your Quizzuś?
         </AlertDescription>
       </Alert>
     </div>

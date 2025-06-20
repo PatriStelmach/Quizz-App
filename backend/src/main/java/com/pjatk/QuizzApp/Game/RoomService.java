@@ -24,16 +24,19 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @AllArgsConstructor
-public class RoomService {
+public class RoomService
+{
 
     private final Map<String, Room> rooms = new ConcurrentHashMap<>();
 
     private final QuestionRepository questionRepository;
     private final QuizRepository quizRepository;
 
-    public Room createRoom(Integer quizId) throws AccessDeniedException {
+    public Room createRoom(Integer quizId) throws AccessDeniedException
+    {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
+        if (authentication != null && authentication.isAuthenticated())
+        {
 
             String id = UUID.randomUUID().toString().substring(0, 6);
             Room room = new Room(id, authentication.getName(), quizId);
@@ -51,7 +54,8 @@ public class RoomService {
         return rooms.get(id);
     }
 
-    public List<RoomQuestion> loadRoomQuestionsFromDB(Integer quizId) {
+    public List<RoomQuestion> loadRoomQuestionsFromDB(Integer quizId)
+    {
         Quiz quiz = quizRepository.findById(quizId)
                 .orElseThrow(() -> new RuntimeException("Quiz not found"));
 
@@ -76,7 +80,7 @@ public class RoomService {
                     q.getQuestion(),
                     answers,
                     correctIndex,
-                    timePerQuestion // 👈 dynamically set duration
+                    timePerQuestion
             ));
         }
 

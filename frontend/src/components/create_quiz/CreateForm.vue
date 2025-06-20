@@ -123,10 +123,14 @@ const onSubmit = form.handleSubmit(async (values) => {
           },
         },
       )
-      .then(async (result) => {
-        if (result.status === 201) {
+      .then(async (result) =>
+      {
+        if (result.status === 201)
+        {
           questionStore.setQuestions(values.questionsAmount, result.data)
-          setTimeout(async () => {
+          questionStore.setQuizId(result.data)
+          setTimeout(async () =>
+          {
             await router.push({
               name: 'create-questions-and-answers',
               params: { quizId: result.data },

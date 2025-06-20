@@ -25,7 +25,8 @@ onMounted(async () =>
 
 
 
-function enterRoom() {
+function enterRoom()
+{
   if (roomId.value.trim()) {
     router.push({ name: 'room', params: { roomId: roomId.value } });
   } else {
@@ -35,8 +36,6 @@ function enterRoom() {
 </script>
 
 <template>
-  <BUTTON></BUTTON>
-<h1>HOOOOOOOOOOOOOOOOOOOOME</h1>
 
   <input v-model="roomId" placeholder="Enter Room ID" />
   <Button

@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class QuizController {
 
     private final QuizService quizservice;
+    private final QuizRepository quizRepository;
 
     @PostMapping("/create")
     public ResponseEntity<?> createQuiz(@RequestBody QuizDTO quizDTO)
@@ -46,6 +47,20 @@ public class QuizController {
         try
         {
             return ResponseEntity.ok().body(quizservice.getUserSolved(username));
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteQuiz(@PathVariable int id)
+    {
+        try
+        {
+            quizRepository.deleteById(id);
+            return ResponseEntity.ok().body("Quiz deleted successfully");
         }
         catch (Exception e)
         {

@@ -6,8 +6,6 @@ import useAuthStore from '@/store/useAuthStore.ts'
 
 import {
   Menubar,
-  MenubarContent,
-  MenubarItem,
   MenubarMenu,
   MenubarTrigger,
 } from '@/components/ui/menubar'

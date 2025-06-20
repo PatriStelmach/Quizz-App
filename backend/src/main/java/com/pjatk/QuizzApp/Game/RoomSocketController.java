@@ -17,7 +17,8 @@ import java.util.concurrent.*;
 
 @Controller
 @RequiredArgsConstructor
-public class RoomSocketController {
+public class RoomSocketController
+{
 
     private final RoomService roomService;
     private final SimpMessagingTemplate messagingTemplate;
@@ -26,12 +27,14 @@ public class RoomSocketController {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(4);
 
     @MessageMapping("/room/{roomId}")
-    public void handleMessage(@DestinationVariable String roomId, @Payload Map<String, Object> message) {
+    public void handleMessage(@DestinationVariable String roomId, @Payload Map<String, Object> message)
+    {
         String type = (String) message.get("type");
         Room room = roomService.getRoom(roomId);
         if (room == null) return;
 
-        switch (type) {
+        switch (type)
+        {
             case "join" -> joinRoom(roomId, (String) message.get("playerName"));
             case "start" -> startQuiz(roomId);
             case "answer" -> {
@@ -43,13 +46,15 @@ public class RoomSocketController {
         }
     }
 
-    private void joinRoom(String roomId, String playerName) {
+    private void joinRoom(String roomId, String playerName)
+    {
         Room room = roomService.getRoom(roomId);
         room.addPlayer(playerName);
         messagingTemplate.convertAndSend("/topic/room/" + roomId + "/players", room.getPlayers());
     }
 
-    private void startQuiz(String roomId) {
+    private void startQuiz(String roomId)
+    {
         Room room = roomService.getRoom(roomId);
         if (room == null || room.isStarted()) return;
 
@@ -57,7 +62,8 @@ public class RoomSocketController {
         room.setRoomQuestions(loadQuestions(roomId));
 
         List<Map<String, Object>> initialScores = new ArrayList<>();
-        for (String player : room.getPlayers()) {
+        for (String player : room.getPlayers())
+        {
             room.getPlayerScores().putIfAbsent(player, 0);
             initialScores.add(Map.of("player", player, "score", 0));
         }
@@ -70,11 +76,13 @@ public class RoomSocketController {
         scheduler.schedule(() -> sendQuestion(roomId), 1, TimeUnit.SECONDS);
     }
 
-    private void sendQuestion(String roomId) {
+    private void sendQuestion(String roomId)
+    {
         Room room = roomService.getRoom(roomId);
         RoomQuestion currentQuestion = room.getCurrentQuestion();
 
-        if (currentQuestion != null) {
+        if (currentQuestion != null)
+        {
             room.clearAnswers();
 
             messagingTemplate.convertAndSend("/topic/room/" + roomId, Map.of(
@@ -94,7 +102,8 @@ public class RoomSocketController {
         }
     }
 
-    private synchronized void handleAnswer(String roomId, String playerName, int answerIndex) {
+    private synchronized void handleAnswer(String roomId, String playerName, int answerIndex)
+    {
         Room room = roomService.getRoom(roomId);
         if (room.getPlayerAnswers().containsKey(playerName)) return; // ignore duplicates
 
@@ -107,7 +116,8 @@ public class RoomSocketController {
         }
     }
 
-    private void revealAnswers(String roomId, boolean timeoutTriggered) {
+    private void revealAnswers(String roomId, boolean timeoutTriggered)
+    {
         Room room = roomService.getRoom(roomId);
         RoomQuestion current = room.getCurrentQuestion();
         if (current == null) return;

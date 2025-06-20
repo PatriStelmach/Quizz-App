@@ -1,33 +1,31 @@
-<template>
-  <button @click="createRoom" class="p-3 bg-blue-500 text-white rounded-xl">
-    Create Room
-  </button>
-</template>
+
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import useAuthStore from "@/store/useAuthStore.ts";
+import { Button } from '@/components/ui/button'
 
 const authStore = useAuthStore();
 const router = useRouter();
 
-// ✅✅✅✅✅ TEMP TO CHANGE
-const quizId = 1;
 
-const createRoom = async () => {
+const createRoom = async (quizId: number) =>
+{
   const token = authStore.token;
   if (!token) {
     alert('No token found. Please log in first.');
     return;
   }
 
-  try {
+  try
+  {
     const response = await axios.post(
       `http://localhost:10000/rooms/create?quizId=${quizId}`,
       {},
       {
-        headers: {
+        headers:
+          {
           Authorization: `Bearer ${token}`
         }
       }
@@ -41,3 +39,9 @@ const createRoom = async () => {
   }
 };
 </script>
+
+<template>
+  <Button @click="createRoom" class="p-3 bg-blue-500 text-white rounded-xl">
+    Create Room
+  </Button>
+</template>
