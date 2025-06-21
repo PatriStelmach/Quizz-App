@@ -16,16 +16,14 @@ import type{ TypedDocumentNode as DocumentNode } from '@graphql-typed-document-n
 type Documents = {
     "query AllQuizzes {\n  allQuizzes {\n    id\n    title\n    description\n    category\n    diff\n    maxPoints\n    timeLimit\n  }\n}": typeof types.AllQuizzesDocument,
     "query Users {\n  allUsers {\n    id\n    username\n    email\n    isActive\n  }\n}": typeof types.UsersDocument,
+    "query GetUserLevel($username: String!) {\n  userById(username: $username) {\n    userLevel\n  }\n}": typeof types.GetUserLevelDocument,
     "query QuizById($id: ID!) {\n  quizById(id: $id) {\n    id\n    title\n    description\n    category\n    diff\n    image\n    author {\n      id\n      username\n    }\n    createdAt\n    timeLimit\n    maxPoints\n  }\n}": typeof types.QuizByIdDocument,
-    "query UserById {\n  userById(id: 1) {\n    email\n    username\n  }\n}": typeof types.UserByIdDocument,
-    "query UserQuizes {\n  allQuizzes {\n    id\n    title\n    category\n    diff\n    maxPoints\n  }\n}": typeof types.UserQuizesDocument,
 };
 const documents: Documents = {
     "query AllQuizzes {\n  allQuizzes {\n    id\n    title\n    description\n    category\n    diff\n    maxPoints\n    timeLimit\n  }\n}": types.AllQuizzesDocument,
     "query Users {\n  allUsers {\n    id\n    username\n    email\n    isActive\n  }\n}": types.UsersDocument,
+    "query GetUserLevel($username: String!) {\n  userById(username: $username) {\n    userLevel\n  }\n}": types.GetUserLevelDocument,
     "query QuizById($id: ID!) {\n  quizById(id: $id) {\n    id\n    title\n    description\n    category\n    diff\n    image\n    author {\n      id\n      username\n    }\n    createdAt\n    timeLimit\n    maxPoints\n  }\n}": types.QuizByIdDocument,
-    "query UserById {\n  userById(id: 1) {\n    email\n    username\n  }\n}": types.UserByIdDocument,
-    "query UserQuizes {\n  allQuizzes {\n    id\n    title\n    category\n    diff\n    maxPoints\n  }\n}": types.UserQuizesDocument,
 };
 
 /**
@@ -53,15 +51,11 @@ export function graphql(source: "query Users {\n  allUsers {\n    id\n    userna
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "query GetUserLevel($username: String!) {\n  userById(username: $username) {\n    userLevel\n  }\n}"): (typeof documents)["query GetUserLevel($username: String!) {\n  userById(username: $username) {\n    userLevel\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "query QuizById($id: ID!) {\n  quizById(id: $id) {\n    id\n    title\n    description\n    category\n    diff\n    image\n    author {\n      id\n      username\n    }\n    createdAt\n    timeLimit\n    maxPoints\n  }\n}"): (typeof documents)["query QuizById($id: ID!) {\n  quizById(id: $id) {\n    id\n    title\n    description\n    category\n    diff\n    image\n    author {\n      id\n      username\n    }\n    createdAt\n    timeLimit\n    maxPoints\n  }\n}"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "query UserById {\n  userById(id: 1) {\n    email\n    username\n  }\n}"): (typeof documents)["query UserById {\n  userById(id: 1) {\n    email\n    username\n  }\n}"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "query UserQuizes {\n  allQuizzes {\n    id\n    title\n    category\n    diff\n    maxPoints\n  }\n}"): (typeof documents)["query UserQuizes {\n  allQuizzes {\n    id\n    title\n    category\n    diff\n    maxPoints\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
