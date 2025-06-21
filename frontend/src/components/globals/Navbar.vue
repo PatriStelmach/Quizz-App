@@ -143,14 +143,16 @@ function clickOutside(event: MouseEvent)
       </Button>
 
 
+<MenubarMenu>
+  <MenubarTrigger
+  :class="triggerClass(navbarStore.isLogging)"
+  @click="pushLoggin"
+  v-if="!authStore.loggedIn"
+>
+  Log in
+</MenubarTrigger>
+</MenubarMenu>
 
-      <MenubarTrigger
-        :class="triggerClass(navbarStore.isLogging)"
-        @click="pushLoggin"
-        v-if="!authStore.loggedIn"
-      >
-        Log in
-      </MenubarTrigger>
     </div>
   </Menubar>
 </template>

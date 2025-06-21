@@ -24,7 +24,7 @@ const roomId = route.params.roomId as string;
 const players = ref<string[]>([]);
 const copySuccess = ref(false);
 const ownerName = ref<string>('');
-const isOwner = computed(() => ownerName.value === userName);
+
 
 const userName = authStore.username ?? "UserNameError";
 onMounted(async () => {
@@ -43,14 +43,13 @@ onMounted(async () => {
   connectSocket(() =>
   {
     sendRoomMessage(roomId, { type: 'join', playerName: userName });
-  }, message => {
-    //if msg is [] -> players
+  }, message =>
+  {
     if (message.players && message.owner)
     {
       players.value = message.players;
       ownerName.value = message.owner;
     }
-    //if msg is quiz-start -> start game
     else if (message.type === 'quiz-start') {
       router.push({ name: 'game', params: { roomId } });
     }
@@ -93,7 +92,7 @@ const copyLink = async () => {
     </CardContent>
 
 
-    <CardFooter v-if="isOwner" class="justify-between items-center">
+    <CardFooter class="justify-between items-center">
       <Button @click="startGame" :disabled="players.length < 1">
         Start Game
       </Button>

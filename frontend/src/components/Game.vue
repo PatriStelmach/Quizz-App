@@ -117,6 +117,7 @@ onMounted(() =>
 
       if (message.type === 'quiz-end')
       {
+        gameStore.clearDiff()
         quizEnded.value = true;
         finalScores.value = [...scoreboard.value];
         maxScore.value = gameStore.getPoints()! * questionCount.value;
@@ -202,9 +203,9 @@ const timerColor = computed(() => {
 
 <template>
   <div v-if="userName" class="flex flex-col items-center m-auto justify-center min-h-screen p-6 bg-gray-900">
-    <!-- Quiz content container -->
+
     <div class="w-full max-w-4xl mx-auto">
-      <!-- Quiz ended screen -->
+
       <div v-if="quizEnded" class=" justify-center">
         <QuizSummary
           :finalScores="finalScores"
@@ -213,9 +214,7 @@ const timerColor = computed(() => {
         />
       </div>
 
-      <!-- Active quiz content -->
       <div v-else class="space-y-8">
-        <!-- Get ready screen -->
         <div v-if="!currentQuestion" class="text-center py-12">
           <h2 class="text-3xl font-bold text-yellow-400 animate-pulse">
             Get ready...
@@ -223,7 +222,6 @@ const timerColor = computed(() => {
           <p class="text-gray-400 mt-2">The quiz will start soon</p>
         </div>
 
-        <!-- Question screen -->
         <Card v-if="currentQuestion" class="bg-gray-800 rounded-xl shadow-lg">
           <CardHeader class="border-b border-gray-700">
             <div class="flex justify-between items-center">
@@ -241,7 +239,6 @@ const timerColor = computed(() => {
           </CardHeader>
 
           <CardContent class="py-6">
-            <!-- Answers grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Button
                 v-for="(answer, index) in currentQuestion.answers"
@@ -255,7 +252,6 @@ const timerColor = computed(() => {
               </Button>
             </div>
 
-            <!-- Answer feedback -->
             <div v-if="answered && !feedback" class="mt-6 text-center">
               <Alert class="bg-blue-900 border-blue-700">
                 <AlertTitle class="text-yellow-400 font-bold">
@@ -264,7 +260,6 @@ const timerColor = computed(() => {
               </Alert>
             </div>
 
-            <!-- Results feedback -->
             <div v-if="feedback" class="mt-8 space-y-4">
               <div class="grid grid-cols-2 gap-4">
                 <Alert class="bg-green-900/30 border-green-800">
