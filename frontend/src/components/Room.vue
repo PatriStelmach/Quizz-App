@@ -13,7 +13,6 @@ import {
   CardContent,
   CardFooter,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
@@ -73,7 +72,6 @@ const startGame = () => {
 
 
       <div class="mt-8">
-        <Label class="block text-md font-medium text-muted-foreground">Players in Room</Label>
         <PlayerList :players="players" :currentUserName="userName" class="mt-2" />
       </div>
     </CardContent>

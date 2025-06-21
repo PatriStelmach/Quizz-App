@@ -19,26 +19,27 @@ import useAuthStore from '@/store/useAuthStore.ts'
 const router = useRouter()
 const authStore = useAuthStore()
 const { result, loading, error } = useQuery<AllQuizzesQuery>(AllQuizzesDocument)
-
-// Sorting state
-const sortKey = ref<'title' | 'category' | 'diff'>( 'title' )
+const sortKey = ref<'title' | 'category' | 'diff' | 'maxPoints' | 'timeLimit'>('title')
 const sortAsc = ref(true)
 
-// Compute sorted quizzes
-const sortedQuizzes = computed(() => {
+const sortedQuizzes = computed(() =>
+{
   const list = result.value?.allQuizzes ?? []
-  return [...list].sort((a, b) => {
-    const aVal = String(a[sortKey.value] ?? '').toLowerCase()
-    const bVal = String(b[sortKey.value] ?? '').toLowerCase()
-    if (aVal < bVal) return sortAsc.value ? -1 : 1
-    if (aVal > bVal) return sortAsc.value ? 1 : -1
+  return [...list].sort((a, b) =>
+  {
+    const aVal = a[sortKey.value]
+    const bVal = b[sortKey.value]
+    const aStr = typeof aVal === 'number' ? aVal : String(aVal ?? '').toLowerCase()
+    const bStr = typeof bVal === 'number' ? bVal : String(bVal ?? '').toLowerCase()
+    if (aStr < bStr) return sortAsc.value ? -1 : 1
+    if (aStr > bStr) return sortAsc.value ? 1 : -1
     return 0
   })
 })
 
-// Progress simulation
 const progress = ref(0)
-onMounted(() => {
+onMounted(() =>
+{
   loading.value = true
   progress.value = 20
   setTimeout(() => { progress.value = 40 }, 300)
@@ -49,53 +50,75 @@ onMounted(() => {
 
 const createRoom = async (quizId: string) => {
   const token = authStore.token
-  if (!token) {
+  if (!token)
+  {
     alert('Please log in first.')
     return
   }
-  try {
+  try
+  {
     const response = await axios.post(
       `http://localhost:10000/rooms/create?quizId=${quizId}`, {},
-      { headers: { Authorization: `Bearer ${token}` } }
+
+      {
+        headers:
+          {
+            Authorization: `Bearer ${token}`
+          }
+      }
     )
     await router.push({ name: 'room', params: { roomId: response.data.id } })
-  } catch (e) {
+  } catch (e)
+  {
     console.error(e)
     alert('Failed to create room.')
   }
 }
 
-// Change sort
-function setSort(key: 'title' | 'category' | 'diff') {
-  if (sortKey.value === key) {
+function setSort(key: 'title' | 'category' | 'diff' | 'maxPoints' | 'timeLimit')
+{
+  if (sortKey.value === key)
+  {
     sortAsc.value = !sortAsc.value
   } else {
     sortKey.value = key
     sortAsc.value = true
   }
 }
+
+function difficultyClass(diff: string)
+{
+  const d = diff.toLowerCase()
+  if (d === 'easy') return 'text-green-500 font-semibold'
+  if (d === 'medium') return 'text-yellow-500 font-semibold'
+  if (d === 'hard') return 'text-orange-500 font-semibold'
+  if (d === 'expert') return 'text-red-500 font-semibold'
+  return 'text-gray-500'
+}
 </script>
 
 <template>
-  <div class="mx-auto overflow-x-auto w-6xl">
-    <TableCaption class="w-full text-center text-4xl text-primary border-b pb-6 mb-4">
-      Available Quizzes
-    </TableCaption>
+  <div class="mx-auto   overflow-visible w-6xl text-center">
+    <h1 class="pt-6 text-center mx-auto w-full  text-4xl text-primary border-b pb-6 mb-4">Available Quizzusie</h1>
 
-    <Table>
+    <Table class="mb-20">
       <TableHeader>
-        <TableRow class="hover:bg-accent cursor-default">
-          <TableHead @click="setSort('title')" class="cursor-pointer">
+        <TableRow class="hover:bg-secondary/20 cursor-pointer text-foreground">
+          <TableHead @click="setSort('title')" class="cursor-pointer px-20 text-foreground hover:text-rose-400">
             Title <span v-if="sortKey === 'title'">{{ sortAsc ? '▲' : '▼' }}</span>
           </TableHead>
-          <TableHead @click="setSort('category')" class="cursor-pointer">
+          <TableHead @click="setSort('category')" class="cursor-pointer text-foreground hover:text-rose-400">
             Category <span v-if="sortKey === 'category'">{{ sortAsc ? '▲' : '▼' }}</span>
           </TableHead>
-          <TableHead @click="setSort('diff')" class="cursor-pointer">
+          <TableHead @click="setSort('diff')" class="cursor-pointer text-foreground hover:text-rose-400">
             Difficulty <span v-if="sortKey === 'diff'">{{ sortAsc ? '▲' : '▼' }}</span>
           </TableHead>
-          <TableHead>Max Points</TableHead>
-          <TableHead>Time Limit</TableHead>
+          <TableHead @click="setSort('maxPoints')" class="cursor-pointer  text-foreground hover:text-rose-400">
+            Max Points <span v-if="sortKey === 'maxPoints'">{{ sortAsc ? '▲' : '▼' }}</span>
+          </TableHead>
+          <TableHead @click="setSort('timeLimit')" class="cursor-pointer text-foreground hover:text-rose-400">
+            Time Limit <span v-if="sortKey === 'timeLimit'">{{ sortAsc ? '▲' : '▼' }}</span>
+          </TableHead>
         </TableRow>
       </TableHeader>
 
@@ -104,11 +127,11 @@ function setSort(key: 'title' | 'category' | 'diff') {
           v-for="quiz in sortedQuizzes"
           :key="quiz.id"
           @click="createRoom(quiz.id)"
-          class="hover:bg-muted cursor-pointer"
+          class="hover:bg-primary/40 cursor-pointer transform transition-transform duration-200 hover:scale-105"
         >
-          <TableCell>{{ quiz.title }}</TableCell>
+          <TableCell class="px-20 text-xl">{{ quiz.title }}</TableCell>
           <TableCell>{{ quiz.category }}</TableCell>
-          <TableCell>{{ quiz.diff }}</TableCell>
+          <TableCell :class="difficultyClass(quiz.diff)">{{ quiz.diff }}</TableCell>
           <TableCell>{{ quiz.maxPoints }}</TableCell>
           <TableCell>{{ quiz.timeLimit }}</TableCell>
         </TableRow>

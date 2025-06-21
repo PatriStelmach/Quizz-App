@@ -9,12 +9,7 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from '@/components/ui/menubar'
-import { Search } from 'lucide-vue-next'
 import { onMounted, onBeforeUnmount } from 'vue'
-import { useQuery } from '@vue/apollo-composable'
-import { computed } from 'vue'
-import { AllQuizzesDocument, type AllQuizzesQuery } from "@/generated/graphql.ts";
-import CreateRoomButton from '@/components/CreateRoomButton.vue'
 import { Button } from '@/components/ui/button'
 
 
@@ -22,12 +17,8 @@ const router = useRouter()
 const authStore = useAuthStore()
 const navbarStore = useNavbarStore()
 const showDropdown = ref(false)
-const searchTerm = ref('')
 const searchContainer = ref<HTMLElement | null>(null)
 const roomId = ref('');
-
-const { result } = useQuery<AllQuizzesQuery>(AllQuizzesDocument)
-const quizList = computed(() => result.value?.allQuizzes ?? [])
 
 onMounted(() =>
 {
@@ -63,12 +54,6 @@ const pushLoggin = async () =>
   await router.push({ name: 'login' })
 }
 
-function filteredList()
-{
-  return quizList.value.filter((quiz) =>
-    quiz.title.toLowerCase().includes(searchTerm.value.toLowerCase())
-  );
-}
 
 
 
@@ -90,13 +75,6 @@ function triggerClass(active: boolean)
   ]
 }
 
-function onSearch()
-{
-  if (searchTerm.value.trim())
-  {
-    showDropdown.value = true;
-  }
-}
 
 function clickOutside(event: MouseEvent)
 {
@@ -105,8 +83,6 @@ function clickOutside(event: MouseEvent)
     showDropdown.value = false;
   }
 }
-
-
 
 
 
@@ -176,10 +152,6 @@ function clickOutside(event: MouseEvent)
             Quizzusie
           </MenubarTrigger>
       </MenubarMenu>
-
-        <MenubarTrigger>
-         <CreateRoomButton></CreateRoomButton>
-        </MenubarTrigger>
 
 
         <MenubarTrigger
