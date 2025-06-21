@@ -23,9 +23,9 @@ public class UserGraphController
 
 
     @QueryMapping
-    public UserDTO userById(@Argument int id)
+    public UserDTO userById(@Argument String username)
     {
-        return userService.getUserById(id);
+        return userService.getUserById(username);
     }
 
     @QueryMapping

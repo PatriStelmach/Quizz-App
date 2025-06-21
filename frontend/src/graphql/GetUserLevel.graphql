@@ -1,0 +1,5 @@
+query GetUserLevel($username: String!) {
+  userById(username: $username) {
+    userLevel
+  }
+}

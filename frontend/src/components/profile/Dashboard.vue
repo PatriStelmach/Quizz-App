@@ -1,16 +1,51 @@
 <script setup lang="ts">
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import { ref, computed, onMounted } from 'vue'
 import { Input } from '@/components/ui/input'
 import { Chart, Grid, Bar, Tooltip } from 'vue3-charts'
 import axios from 'axios'
 import useAuthStore from '@/store/useAuthStore.ts'
 import type { SolvedDto } from '@/types/solved.quiz.dto.ts'
-import { Diff } from '@/generated/graphql.ts'
+import {
+  Diff,
+  GetUserLevelDocument,
+  UserLevel,
+  type GetUserLevelQuery, type GetUserLevelQueryVariables
+} from '@/generated/graphql.ts'
+import { useQuery } from '@vue/apollo-composable'
+import NEWBIE from '@/assets/NEWBIE.png'
+import NOOB   from '@/assets/NOOB.png'
+import CASUAL from '@/assets/CASUAL.png'
+import PRO    from '@/assets/PRO-GAMER.png'
+import MASTER from '@/assets/MASTER.png'
+
 
 const authStore = useAuthStore()
 const allQuizzes = ref<(SolvedDto & { percentage: number })[]>([])
 const solvedQuizzes = ref<number>(0)
+
+const { result, loading, error } = useQuery<
+  GetUserLevelQuery,
+  GetUserLevelQueryVariables
+>(
+  GetUserLevelDocument,
+  () => ({ username: authStore.username! })
+)
+
+
+const levelMap =
+  {
+  [UserLevel.Newbie]: { src: NEWBIE, label: 'Newbie' },
+  [UserLevel.Noob]: { src: NOOB, label: 'Noob' },
+  [UserLevel.Casual]: { src: CASUAL, label: 'Casual' },
+  [UserLevel.Pro]: { src: PRO, label: 'Pro' },
+  [UserLevel.Master]: { src: MASTER, label: 'Master' },
+}
+const currentLevel = computed(() =>
+{
+  const lvl = result.value?.userById?.userLevel
+  return lvl ? levelMap[lvl] : null
+})
 
 const averageByDiff = computed(() =>
 {
@@ -114,14 +149,35 @@ console.log(authStore.token)
   <div class=" mx-auto w-4xl flex items-center justify-center bg-background px-4">
     <div class="w-full max-w-xl space-y-8">
       <div>
+
         <Card class="w-full shadow-md border border-muted rounded-2xl p-4">
           <CardHeader>
-            <CardTitle class="text-xl font-semibold text-center">Solved Quizzusie</CardTitle>
+            <CardTitle class="text-xl font-semibold text-center">
+              Solved Quizzusie
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div class="text-5xl font-bold text-primary text-center mb-10">{{ solvedQuizzes }}</div>
+            <div
+              class="text-5xl font-bold text-primary text-shadow-md text-shadow-secondary text-center mb-10"
+            >
+              {{ solvedQuizzes }}
+            </div>
           </CardContent>
+          <CardFooter
+            class="mx-auto text-center text-6xl text-primary text-shadow-lg text-shadow-secondary pb-10"
+          >
+            {{ currentLevel?.label ?? 'No Level' }}
+          </CardFooter>
+
+          <div v-if="currentLevel" class="flex justify-center mt-4">
+            <img
+              :src="currentLevel.src"
+              :alt="currentLevel.label"
+              class="w-64 w-64"
+            />
+          </div>
         </Card>
+
 
         <Card class="w-full mt-6">
           <CardHeader>

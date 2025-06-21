@@ -183,7 +183,7 @@ input QuestionInput
 
 type Query
 {
-    userById(id:ID): User
+    userById(username:String): User
     allUsers: [User!]!
 
     quizById(id:ID): Quiz
