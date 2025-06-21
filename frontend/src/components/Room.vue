@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { connectSocket, sendRoomMessage } from '@/lib/socket.ts';
 import axios from 'axios';
@@ -22,9 +22,16 @@ const route = useRoute();
 const router = useRouter();
 const roomId = route.params.roomId as string;
 const players = ref<string[]>([]);
+const ownerName = ref<string>('');
+const isOwner = computed(() => ownerName.value === userName);
 
-const userName = authStore.username;
+const userName = authStore.username ?? "UserNameError";
 onMounted(async () => {
+  if (!authStore.username) {
+    await router.push('/login');
+    return;
+  }
+
   try {
     const response = await axios.get(`http://localhost:10000/rooms/get?roomId=${roomId}`);
     console.log('response:', response.data.players);
@@ -41,9 +48,10 @@ onMounted(async () => {
     sendRoomMessage(roomId, { type: 'join', playerName: userName });
   }, message => {
     //if msg is [] -> players
-    if (Array.isArray(message))
+    if (message.players && message.owner)
     {
-      players.value = message;
+      players.value = message.players;
+      ownerName.value = message.owner;
     }
     //if msg is quiz-start -> start game
     else if (message.type === 'quiz-start') {
@@ -76,11 +84,15 @@ const startGame = () => {
       </div>
     </CardContent>
 
-    <CardFooter class="flex justify-end">
+    <CardFooter v-if="isOwner" class="flex justify-end">
       <Button @click="startGame" :disabled="players.length < 1">
         Start Game
       </Button>
     </CardFooter>
+    <CardFooter v-else class="flex justify-end">
+      <p class="text-muted-foreground italic">Waiting for the host ({{ ownerName }}) to start...</p>
+    </CardFooter>
+
   </Card>
 
   <div v-if="!userName" class="text-center mt-6">
