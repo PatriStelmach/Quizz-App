@@ -175,20 +175,6 @@ WebSocket endpoints are configured for real-time multiplayer functionality:
 - `/ws/quiz` - Quiz session management
 - `/ws/scores` - Live score updates
 
-## 🧪 Testing
-
-### Backend Tests
-```bash
-cd backend
-mvn test
-```
-
-### Frontend Tests
-```bash
-cd frontend
-npm run test:unit
-```
-
 ## 📦 Deployment
 
 ### Backend Deployment
