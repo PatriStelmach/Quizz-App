@@ -53,7 +53,11 @@ public class RoomSocketController
     {
         Room room = roomService.getRoom(roomId);
         room.addPlayer(playerName);
-        messagingTemplate.convertAndSend("/topic/room/" + roomId + "/players", room.getPlayers());
+        messagingTemplate.convertAndSend("/topic/room/" + roomId + "/players", Map.of(
+                "players", room.getPlayers(),
+                "owner", room.getOwnerName()
+        ));
+
     }
 
     private void startQuiz(String roomId)

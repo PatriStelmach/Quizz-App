@@ -50,12 +50,12 @@ onMounted(() =>
       {
         if (Array.isArray(message.players))
         {
-          scoreboard.value = message.players.map((p: string) =>
+          scoreboard.value = message.players.map((p: any) =>
             ({
               player: p.player,
               score: p.score,
             }));
-          roundResults.value = message.players.map((p: string) =>
+          roundResults.value = message.players.map((p: any) =>
             ({
               player: p.player,
               roundScore: 0,
@@ -99,13 +99,13 @@ onMounted(() =>
 
         if (Array.isArray(message.results))
         {
-          scoreboard.value = message.results.map((r: string) =>
+          scoreboard.value = message.results.map((r: any) =>
             ({
               player: r.player,
               score: r.score
             }));
 
-          roundResults.value = message.results.map((r: string) =>
+          roundResults.value = message.results.map((r: any) =>
             ({
               player: r.player,
               roundScore: r.correct ? gameStore.getPoints() : 0
@@ -119,7 +119,7 @@ onMounted(() =>
       {
         quizEnded.value = true;
         finalScores.value = [...scoreboard.value];
-        maxScore.value = gameStore.getPoints() * questionCount.value;
+        maxScore.value = gameStore.getPoints()! * questionCount.value;
         currentQuestion.value = null;
         clearInterval(intervalId);
       }

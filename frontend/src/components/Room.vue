@@ -16,16 +16,23 @@ import {
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
-
+import {computed} from 'vue'
 const authStore = useAuthStore();
 const route = useRoute();
 const router = useRouter();
 const roomId = route.params.roomId as string;
 const players = ref<string[]>([]);
 const copySuccess = ref(false);
+const ownerName = ref<string>('');
+const isOwner = computed(() => ownerName.value === userName);
 
-const userName = authStore.username;
+const userName = authStore.username ?? "UserNameError";
 onMounted(async () => {
+  if (!authStore.username) {
+    await router.push('/login');
+    return;
+  }
+
   try {
     const response = await axios.get(`http://localhost:10000/rooms/get?roomId=${roomId}`);
     players.value = response.data.players || [];
@@ -33,12 +40,18 @@ onMounted(async () => {
     console.error("Failed to fetch room:", err);
   }
 
-  connectSocket(() => {
+  connectSocket(() =>
+  {
     sendRoomMessage(roomId, { type: 'join', playerName: userName });
   }, message => {
-    if (Array.isArray(message)) {
-      players.value = message;
-    } else if (message.type === 'quiz-start') {
+    //if msg is [] -> players
+    if (message.players && message.owner)
+    {
+      players.value = message.players;
+      ownerName.value = message.owner;
+    }
+    //if msg is quiz-start -> start game
+    else if (message.type === 'quiz-start') {
       router.push({ name: 'game', params: { roomId } });
     }
   }, roomId);
@@ -73,12 +86,14 @@ const copyLink = async () => {
         <p class="text-3xl text-primary/80 text-center">{{ roomId }}</p>
       </div>
 
+
       <div class="mt-8">
         <PlayerList :players="players" :currentUserName="userName" class="mt-2" />
       </div>
     </CardContent>
 
-    <CardFooter class="flex justify-between items-center">
+
+    <CardFooter v-if="isOwner" class="justify-between items-center">
       <Button @click="startGame" :disabled="players.length < 1">
         Start Game
       </Button>
@@ -100,3 +115,5 @@ const copyLink = async () => {
     </div>
   </Card>
 </template>
+
+
