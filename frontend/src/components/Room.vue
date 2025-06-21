@@ -22,31 +22,23 @@ const route = useRoute();
 const router = useRouter();
 const roomId = route.params.roomId as string;
 const players = ref<string[]>([]);
+const copySuccess = ref(false);
 
 const userName = authStore.username;
 onMounted(async () => {
   try {
     const response = await axios.get(`http://localhost:10000/rooms/get?roomId=${roomId}`);
-    console.log('response:', response.data.players);
-
     players.value = response.data.players || [];
-
-    console.log('players.value:', players.value);
   } catch (err) {
     console.error("Failed to fetch room:", err);
   }
 
-  connectSocket(() =>
-  {
+  connectSocket(() => {
     sendRoomMessage(roomId, { type: 'join', playerName: userName });
   }, message => {
-    //if msg is [] -> players
-    if (Array.isArray(message))
-    {
+    if (Array.isArray(message)) {
       players.value = message;
-    }
-    //if msg is quiz-start -> start game
-    else if (message.type === 'quiz-start') {
+    } else if (message.type === 'quiz-start') {
       router.push({ name: 'game', params: { roomId } });
     }
   }, roomId);
@@ -55,42 +47,56 @@ onMounted(async () => {
 const startGame = () => {
   sendRoomMessage(roomId, { type: 'start' });
 };
+
+const copyLink = async () => {
+  try {
+    const url = `${window.location.origin}/room/${roomId}`;
+    await navigator.clipboard.writeText(url);
+    copySuccess.value = true;
+    setTimeout(() => { copySuccess.value = false; }, 2000);
+  } catch (err) {
+    console.error('Failed to copy:', err);
+  }
+};
 </script>
 
 <template>
   <Card class="w-[1000px] mx-auto mt-8 shadow-secondary/50 shadow-xl">
     <CardHeader>
-      <CardTitle class="text-4xl text-center text-shadow-sky-800" >Room Lobby</CardTitle>
+      <CardTitle class="text-4xl text-center text-shadow-sky-800">Room Lobby</CardTitle>
       <CardDescription class="text-center">Invite players or start when ready</CardDescription>
     </CardHeader>
 
     <CardContent>
       <div class="mb-8">
-        <Label class="block text-2xl text-center font-medium ">Room ID</Label>
-        <p class="text-3xl text-primary/80 text-center">{{roomId}}</p>
+        <Label class="block text-2xl text-center font-medium">Room ID</Label>
+        <p class="text-3xl text-primary/80 text-center">{{ roomId }}</p>
       </div>
-
 
       <div class="mt-8">
         <PlayerList :players="players" :currentUserName="userName" class="mt-2" />
       </div>
     </CardContent>
 
-    <CardFooter class="flex justify-end">
+    <CardFooter class="flex justify-between items-center">
       <Button @click="startGame" :disabled="players.length < 1">
         Start Game
       </Button>
+      <div class="flex items-center">
+        <Button @click="copyLink">
+          Copy room link to clipboard
+        </Button>
+        <span v-if="copySuccess" class="ml-4 text-green-500">Link copied!</span>
+      </div>
     </CardFooter>
+
+    <div v-if="!userName" class="text-center mt-6">
+      <Alert>
+        <AlertTitle>User not logged in</AlertTitle>
+        <AlertDescription>
+          Please log in to join or create a room.
+        </AlertDescription>
+      </Alert>
+    </div>
   </Card>
-
-  <div v-if="!userName" class="text-center mt-6">
-    <Alert>
-      <AlertTitle>User not logged in</AlertTitle>
-      <AlertDescription>
-        Please log in to join or create a room.
-      </AlertDescription>
-    </Alert>
-  </div>
 </template>
-
-

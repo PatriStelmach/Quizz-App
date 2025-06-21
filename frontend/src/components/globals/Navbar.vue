@@ -85,77 +85,72 @@ function clickOutside(event: MouseEvent)
 
 <template>
   <Menubar
-    class="fixed top-2 left-1/2 transform -translate-x-1/2 z-50 w-8/12 shadow-md shadow-primary  px-4 h-14 flex items-center justify-between bg-card text-card-foreground rounded-b-md"
+    class="fixed top-2 left-1/2 transform -translate-x-1/2 z-50 w-10/12 shadow-md shadow-primary px-4 h-14 flex items-center justify-between bg-card text-card-foreground rounded-b-md relative"
   >
-
-  <div ref="searchContainer" class="flex items-center space-x-4 focus:outline-none">
-
-
-    <input
-      v-model="roomId"
-      @keyup.enter="enterRoom"
-      type="text"
-      placeholder="Paste room ID…"
-      class="px-3 mr-2 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-    />
-    <Button
-      @click="enterRoom"
-      class="px-3 py-1 bg-primary  rounded-md hover:bg-primary/80 transition"
-    >
-      Enter
-    </Button>
-    <img class=" ml-10 w-115" src="@/assets/QUIZZUŚ.PNG" alt="logo">
-
-
-
-
-
-    </div>
-
-
-    <div class="ml-0 flex items-center">
+    <div ref="searchContainer" class="flex items-center space-x-2 z-10">
       <MenubarMenu>
+        <MenubarTrigger
+          :class="triggerClass(navbarStore.isHome)"
+          :disabled="navbarStore.isHome"
+          @click="pushHome"
+        >
+          Home
+        </MenubarTrigger>
+      </MenubarMenu>
 
-        <MenubarMenu>
-          <MenubarTrigger
-            :class="triggerClass(navbarStore.isHome)"
-            :disabled="navbarStore.isHome"
-            @click="pushHome">
-            Home
-          </MenubarTrigger>
-
-        </MenubarMenu>
-
-
-        <MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger
+          :class="triggerClass(navbarStore.isAllQuizes)"
+          @click="pushAll"
+          :disabled="navbarStore.isAllQuizes"
+        >
+          Quizzusie
+        </MenubarTrigger>
+      </MenubarMenu>
+      <MenubarMenu>
         <MenubarTrigger
           :class="triggerClass(navbarStore.isCreateQuiz)"
           @click="pushCreate"
           :disabled="navbarStore.isCreateQuiz"
         >
-          Create
+          Create Quizzuś
         </MenubarTrigger>
       </MenubarMenu>
 
-        <MenubarMenu>
-          <MenubarTrigger
-            :class="triggerClass(navbarStore.isAllQuizes)"
-            @click="pushAll"
-            :disabled="navbarStore.isAllQuizes"
-          >
-            Quizzusie
-          </MenubarTrigger>
-      </MenubarMenu>
+    </div>
 
 
-        <MenubarTrigger
-          :class="triggerClass(navbarStore.isLogging)"
-          @click="pushLoggin"
-          v-if="!authStore.loggedIn"
-        >
-          Log in
-        </MenubarTrigger>
-      </MenubarMenu>
+    <div class="absolute left-1/2 transform -translate-x-1/2">
+      <img class="w-120" src="@/assets/QUIZZUŚ.PNG" alt="logo" />
+    </div>
+
+
+    <div class="flex items-center z-10">
+
+
+      <input
+        v-model="roomId"
+        @keyup.enter="enterRoom"
+        type="text"
+        placeholder="Paste room ID…"
+        class="px-3 py-1 mr-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+      />
+      <Button
+        @click="enterRoom"
+        class="px-3 py-1 w-30 bg-primary rounded-md hover:bg-primary/80 transition"
+      >
+        Enter
+      </Button>
+
+
+
+      <MenubarTrigger
+        :class="triggerClass(navbarStore.isLogging)"
+        @click="pushLoggin"
+        v-if="!authStore.loggedIn"
+      >
+        Log in
+      </MenubarTrigger>
     </div>
   </Menubar>
 </template>
