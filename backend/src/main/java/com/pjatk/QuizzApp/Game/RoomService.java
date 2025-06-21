@@ -11,6 +11,7 @@ import com.pjatk.QuizzApp.Quiz.QuizRepository;
 import com.pjatk.QuizzApp.Quiz.UserQuizScore;
 import com.pjatk.QuizzApp.Quiz.UserQuizScoreRepository;
 import com.pjatk.QuizzApp.User.User;
+import com.pjatk.QuizzApp.User.UserLevel;
 import com.pjatk.QuizzApp.User.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -108,6 +109,24 @@ public class RoomService
             userQuizScore.setUser(user);
             userQuizScore.setQuiz(quiz);
             userQuizScore.setScore(score);
+            user.setScore(user.getScore() + score);
+
+            if (user.getScore() >= 30)
+            {
+                user.setUserLevel(UserLevel.NOOB);
+            }
+            if (user.getScore() >= 50)
+            {
+                user.setUserLevel(UserLevel.CASUAL);
+            }
+            if (user.getScore() >= 100)
+            {
+                user.setUserLevel(UserLevel.MASTER);
+            }
+            if (user.getScore() >= 500)
+            {
+                user.setUserLevel(UserLevel.PRO);
+            }
 
             userQuizScoreRepository.save(userQuizScore);
         }

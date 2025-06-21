@@ -1,36 +1,8 @@
-<template>
-  <div class="mt-6 space-y-2">
-    <h3 class="text-xl font-bold text-white mb-4">🏆 Live Scoreboard</h3>
-
-    <ul class="space-y-2">
-      <li
-        v-for="(player, index) in sortedPlayers"
-        :key="player.player"
-        class="flex items-center justify-between px-4 py-2 rounded-lg bg-gray-800 text-white shadow"
-      >
-        <div class="flex items-center space-x-3">
-          <span class="text-lg font-bold text-yellow-400">{{ index + 1 }}.</span>
-          <span class="font-medium">{{ player.player }}</span>
-        </div>
-
-        <div class="flex items-center space-x-3">
-          <span class="text-sm">Score: {{ player.score }}</span>
-
-          <!-- only show green badge if there's a non-zero round score -->
-          <span
-            v-if="visibleRoundScores[player.player] !== undefined"
-            class="text-green-400 bg-green-900 px-2 py-0.5 rounded text-xs font-semibold"
-          >
-            +{{ visibleRoundScores[player.player] }}
-          </span>
-        </div>
-      </li>
-    </ul>
-  </div>
-</template>
 
 <script lang="ts" setup>
 import { ref, watch, computed } from 'vue';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 
 const props = defineProps<{
   players: Array<{ player: string; score: number }>;
@@ -57,3 +29,39 @@ watch(() => props.roundScores, (newScores) => {
   }
 }, { immediate: true });
 </script>
+
+<template>
+  <Card class="mt-6  w-4xl text-white shadow-2xl shadow-primary">
+    <CardHeader>
+      <CardTitle class="mx-auto text-3xl">
+        <span class="mr-2">🏆</span>Live Scoreboard
+      </CardTitle>
+    </CardHeader>
+    <CardContent class="space-y-2">
+      <div
+        v-for="(player, index) in sortedPlayers"
+        :key="player.player"
+        class="flex items-center justify-between p-4 bg-gray-900 rounded-lg shadow"
+      >
+        <div class="flex items-center space-x-3">
+          <Badge variant="secondary" class="w-6 h-6 flex items-center justify-center">
+            {{ index + 1 }}
+          </Badge>
+          <span class="font-medium text-white">{{ player.player }}</span>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <span class="text-white">{{ player.score }}</span>
+          <Badge
+            v-if="visibleRoundScores[player.player] !== undefined"
+            variant="destructive"
+            class="text-sm"
+          >
+            +{{ visibleRoundScores[player.player] }}
+          </Badge>
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+</template>
+

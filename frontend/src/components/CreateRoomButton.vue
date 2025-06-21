@@ -1,16 +1,23 @@
-
-
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import useAuthStore from "@/store/useAuthStore.ts";
 import { Button } from '@/components/ui/button'
+import { useNavbarStore } from '@/store/useNavbarStore.ts'
 
 const authStore = useAuthStore();
 const router = useRouter();
+const navbarStore = useNavbarStore();
 
+function triggerClass(active: boolean)
+{
+  return [
+    'px-8 py-2 mx-2 rounded-md cursor-pointer transition duration-200 ease-in-out',
+    active ? ' hover:bg-secondary' : 'bg-card hover:bg-secondary'
+  ]
+}
 
-const createRoom = async (quizId: number) =>
+const createRoom = async (quizId:number) =>
 {
   const token = authStore.token;
   if (!token) {
@@ -41,7 +48,10 @@ const createRoom = async (quizId: number) =>
 </script>
 
 <template>
-  <Button @click="createRoom" class="p-3 bg-blue-500 text-white rounded-xl">
+  <Button
+    :class="triggerClass(navbarStore.isCreateRoom)"
+    :disabled="navbarStore.isCreateRoom"
+    @click="createRoom">
     Create Room
   </Button>
 </template>

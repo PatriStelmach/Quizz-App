@@ -14,6 +14,8 @@ import { onMounted, onBeforeUnmount } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { computed } from 'vue'
 import { AllQuizzesDocument, type AllQuizzesQuery } from "@/generated/graphql.ts";
+import CreateRoomButton from '@/components/CreateRoomButton.vue'
+import { Button } from '@/components/ui/button'
 
 
 const router = useRouter()
@@ -22,7 +24,7 @@ const navbarStore = useNavbarStore()
 const showDropdown = ref(false)
 const searchTerm = ref('')
 const searchContainer = ref<HTMLElement | null>(null)
-
+const roomId = ref('');
 
 const { result } = useQuery<AllQuizzesQuery>(AllQuizzesDocument)
 const quizList = computed(() => result.value?.allQuizzes ?? [])
@@ -66,6 +68,18 @@ function filteredList()
   return quizList.value.filter((quiz) =>
     quiz.title.toLowerCase().includes(searchTerm.value.toLowerCase())
   );
+}
+
+
+
+function enterRoom()
+{
+  if (roomId.value.trim())
+  {
+    router.push({ name: 'room', params: { roomId: roomId.value } });
+  } else {
+    alert('Please enter a valid room ID');
+  }
 }
 
 function triggerClass(active: boolean)
@@ -114,35 +128,21 @@ function clickOutside(event: MouseEvent)
 
       </MenubarMenu>
 
-      <div class="relative flex w-full max-w-sm">
-        <input
-          v-model="searchTerm"
-          @input="showDropdown = true"
-          @keyup.enter="onSearch"
-          type="text"
-          placeholder="Search quizzes..."
-          class="pl-10 pr-4 py-2 border-2  rounded-full focus:outline-none focus:ring-2 focus:ring-primary w-full"
-        />
-        <Search class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2" />
-
-        <div
-          v-if="searchTerm && showDropdown"
-          class="absolute top-full mt-2 w-full bg-black border  rounded-lg shadow-lg z-50"
-        >
-          <template v-if="filteredList().length">
-            <div
-              v-for="quiz in filteredList()"
-              :key="quiz.id"
-              class="px-4 py-2  hover:bg-primary rounded-lg cursor-pointer"
-            >
-              {{ quiz.title }}
-            </div>
-          </template>
-          <div v-else class="px-4 py-2  italic">
-            No results found!
-          </div>
-        </div>
-      </div>
+    <div class="flex items-center space-x-2 px-4">
+           <input
+             v-model="roomId"
+             @keyup.enter="enterRoom"
+             type="text"
+             placeholder="Paste room ID…"
+             class="px-3 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+           />
+           <Button
+             @click="enterRoom"
+             class="px-3 py-1 bg-primary  rounded-md hover:bg-primary/80 transition"
+           >
+             Enter
+           </Button>
+         </div>
     </div>
 
     <div class="flex items-center">
@@ -177,6 +177,9 @@ function clickOutside(event: MouseEvent)
           </MenubarTrigger>
       </MenubarMenu>
 
+        <MenubarTrigger>
+         <CreateRoomButton></CreateRoomButton>
+        </MenubarTrigger>
 
 
         <MenubarTrigger

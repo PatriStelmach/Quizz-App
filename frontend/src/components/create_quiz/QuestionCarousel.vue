@@ -64,20 +64,19 @@ const cancelQuiz = async () =>
     {
       await axios.delete(
         `http://localhost:10000/quiz/delete/${questionStore.quizId}`,
-        {
-          headers:
-            {
-            Authorization: `Bearer ${authStore.token}`,
-          },
+        { headers:
+            { Authorization: `Bearer ${authStore.token}`
+        }
         }
       )
     } catch (error)
     {
       alert(error)
     }
-    await router.push({name: 'home'})
     showCancel.value = false
-  }, 400)
+    await router.push({ name: 'home' })
+    window.location.reload()
+  }, 200)
 }
 
 const AnswerSchema = z.object
@@ -125,7 +124,6 @@ const submitQuestions = async () =>
 {
   try
   {
-
 
     if (questionUpdate.value.includes(false))
     {
@@ -507,7 +505,6 @@ watchEffect((onCleanup) => {
 
          class="fixed inset-0 z-50 flex items-center w-xl m-auto"
     >
-
       <Alert class="relative w-full h-48 shadow-xl shadow-primary">
         <Button
           class="left-20 absolute bottom-4 cursor-pointer"

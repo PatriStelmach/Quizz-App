@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import useAuthStore from '@/store/useAuthStore.ts'
 
@@ -7,39 +7,22 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+import { useQuery } from '@vue/apollo-composable'
+import { UsersDocument, type UsersQuery } from '@/generated/graphql.ts'
+
+const { result } = useQuery<UsersQuery>(UsersDocument)
+const friends = computed(() => result.value?.allUsers ?? [])
 
 
-type Friend = {
-  id: number
-  name: string
-  isActive: boolean
-}
 
 const authStore = useAuthStore()
 const router = useRouter()
 
 const isMinimized = ref(false)
-const friends = ref<Friend[]>([])
 
-const fetchFriends = async () => {
-  friends.value = [
-    { id: 1, name: 'Ania', isActive: true },
-    { id: 2, name: 'Bartek', isActive: false },
-    { id: 3, name: 'Celina', isActive: false },
-    { id: 4, name: 'Darek', isActive: true },
-    { id: 5, name: 'Emil', isActive: true },
-    { id: 11, name: 'Ania', isActive: true },
-    { id: 22, name: 'Bartek', isActive: false },
-    { id: 33, name: 'Celina', isActive: false },
-    { id: 43, name: 'Darek', isActive: true },
-    { id: 45, name: 'Emil', isActive: true },
-  ]
-}
 
-onMounted(fetchFriends)
 
 const goToDashboard = () => router.push({ name: 'dashboard' })
-const goToProfile   = () => router.push({ name: 'Profile', params: { userId: authStore.user?.id } })
 const logout        = async () => {
   await authStore.logout()
   await router.push({ name: 'login' })
@@ -55,7 +38,7 @@ const logout        = async () => {
       <Button size="sm" @click="isMinimized = !isMinimized" class="pb-0.5 text-2xl w-8 h-8">
         {{ isMinimized ? '←' : '→' }}
       </Button>
-      <CardTitle class="text-base" v-if="!isMinimized">Social</CardTitle>
+      <CardTitle class="text-base" v-if="!isMinimized">Profile</CardTitle>
     </div>
 
     <div class="px-3 py-4 border-b border-secondary/30 flex items-center gap-3">
@@ -66,7 +49,6 @@ const logout        = async () => {
         <span class="font-medium">{{ authStore.username }}</span>
         <div class="flex space-x-2 mt-1">
           <button @click="goToDashboard" class="text-xs cursor-pointer hover:underline">Dashboard</button>
-          <button @click="goToProfile"   class="text-xs cursor-pointer hover:underline">Profil</button>
           <button @click="logout"        class="text-xs cursor-pointer text-red-500 hover:underline">Logout</button>
         </div>
       </div>
@@ -86,10 +68,10 @@ const logout        = async () => {
                 class="flex items-center gap-3 p-2 cursor-pointer rounded hover:bg-primary/50 transition"
               >
                 <Avatar class="w-8 h-8 relative">
-                  <AvatarFallback>{{ friend.name.slice(0,2).toUpperCase() }}</AvatarFallback>
+                  <AvatarFallback>{{ friend.username.slice(0,2).toUpperCase() }}</AvatarFallback>
                 </Avatar>
                 <div class="flex-1">
-                  <span class="block text-sm">{{ friend.name }}</span>
+                  <span class="block text-sm">{{ friend.username }}</span>
                   <span
                     class="text-xs"
                     :class="friend.isActive ? 'text-green-500' : 'text-muted-foreground'"
@@ -111,7 +93,7 @@ const logout        = async () => {
             class="relative cursor-pointer p-1 rounded-4xl hover:bg-primary"
           >
             <Avatar class="w-8 h-8">
-              <AvatarFallback>{{ friend.name.slice(0,2).toUpperCase() }}</AvatarFallback>
+              <AvatarFallback>{{ friend.username.slice(0,2).toUpperCase() }}</AvatarFallback>
             </Avatar>
             <span
               v-if="friend.isActive"

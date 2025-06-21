@@ -59,11 +59,6 @@ const router = createRouter
         component: () => import('../views/RoomView.vue')
       },
       {
-        path: '/quiz-game',
-        name: 'quiz-game',
-        component: () => import('../views/QuizGame.vue')
-      },
-      {
         path: '/room/:roomId',
         name: 'room',
         component: () => import('@/views/RoomView.vue'),
