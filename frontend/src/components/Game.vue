@@ -65,11 +65,6 @@ onMounted(() =>
 
       if (message.type === 'question')
       {
-        if (!message.question || !Array.isArray(message.answers))
-        {
-          console.warn('⚠️ Invalid question format:', message);
-          return;
-        }
 
         questionCount.value++;
         currentQuestion.value =
@@ -110,8 +105,6 @@ onMounted(() =>
               player: r.player,
               roundScore: r.correct ? gameStore.getPoints() : 0
             }));
-        } else {
-          console.warn('⚠️ Invalid results format in reveal:', message);
         }
       }
 
@@ -128,11 +121,13 @@ onMounted(() =>
   );
 });
 
-onUnmounted(() => {
+onUnmounted(() =>
+{
   clearInterval(intervalId);
 });
 
-watch(currentQuestion, async (newQuestion) => {
+watch(currentQuestion, async (newQuestion) =>
+{
   if (newQuestion) {
     secondsLeft.value = newQuestion.duration ?? 15;
     clearInterval(intervalId);
