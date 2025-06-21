@@ -15,15 +15,19 @@ const sortedPlayers = computed(() =>
 
 const visibleRoundScores = ref<Record<string, number>>({});
 
-watch(() => props.roundScores, (newScores) => {
+watch(() => props.roundScores, (newScores) =>
+{
   const newVisibleScores: Record<string, number> = {};
-  newScores.forEach(({ player, roundScore }) => {
+  newScores.forEach(({ player, roundScore }) =>
+  {
     if (roundScore > 0) newVisibleScores[player] = roundScore;
   });
   visibleRoundScores.value = newVisibleScores;
 
-  if (Object.keys(newVisibleScores).length > 0) {
-    setTimeout(() => {
+  if (Object.keys(newVisibleScores).length > 0)
+  {
+    setTimeout(() =>
+    {
       visibleRoundScores.value = {};
     }, 2000);
   }

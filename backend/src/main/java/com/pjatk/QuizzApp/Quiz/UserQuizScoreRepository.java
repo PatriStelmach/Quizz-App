@@ -7,5 +7,10 @@ import java.util.Optional;
 
 public interface UserQuizScoreRepository extends JpaRepository<UserQuizScore, Integer>
 {
-    Optional<List<UserQuizScore>> findByUserId(Integer id);
+    Optional<List<UserQuizScore>> findQuizScoresByUserId(Integer id);
+
+    Optional<UserQuizScore>findByQuizId(Integer quizId);
+
+    Optional<UserQuizScore> findByUserId(Integer id);
+
 }

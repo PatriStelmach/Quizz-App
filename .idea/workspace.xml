@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="views" />
+    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="views">
+      <change afterPath="$PROJECT_DIR$/frontend/src/store/useGameStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Game/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Game/RoomService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Game/RoomSocketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Game/RoomSocketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/QuizService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/UserQuizScoreRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/pjatk/QuizzApp/Quiz/UserQuizScoreRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Game.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Game.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/router/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/auth.service.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -167,7 +178,7 @@
       <workItem from="1749571381303" duration="11036000" />
       <workItem from="1749587857915" duration="164000" />
       <workItem from="1749655533763" duration="9599000" />
-      <workItem from="1750451411170" duration="8072000" />
+      <workItem from="1750451411170" duration="17636000" />
     </task>
     <task id="LOCAL-00001" summary="docker updated">
       <option name="closed" value="true" />
@@ -249,7 +260,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750466987139</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="views">
+      <option name="closed" value="true" />
+      <created>1750498190574</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1750498190574</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -40,6 +40,18 @@ public class QuizController {
         }
 
     }
+    @GetMapping("/diff/{id}")
+    public ResponseEntity<?> getDiff(@PathVariable int id)
+    {
+        try
+        {
+            return ResponseEntity.ok().body(quizRepository.findById(id).orElseThrow().getDiff());
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
     @GetMapping("/get-solved/{username}")
     public ResponseEntity<?> userSolvedQuizes(@PathVariable String username)

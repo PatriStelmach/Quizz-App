@@ -2,6 +2,8 @@ package com.pjatk.QuizzApp.Game;
 
 import com.pjatk.QuizzApp.Game.Memory.RoomQuestion;
 import com.pjatk.QuizzApp.Game.Memory.Room;
+import com.pjatk.QuizzApp.Quiz.Diff;
+import com.pjatk.QuizzApp.Quiz.QuizRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -22,6 +24,7 @@ public class RoomSocketController
 
     private final RoomService roomService;
     private final SimpMessagingTemplate messagingTemplate;
+    private final QuizRepository quizRepository;
 
     private final Map<String, ScheduledFuture<?>> timers = new ConcurrentHashMap<>();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(4);
@@ -92,9 +95,8 @@ public class RoomSocketController
                     "duration", currentQuestion.getDuration()
             ));
 
-            ScheduledFuture<?> timer = scheduler.schedule(() -> {
-                revealAnswers(roomId, true);
-            }, currentQuestion.getDuration(), TimeUnit.SECONDS);
+            ScheduledFuture<?> timer = scheduler.schedule(() ->
+                    revealAnswers(roomId, true), currentQuestion.getDuration(), TimeUnit.SECONDS);
 
             timers.put(roomId, timer);
         } else {
@@ -111,7 +113,8 @@ public class RoomSocketController
 
         room.getPlayerAnswers().put(playerName, answerIndex);
 
-        if (room.getPlayerAnswers().size() == room.getPlayers().size()) {
+        if (room.getPlayerAnswers().size() == room.getPlayers().size())
+        {
             ScheduledFuture<?> timer = timers.remove(roomId);
             if (timer != null) timer.cancel(false);
             revealAnswers(roomId, false);
@@ -124,6 +127,8 @@ public class RoomSocketController
         RoomQuestion current = room.getCurrentQuestion();
         if (current == null) return;
 
+        Diff diff = quizRepository.findById(room.getQuizId()).orElseThrow().getDiff();
+
         int correctIndex = current.getCorrectAnswerIndex();
         Map<String, Integer> scores = room.getPlayerScores();
         List<Map<String, Object>> results = new ArrayList<>();
@@ -132,9 +137,17 @@ public class RoomSocketController
         {
             int answer = room.getPlayerAnswers().getOrDefault(player, -1);
             boolean correct = answer == correctIndex;
+
             if (correct)
             {
-                scores.put(player, scores.getOrDefault(player, 0) + 1);
+                switch (diff )
+                {
+                    case EASY -> scores.put(player, scores.getOrDefault(player, 0) + 2);
+                    case MEDIUM -> scores.put(player, scores.getOrDefault(player, 0) + 3);
+                    case HARD -> scores.put(player, scores.getOrDefault(player, 0) + 4);
+                    case EXPERT ->  scores.put(player, scores.getOrDefault(player, 0) + 5);
+
+                }
             }
 
             results.add(Map.of(

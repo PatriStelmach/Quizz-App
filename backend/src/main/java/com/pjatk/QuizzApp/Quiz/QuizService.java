@@ -1,30 +1,19 @@
 package com.pjatk.QuizzApp.Quiz;
 
-import com.pjatk.QuizzApp.Answer.Answer;
-import com.pjatk.QuizzApp.Answer.AnswerDTO;
-import com.pjatk.QuizzApp.Answer.AnswerRepository;
 import com.pjatk.QuizzApp.Configuration.Mapper;
 import com.pjatk.QuizzApp.Exceptions.QuizNotFoundException;
 import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
-import com.pjatk.QuizzApp.Question.Question;
-import com.pjatk.QuizzApp.Question.QuestionDTO;
-import com.pjatk.QuizzApp.Question.QuestionRepository;
 import com.pjatk.QuizzApp.User.User;
 import com.pjatk.QuizzApp.User.UserRepository;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
-import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -140,7 +129,7 @@ public class QuizService
                 .orElseThrow(() -> new UserNotFoundException("User not found"))
                 .getId();
 
-        List<UserQuizScore> scores = uqRepository.findByUserId(userId)
+        List<UserQuizScore> scores = uqRepository.findQuizScoresByUserId(userId)
                 .orElseThrow(() -> new QuizNotFoundException("Quiz not found"));
 
         return scores.stream()

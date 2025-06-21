@@ -5,7 +5,6 @@ import { AllQuizzesDocument, type AllQuizzesQuery } from '@/generated/graphql.ts
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -15,12 +14,15 @@ import { Progress } from '@/components/ui/progress'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import useAuthStore from '@/store/useAuthStore.ts'
+import useGameStore from '@/store/useGameStore.ts'
 
 const router = useRouter()
 const authStore = useAuthStore()
+const gameStore = useGameStore()
 const { result, loading, error } = useQuery<AllQuizzesQuery>(AllQuizzesDocument)
 const sortKey = ref<'title' | 'category' | 'diff' | 'maxPoints' | 'timeLimit'>('title')
 const sortAsc = ref(true)
+
 
 const sortedQuizzes = computed(() =>
 {
@@ -67,6 +69,19 @@ const createRoom = async (quizId: string) => {
           }
       }
     )
+
+    const diffResponse = await axios.get(
+      `http://localhost:10000/quiz/diff/${quizId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+
+    const diffString = diffResponse.data
+    gameStore.setDiff(diffString)
+
     await router.push({ name: 'room', params: { roomId: response.data.id } })
   } catch (e)
   {

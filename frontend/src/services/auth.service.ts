@@ -28,24 +28,6 @@ class AuthService
       })
   }
 
-  async getUserByToken()
-{
-  const token = localStorage.getItem('jwt')
-  if (!token)
-  {
-    throw new Error('No token found')
-  }
-
-  const response = await axios.get('http://localhost:10000/user/get-by-token',
-    {
-    headers:
-      {
-      Authorization: `Bearer ${token}`
-    }
-  })
-
-  return response.data
-}
 
 
   async logout(): Promise<string>

@@ -1,7 +1,6 @@
 package com.pjatk.QuizzApp.Game;
 
 import com.pjatk.QuizzApp.Answer.Answer;
-import com.pjatk.QuizzApp.Exceptions.UserNotFoundException;
 import com.pjatk.QuizzApp.Game.Memory.Room;
 import com.pjatk.QuizzApp.Game.Memory.RoomQuestion;
 import com.pjatk.QuizzApp.Question.Question;
@@ -20,10 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -129,7 +125,9 @@ public class RoomService
                 user.setUserLevel(UserLevel.PRO);
             }
 
-            userQuizScoreRepository.save(userQuizScore);
+                userQuizScoreRepository.save(userQuizScore);
+
+
         }
     }
 }

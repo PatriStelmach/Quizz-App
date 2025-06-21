@@ -1,5 +1,3 @@
-
-
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted, watch, nextTick, computed } from 'vue';
 import { useRoute } from 'vue-router';
@@ -11,8 +9,10 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import useGameStore from '@/store/useGameStore.ts';
 
 const authStore = useAuthStore();
+const gameStore = useGameStore();
 const userName = authStore.username;
 const route = useRoute();
 const roomId = route.params.roomId as string;
@@ -50,12 +50,12 @@ onMounted(() =>
       {
         if (Array.isArray(message.players))
         {
-          scoreboard.value = message.players.map((p: any) =>
+          scoreboard.value = message.players.map((p: string) =>
             ({
               player: p.player,
               score: p.score,
             }));
-          roundResults.value = message.players.map((p: any) =>
+          roundResults.value = message.players.map((p: string) =>
             ({
               player: p.player,
               roundScore: 0,
@@ -99,27 +99,27 @@ onMounted(() =>
 
         if (Array.isArray(message.results))
         {
-          scoreboard.value = message.results.map((r: any) =>
+          scoreboard.value = message.results.map((r: string) =>
             ({
               player: r.player,
               score: r.score
             }));
 
-          roundResults.value = message.results.map((r: any) =>
+          roundResults.value = message.results.map((r: string) =>
             ({
               player: r.player,
-              roundScore: r.correct ? 1 : 0
+              roundScore: r.correct ? gameStore.getPoints() : 0
             }));
         } else {
           console.warn('⚠️ Invalid results format in reveal:', message);
         }
       }
 
-      if (message.type === 'quiz-end') {
-        console.log('🏁 Quiz has ended');
+      if (message.type === 'quiz-end')
+      {
         quizEnded.value = true;
         finalScores.value = [...scoreboard.value];
-        maxScore.value = questionCount.value;
+        maxScore.value = gameStore.getPoints() * questionCount.value;
         currentQuestion.value = null;
         clearInterval(intervalId);
       }

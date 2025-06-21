@@ -29,7 +29,8 @@ const props = defineProps<{
   currentUser: string;
 }>();
 
-const userScore = computed(() => {
+const userScore = computed(() =>
+{
   const user = props.finalScores.find(p => p.player === props.currentUser);
   return user ? user.score : 0;
 });
