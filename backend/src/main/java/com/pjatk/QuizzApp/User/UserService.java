@@ -34,10 +34,10 @@ public class UserService
     private final JwtService jwtService;
 
 
-    public UserDTO getUserById(Integer id)
+    public UserDTO getUserById(String username)
     {
-        return userRepository.findById(id).map(mapper::toDto)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+        return userRepository.findByUsername(username).map(mapper::toDto)
+                .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username));
     }
 
     public User getUserFromToken(String token)

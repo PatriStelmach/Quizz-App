@@ -34,11 +34,6 @@ const pushHome = async () =>
   await router.push({ name: 'home' })
 }
 
-const pushTop = async () =>
-{
-  await router.push({ name: 'top-players' })
-}
-
 const pushAll = async () =>
 {
   await router.push({ name: 'all-quizes' })
@@ -94,52 +89,51 @@ function clickOutside(event: MouseEvent)
   >
 
   <div ref="searchContainer" class="flex items-center space-x-4 focus:outline-none">
-      <MenubarMenu>
-        <MenubarTrigger
-          :class="triggerClass(navbarStore.isHome)"
-          :disabled="navbarStore.isHome"
-          @click="pushHome">
-          Home
-        </MenubarTrigger>
 
-      </MenubarMenu>
 
-    <div class="flex items-center space-x-2 px-4">
-           <input
-             v-model="roomId"
-             @keyup.enter="enterRoom"
-             type="text"
-             placeholder="Paste room ID…"
-             class="px-3 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-           />
-           <Button
-             @click="enterRoom"
-             class="px-3 py-1 bg-primary  rounded-md hover:bg-primary/80 transition"
-           >
-             Enter
-           </Button>
-         </div>
+    <input
+      v-model="roomId"
+      @keyup.enter="enterRoom"
+      type="text"
+      placeholder="Paste room ID…"
+      class="px-3 mr-2 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+    />
+    <Button
+      @click="enterRoom"
+      class="px-3 py-1 bg-primary  rounded-md hover:bg-primary/80 transition"
+    >
+      Enter
+    </Button>
+    <img class=" ml-10 w-115" src="@/assets/QUIZZUŚ.PNG" alt="logo">
+
+
+
+
+
     </div>
 
-    <div class="flex items-center">
+
+    <div class="ml-0 flex items-center">
       <MenubarMenu>
+
         <MenubarMenu>
           <MenubarTrigger
-            :class="triggerClass(navbarStore.isTopPlayers)"
-            @click="pushTop"
-            :disabled="navbarStore.isTopPlayers"
-          >
-            Top Players
+            :class="triggerClass(navbarStore.isHome)"
+            :disabled="navbarStore.isHome"
+            @click="pushHome">
+            Home
           </MenubarTrigger>
+
         </MenubarMenu>
 
-      <MenubarMenu>
+
+        <MenubarMenu>
         <MenubarTrigger
           :class="triggerClass(navbarStore.isCreateQuiz)"
           @click="pushCreate"
           :disabled="navbarStore.isCreateQuiz"
         >
-          Create Quiz
+          Create
         </MenubarTrigger>
       </MenubarMenu>
 
