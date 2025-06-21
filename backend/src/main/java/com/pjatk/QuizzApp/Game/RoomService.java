@@ -69,7 +69,8 @@ public class RoomService
         int timePerQuestion = (int) Math.floor((double) quiz.getTimeLimit() * 60 / dbQuestions.size());
 
         List<RoomQuestion> roomQuestions = new ArrayList<>();
-        for (Question q : dbQuestions) {
+        for (Question q : dbQuestions)
+        {
             List<String> answers = q.getAnswers().stream()
                     .map(Answer::getAnswerText)
                     .toList();

@@ -128,10 +128,12 @@ public class RoomSocketController
         Map<String, Integer> scores = room.getPlayerScores();
         List<Map<String, Object>> results = new ArrayList<>();
 
-        for (String player : room.getPlayers()) {
+        for (String player : room.getPlayers())
+        {
             int answer = room.getPlayerAnswers().getOrDefault(player, -1);
             boolean correct = answer == correctIndex;
-            if (correct) {
+            if (correct)
+            {
                 scores.put(player, scores.getOrDefault(player, 0) + 1);
             }
 
@@ -154,7 +156,8 @@ public class RoomSocketController
         scheduler.schedule(() -> sendQuestion(roomId), 3, TimeUnit.SECONDS);
     }
 
-    private List<RoomQuestion> loadQuestions(String roomId) {
+    private List<RoomQuestion> loadQuestions(String roomId)
+    {
         Room room = roomService.getRoom(roomId);
         return roomService.loadRoomQuestionsFromDB(room.getQuizId());
     }

@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="graphql endpoint">
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/globals/ShowAllQuizes.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/globals/ShowAllQuizes.vue" afterDir="false" />
-    </list>
+    <list default="true" id="1caa8e81-af04-4c15-b8eb-68e3797f48b3" name="Changes" comment="views" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -169,7 +167,7 @@
       <workItem from="1749571381303" duration="11036000" />
       <workItem from="1749587857915" duration="164000" />
       <workItem from="1749655533763" duration="9599000" />
-      <workItem from="1750451411170" duration="7257000" />
+      <workItem from="1750451411170" duration="8072000" />
     </task>
     <task id="LOCAL-00001" summary="docker updated">
       <option name="closed" value="true" />
@@ -243,7 +241,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749587905342</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="views">
+      <option name="closed" value="true" />
+      <created>1750466987139</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1750466987139</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,7 +262,8 @@
     <MESSAGE value="graphql" />
     <MESSAGE value="authentication store" />
     <MESSAGE value="graphql endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="graphql endpoint" />
+    <MESSAGE value="views" />
+    <option name="LAST_COMMIT_MESSAGE" value="views" />
   </component>
   <component name="com.apollographql.ijplugin.settings.ProjectSettingsState">
     <option name="hasEnabledGraphQLPluginApolloKotlinSupport" value="true" />
