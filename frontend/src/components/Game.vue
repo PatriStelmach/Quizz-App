@@ -117,7 +117,6 @@ onMounted(() =>
 
       if (message.type === 'quiz-end')
       {
-        gameStore.clearDiff()
         quizEnded.value = true;
         finalScores.value = [...scoreboard.value];
         maxScore.value = gameStore.getPoints()! * questionCount.value;
